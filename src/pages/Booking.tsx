@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { loadStripe } from "@stripe/stripe-js";
 import laGemImage from "@/assets/space-la-gem.jpg";
 import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
 // Eagerly import all images for the Artsy & Modern Apt gallery
@@ -88,18 +89,36 @@ const Booking = () => {
 
   const onSubmit = async (data: BookingFormData) => {
     try {
-      // In a real app, this would send to your backend
-      console.log("Booking data:", { ...data, locationId: id, totalCost });
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setIsSubmitted(true);
-      
-      toast({
-        title: "Booking Request Submitted!",
-        description: "We'll contact you shortly to confirm your booking.",
+      if (!location) return;
+      const payload = {
+        locationId: String(id),
+        locationTitle: location.title,
+        hourlyRateUsd: location.rate,
+        hours: Number(data.hours),
+        date: data.date,
+        startTime: data.startTime,
+        customer: {
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+        },
+      };
+
+      const resp = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
+      const json = await resp.json();
+      if (!resp.ok) throw new Error(json?.error || "Failed to create checkout session");
+
+      if (json.url) {
+        window.location.href = json.url as string;
+        return;
+      }
+
+      // Fallback toast if no redirect url
+      toast({ title: "Unable to redirect to payment", description: "Please try again." });
     } catch (error) {
       toast({
         title: "Error",
