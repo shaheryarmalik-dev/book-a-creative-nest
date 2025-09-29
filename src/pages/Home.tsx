@@ -1,10 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Clock, MapPin, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import heroBackground from "@/assets/hero-background.jpg";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const activities = [
+    { value: "photo", label: "Photo Shoot" },
+    { value: "film", label: "Filming" },
+    { value: "event", label: "Event" },
+    { value: "meeting", label: "Meeting" }
+  ];
   const benefits = [
     {
       icon: Clock,
@@ -31,7 +40,7 @@ const Home = () => {
         style={{ backgroundImage: `url(${heroBackground})` }}
       >
         <div className="absolute inset-0 gradient-hero"></div>
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
             Book Inspiring Creative Spaces{" "}
             <span className="text-primary">by the Hour</span>
@@ -40,13 +49,57 @@ const Home = () => {
             Discover unique locations perfect for photoshoots, filming, meetings, and creative projects. 
             Professional spaces available at affordable hourly rates.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="btn-hero text-lg px-8 py-4">
-              <Link to="/locations">Browse Locations</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-8 py-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              <Link to="/locations">Book Now</Link>
-            </Button>
+          <div className="mx-auto max-w-5xl">
+            <div className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70 border rounded-xl shadow-lg p-4 sm:p-6">
+              <form
+                className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end text-left"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const form = e.target as HTMLFormElement;
+                  const activity = (form.elements.namedItem("activity") as HTMLInputElement)?.value || "";
+                  const where = (form.elements.namedItem("where") as HTMLInputElement)?.value || "";
+                  const when = (form.elements.namedItem("when") as HTMLInputElement)?.value || "";
+                  const params = new URLSearchParams();
+                  if (activity) params.set("activity", activity);
+                  if (where) params.set("where", where);
+                  if (when) params.set("when", when);
+                  navigate(`/locations?${params.toString()}`);
+                }}
+              >
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1">What are you planning?</label>
+                  <Select name="activity">
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select activity" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {activities.map((a) => (
+                        <SelectItem key={a.value} value={a.value}>{a.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1">Where?</label>
+                  <Input name="where" placeholder="City or neighborhood" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1">When?</label>
+                  <Input name="when" type="date" min={new Date().toISOString().split('T')[0]} />
+                </div>
+                <div className="flex">
+                  <Button type="submit" size="lg" className="w-full md:w-auto">Search</Button>
+                </div>
+              </form>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+              <Button asChild size="lg" className="btn-hero text-lg px-8 py-4">
+                <Link to="/locations">Browse Locations</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="text-lg px-8 py-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                <Link to="/locations">Book Now</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>

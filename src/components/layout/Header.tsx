@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
@@ -43,9 +43,14 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
-            <Button asChild className="btn-hero">
-              <Link to="/locations">Book Now</Link>
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="sm">
+                <LogIn className="mr-2" /> Log In
+              </Button>
+              <Button size="sm" className="btn-hero">
+                <UserPlus className="mr-2" /> Sign Up
+              </Button>
+            </div>
           </nav>
 
           {/* Mobile menu button */}
@@ -79,11 +84,14 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
-              <Button asChild className="btn-hero w-fit">
-                <Link to="/locations" onClick={() => setIsMenuOpen(false)}>
-                  Book Now
-                </Link>
-              </Button>
+              <div className="flex gap-2">
+                <Button variant="ghost" className="w-fit" onClick={() => setIsMenuOpen(false)}>
+                  <LogIn className="mr-2" /> Log In
+                </Button>
+                <Button className="btn-hero w-fit" onClick={() => setIsMenuOpen(false)}>
+                  <UserPlus className="mr-2" /> Sign Up
+                </Button>
+              </div>
             </nav>
           </div>
         )}

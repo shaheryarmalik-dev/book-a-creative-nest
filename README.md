@@ -1,3 +1,28 @@
+## Stripe Payments (USD hourly)
+
+Development setup:
+
+1. Install deps:
+   - `npm i @stripe/stripe-js stripe express cors dotenv`
+   - `npm i -D tsx concurrently`
+2. Configure environment:
+   - Create `.env` with:
+```
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_... # optional for local until webhook configured
+SUCCESS_URL=http://localhost:8080
+CANCEL_URL=http://localhost:8080
+PORT=5174
+```
+3. Run both dev servers:
+   - `npm run dev:full`
+   - Vite runs on http://localhost:8080 and proxies `/api/*` to the Stripe server on 5174.
+
+Webhook (optional in dev):
+   - `stripe listen --forward-to localhost:5174/api/stripe-webhook`
+
+In the app, the booking form posts to `/api/create-checkout-session` and redirects to Stripe Checkout in USD, pricing by hours × hourly rate.
+
 # Welcome to your Lovable project
 
 ## Project info
