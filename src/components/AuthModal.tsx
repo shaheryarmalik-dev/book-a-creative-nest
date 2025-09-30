@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -38,6 +38,21 @@ interface AuthModalProps {
 const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const loginEmailRef = useRef<HTMLInputElement | null>(null);
+  const signupEmailRef = useRef<HTMLInputElement | null>(null);
+
+  // Ensure inputs are focusable immediately when modal opens
+  useEffect(() => {
+    if (!isOpen) return;
+    const id = setTimeout(() => {
+      if (mode === "login") {
+        loginEmailRef.current?.focus();
+      } else {
+        signupEmailRef.current?.focus();
+      }
+    }, 50);
+    return () => clearTimeout(id);
+  }, [isOpen, mode]);
 
   const loginForm = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
@@ -144,7 +159,7 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
                           type="email"
                           placeholder="your@email.com"
                           className="pl-10"
-                          autoFocus
+                          ref={loginEmailRef}
                           autoComplete="email"
                           {...field}
                         />
@@ -221,7 +236,7 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
                           type="email"
                           placeholder="your@email.com"
                           className="pl-10"
-                          autoFocus
+                          ref={signupEmailRef}
                           autoComplete="email"
                           {...field}
                         />
