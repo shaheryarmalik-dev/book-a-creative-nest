@@ -97,7 +97,10 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
       const { error } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
-        options: { data: { full_name: data.name } }
+        options: {
+          data: { full_name: data.name },
+          emailRedirectTo: "https://shaheryarmalik-dev.github.io/book-a-creative-nest/#/"
+        }
       });
       if (error) throw error;
       
