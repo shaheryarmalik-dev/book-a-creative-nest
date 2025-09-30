@@ -94,7 +94,7 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const onSignupSubmit = async (data: SignupForm) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data: signUpData, error } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
@@ -103,14 +103,24 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
         }
       });
       if (error) throw error;
+
+      // If email confirmations are disabled, Supabase will create a session automatically.
+      // If not, attempt to sign in immediately so the flow works without email.
+      if (!signUpData.session) {
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email: data.email,
+          password: data.password,
+        });
+        if (signInError) throw signInError;
+      }
       
       toast({
         title: "Account created!",
-        description: "Welcome to Book-A-Space! You can now log in.",
+        description: "You're now signed in.",
       });
-      
+
       signupForm.reset();
-      onSwitchMode(); // Switch to login mode
+      onClose();
     } catch (error) {
       toast({
         title: "Signup failed",
