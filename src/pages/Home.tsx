@@ -52,7 +52,7 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <section 
-        className="relative min-h-[80vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[95vh] flex items-center justify-center overflow-hidden"
       >
         {/* Animated Background */}
         <div 
@@ -124,7 +124,7 @@ const Home = () => {
         </div>
 
         {/* Scrolling Image Carousel at Bottom of Hero */}
-        <div className="absolute bottom-0 left-0 right-0 z-20 pb-12">
+        <div className="absolute bottom-8 left-0 right-0 z-20">
           <ImageCarousel compact />
         </div>
       </section>
