@@ -187,11 +187,61 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Benefits Section */}
+      {/* Masonry Gallery Section - Giggster Style */}
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0">
+              Featured Spaces
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+              Discover Amazing Creative Spaces
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Explore our handpicked collection of unique and inspiring locations
+            </p>
+          </div>
+
+          {/* Masonry Grid with Hover Effects */}
+          <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
+            {heroImages.map((image, index) => (
+              <div
+                key={index}
+                className="break-inside-avoid mb-4 group cursor-pointer relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={image}
+                    alt={`Creative Space ${index + 1}`}
+                    className="w-full h-auto rounded-2xl transform group-hover:scale-110 transition-transform duration-700 ease-out"
+                    loading="lazy"
+                  />
+                  {/* Overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex items-end p-6">
+                    <div className="text-white">
+                      <h3 className="text-xl font-bold mb-1">Creative Space</h3>
+                      <p className="text-sm text-white/90">Perfect for your next project</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA Button */}
+          <div className="text-center mt-12">
+            <Button asChild size="lg" className="btn-hero text-lg px-10 py-4">
+              <Link to="/locations">View All Spaces</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-20 bg-secondary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-teal-600 text-white border-0">
               Why Choose Us
             </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
