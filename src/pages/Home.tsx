@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Clock, MapPin, Calendar, Shield, Award, TrendingUp, Star, Users, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,6 +20,7 @@ const heroImages = Object.keys(heroImagesGlob)
 const Home = () => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
 
   // Change background image every 5 seconds
   useEffect(() => {
@@ -27,6 +28,15 @@ const Home = () => {
       setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Track scroll position for parallax effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const activities = [
@@ -187,8 +197,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Masonry Gallery Section - Giggster Style */}
-      <section className="py-20 bg-background">
+      {/* Parallax Gallery Section - Giggster Style */}
+      <section className="py-20 bg-background overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0">
@@ -202,34 +212,91 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Masonry Grid with Hover Effects */}
-          <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
-            {heroImages.map((image, index) => (
-              <div
-                key={index}
-                className="break-inside-avoid mb-4 group cursor-pointer relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
-              >
-                <div className="relative overflow-hidden">
+          {/* Parallax Columns - Different scroll speeds */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {/* Column 1 - Slow */}
+            <div 
+              className="space-y-6"
+              style={{
+                transform: `translateY(${scrollY * 0.05}px)`,
+                transition: 'transform 0.1s ease-out'
+              }}
+            >
+              {heroImages.slice(0, 4).map((image, index) => (
+                <div key={index} className="rounded-2xl overflow-hidden shadow-lg">
                   <img
                     src={image}
                     alt={`Creative Space ${index + 1}`}
-                    className="w-full h-auto rounded-2xl transform group-hover:scale-110 transition-transform duration-700 ease-out"
+                    className="w-full h-auto"
                     loading="lazy"
                   />
-                  {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex items-end p-6">
-                    <div className="text-white">
-                      <h3 className="text-xl font-bold mb-1">Creative Space</h3>
-                      <p className="text-sm text-white/90">Perfect for your next project</p>
-                    </div>
-                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Column 2 - Fast */}
+            <div 
+              className="space-y-6 hidden sm:block"
+              style={{
+                transform: `translateY(${scrollY * -0.08}px)`,
+                transition: 'transform 0.1s ease-out'
+              }}
+            >
+              {heroImages.slice(4, 8).map((image, index) => (
+                <div key={index} className="rounded-2xl overflow-hidden shadow-lg">
+                  <img
+                    src={image}
+                    alt={`Creative Space ${index + 5}`}
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Column 3 - Medium */}
+            <div 
+              className="space-y-6 hidden lg:block"
+              style={{
+                transform: `translateY(${scrollY * 0.06}px)`,
+                transition: 'transform 0.1s ease-out'
+              }}
+            >
+              {heroImages.slice(8, 12).map((image, index) => (
+                <div key={index} className="rounded-2xl overflow-hidden shadow-lg">
+                  <img
+                    src={image}
+                    alt={`Creative Space ${index + 9}`}
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Column 4 - Slow reverse */}
+            <div 
+              className="space-y-6 hidden xl:block"
+              style={{
+                transform: `translateY(${scrollY * -0.04}px)`,
+                transition: 'transform 0.1s ease-out'
+              }}
+            >
+              {heroImages.slice(12, 15).map((image, index) => (
+                <div key={index} className="rounded-2xl overflow-hidden shadow-lg">
+                  <img
+                    src={image}
+                    alt={`Creative Space ${index + 13}`}
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* CTA Button */}
-          <div className="text-center mt-12">
+          <div className="text-center mt-16">
             <Button asChild size="lg" className="btn-hero text-lg px-10 py-4">
               <Link to="/locations">View All Spaces</Link>
             </Button>
