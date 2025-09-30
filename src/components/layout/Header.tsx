@@ -30,38 +30,39 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="bg-background border-b border-border sticky top-0 z-50">
+    <header className="bg-background/95 backdrop-blur-md border-b border-border/50 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-18">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">BS</span>
-            </div>
-            <span className="font-bold text-xl text-foreground">Book-A-Space</span>
+          <Link to="/" className="flex items-center space-x-3 group">
+            <img src="/logo.svg" alt="Book-A-Space Logo" className="w-10 h-10 transition-transform group-hover:scale-110" />
+            <span className="font-bold text-2xl text-foreground tracking-tight">Book-A-Space</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
-                className={`font-medium transition-colors ${
+                className={`font-medium transition-all duration-200 relative group ${
                   isActive(link.href)
                     ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-primary"
                 }`}
               >
                 {link.label}
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-200 ${
+                  isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}></span>
               </Link>
             ))}
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => openAuthModal("login")}>
-                <LogIn className="mr-2" /> Log In
+            <div className="flex items-center gap-3 ml-4">
+              <Button variant="ghost" size="sm" onClick={() => openAuthModal("login")} className="hover:bg-primary/10">
+                <LogIn className="mr-2 h-4 w-4" /> Log In
               </Button>
-              <Button size="sm" className="btn-hero" onClick={() => openAuthModal("signup")}>
-                <UserPlus className="mr-2" /> Sign Up
+              <Button size="sm" className="btn-hero shadow-lg hover:shadow-xl transition-shadow" onClick={() => openAuthModal("signup")}>
+                <UserPlus className="mr-2 h-4 w-4" /> Sign Up
               </Button>
             </div>
           </nav>

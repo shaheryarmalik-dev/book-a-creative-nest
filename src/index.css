@@ -19,18 +19,18 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Brand Colors - Deep Blue Primary */
-    --primary: 224 76% 32%;
+    /* Brand Colors - Deep Blue Primary with Teal Accent */
+    --primary: 211 89% 36%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 224 76% 28%;
+    --primary-hover: 211 89% 30%;
 
-    /* Emerald Green Accent */
-    --accent: 160 84% 39%;
+    /* Teal Accent */
+    --accent: 173 80% 40%;
     --accent-foreground: 0 0% 100%;
-    --accent-hover: 160 84% 35%;
+    --accent-hover: 173 80% 35%;
 
     --secondary: 220 14% 96%;
-    --secondary-foreground: 224 76% 32%;
+    --secondary-foreground: 211 89% 36%;
 
     --muted: 220 14% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -40,7 +40,7 @@ All colors MUST be HSL.
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 224 76% 32%;
+    --ring: 211 89% 36%;
 
     /* Custom design tokens */
     --gradient-hero: linear-gradient(135deg, hsl(224 76% 32% / 0.1), hsl(160 84% 39% / 0.1));
@@ -119,15 +119,15 @@ All colors MUST be HSL.
 
 @layer components {
   .card-elevated {
-    @apply bg-card rounded-xl shadow-[var(--shadow-card)] border;
+    @apply bg-card rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300;
   }
   
   .btn-hero {
-    @apply bg-primary text-primary-foreground hover:bg-[hsl(var(--primary-hover))] shadow-[var(--shadow-button)] transition-[var(--transition-smooth)] font-medium px-6 py-3 rounded-lg;
+    @apply bg-gradient-to-r from-primary to-blue-600 text-primary-foreground hover:from-blue-700 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-300 font-semibold px-6 py-3 rounded-lg;
   }
   
   .btn-accent {
-    @apply bg-accent text-accent-foreground hover:bg-[hsl(var(--accent-hover))] shadow-[var(--shadow-button)] transition-[var(--transition-smooth)] font-medium px-6 py-3 rounded-lg;
+    @apply bg-gradient-to-r from-accent to-teal-500 text-accent-foreground hover:from-teal-600 hover:to-accent shadow-lg hover:shadow-xl transition-all duration-300 font-semibold px-6 py-3 rounded-lg;
   }
   
   .gradient-hero {

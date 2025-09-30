@@ -5,18 +5,16 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-secondary border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-gradient-to-br from-secondary via-secondary to-primary/5 border-t border-border/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Logo and Description */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">BS</span>
-              </div>
-              <span className="font-bold text-xl text-foreground">Book-A-Space</span>
+          <div className="space-y-6">
+            <div className="flex items-center space-x-3">
+              <img src="/logo.svg" alt="Book-A-Space Logo" className="w-10 h-10" />
+              <span className="font-bold text-2xl text-foreground">Book-A-Space</span>
             </div>
-            <p className="text-muted-foreground text-sm max-w-md">
+            <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
               Book inspiring creative spaces by the hour. From cozy apartments to breathtaking desert views, 
               find the perfect location for your next project.
             </p>
