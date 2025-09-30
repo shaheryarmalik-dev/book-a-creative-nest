@@ -48,16 +48,16 @@ const ImageCarousel = ({ compact = false }: ImageCarouselProps) => {
 
   if (compact) {
     return (
-      <div className="overflow-hidden">
+      <div className="overflow-hidden bg-black/10 backdrop-blur-sm py-4 rounded-xl">
         <div 
           ref={scrollRef}
-          className="flex gap-4 overflow-x-hidden scroll-smooth px-4"
+          className="flex gap-6 overflow-x-hidden scroll-smooth px-4"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {duplicatedImages.map((image, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-[280px] h-[180px] rounded-lg overflow-hidden shadow-xl border-2 border-white/20"
+              className="flex-shrink-0 w-[320px] h-[200px] rounded-xl overflow-hidden shadow-2xl border-4 border-white/30 hover:border-white/60 transition-all duration-300 hover:scale-105"
             >
               <img
                 src={image}

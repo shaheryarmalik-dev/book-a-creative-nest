@@ -122,6 +122,11 @@ const Home = () => {
             </div>
           </div>
         </div>
+
+        {/* Scrolling Image Carousel at Bottom of Hero */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 pb-12">
+          <ImageCarousel compact />
+        </div>
       </section>
 
       {/* Stats Section */}
