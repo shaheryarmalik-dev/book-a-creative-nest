@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { MapPin, DollarSign, LayoutGrid, List as ListIcon, SlidersHorizontal } from "lucide-react";
+import { useEffect, useState } from "react";
+import { MapPin, DollarSign, LayoutGrid, List as ListIcon, SlidersHorizontal, Heart, Star, Users, Award, Shield, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,11 +8,38 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerFooter, DrawerTrigger, DrawerClose } from "@/components/ui/drawer";
+import { useToast } from "@/hooks/use-toast";
 import laGemImage from "@/assets/space-la-gem.jpg";
 import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
 import artsyModernAptImage from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
 
 const Locations = () => {
+  const { toast } = useToast();
+  const [favorites, setFavorites] = useState<number[]>(() => {
+    try {
+      const saved = localStorage.getItem('favorites');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const toggleFavorite = (id: number) => {
+    setFavorites(prev => {
+      const newFavorites = prev.includes(id) 
+        ? prev.filter(fav => fav !== id)
+        : [...prev, id];
+      localStorage.setItem('favorites', JSON.stringify(newFavorites));
+      
+      toast({
+        title: newFavorites.includes(id) ? "Added to favorites" : "Removed from favorites",
+        description: newFavorites.includes(id) ? "Space saved to your wishlist" : "Space removed from wishlist",
+      });
+      
+      return newFavorites;
+    });
+  };
+
   const locations = [
     {
       id: 1,
@@ -20,7 +47,12 @@ const Locations = () => {
       location: "Central LA, Los Ángeles, CA",
       rate: 57,
       image: laGemImage,
-      features: ["Natural Light", "Crystals", "Buddha Statue", "Creative Atmosphere"]
+      features: ["Natural Light", "Crystals", "Buddha Statue", "Creative Atmosphere"],
+      rating: 4.9,
+      reviews: 127,
+      instantBook: true,
+      superhost: true,
+      bookings: 450
     },
     {
       id: 2,
@@ -28,7 +60,12 @@ const Locations = () => {
       location: "Joshua Tree, CA",
       rate: 70,
       image: joshuaTreeImage,
-      features: ["Desert Views", "Outdoor Space", "Peaceful Setting", "Stunning Landscape"]
+      features: ["Desert Views", "Outdoor Space", "Peaceful Setting", "Stunning Landscape"],
+      rating: 4.8,
+      reviews: 89,
+      instantBook: true,
+      superhost: false,
+      bookings: 320
     },
     {
       id: 3,
@@ -36,7 +73,12 @@ const Locations = () => {
       location: "Los Angeles, CA",
       rate: 85,
       image: artsyModernAptImage,
-      features: ["Attached Film Studio", "Modern Interiors", "Natural Light", "Production Ready"]
+      features: ["Attached Film Studio", "Modern Interiors", "Natural Light", "Production Ready"],
+      rating: 5.0,
+      reviews: 203,
+      instantBook: true,
+      superhost: true,
+      bookings: 680
     }
   ];
 
@@ -468,61 +510,124 @@ const Locations = () => {
             </aside>
             <div>
               <div className={qView === "list" ? "space-y-6" : "grid grid-cols-1 md:grid-cols-2 gap-8"}>
-                {sorted.map((location) => (
-              <Card key={location.id} className="card-elevated overflow-hidden hover:shadow-lg transition-shadow">
-                <Link to={`/booking/${location.id}`} className="block">
-                  <div className="aspect-video overflow-hidden cursor-pointer">
-                    <img 
-                      src={location.image} 
-                      alt={location.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                </Link>
-                
-                <CardHeader className="pb-3">
-                  <Link to={`/booking/${location.id}`} className="hover:underline">
-                    <h3 className="text-xl font-semibold text-foreground line-clamp-2">
-                      {location.title}
-                    </h3>
-                  </Link>
-                  <div className="flex items-center text-muted-foreground text-sm mt-2">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    {location.location}
-                  </div>
-                </CardHeader>
+                {sorted.map((location) => {
+                  const isFavorite = favorites.includes(location.id);
+                  return (
+                    <Card key={location.id} className="card-elevated overflow-hidden hover:shadow-xl transition-all duration-300 group relative">
+                      <div className="relative">
+                        <Link to={`/booking/${location.id}`} className="block">
+                          <div className="aspect-video overflow-hidden cursor-pointer relative">
+                            <img 
+                              src={location.image} 
+                              alt={location.title}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          </div>
+                        </Link>
+                        
+                        {/* Favorite Button */}
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="absolute top-3 right-3 bg-white/90 hover:bg-white backdrop-blur-sm rounded-full h-10 w-10 shadow-lg z-10"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleFavorite(location.id);
+                          }}
+                        >
+                          <Heart 
+                            className={`h-5 w-5 transition-all ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`}
+                          />
+                        </Button>
 
-                <CardContent className="pt-0">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center text-primary font-semibold text-lg">
-                      <DollarSign className="h-5 w-5 mr-1" />
-                      {location.rate}/hr
-                    </div>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {location.features.map((feature, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
-                        {feature}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
+                        {/* Badges */}
+                        <div className="absolute top-3 left-3 flex flex-col gap-2">
+                          {location.superhost && (
+                            <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 shadow-lg">
+                              <Award className="h-3 w-3 mr-1" />
+                              Superhost
+                            </Badge>
+                          )}
+                          {location.instantBook && (
+                            <Badge className="bg-gradient-to-r from-green-600 to-teal-600 text-white border-0 shadow-lg">
+                              <TrendingUp className="h-3 w-3 mr-1" />
+                              Instant Book
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <CardHeader className="pb-3">
+                        {/* Rating and Reviews */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="flex items-center bg-primary/10 px-2 py-1 rounded-md">
+                            <Star className="h-4 w-4 text-yellow-500 fill-yellow-500 mr-1" />
+                            <span className="font-bold text-sm">{location.rating.toFixed(1)}</span>
+                          </div>
+                          <span className="text-xs text-muted-foreground">
+                            ({location.reviews} reviews)
+                          </span>
+                          <div className="flex items-center text-xs text-muted-foreground ml-auto">
+                            <Users className="h-3 w-3 mr-1" />
+                            {location.bookings}+ bookings
+                          </div>
+                        </div>
+                        
+                        <Link to={`/booking/${location.id}`} className="hover:underline">
+                          <h3 className="text-xl font-semibold text-foreground line-clamp-2 leading-tight">
+                            {location.title}
+                          </h3>
+                        </Link>
+                        <div className="flex items-center text-muted-foreground text-sm mt-2">
+                          <MapPin className="h-4 w-4 mr-1" />
+                          {location.location}
+                        </div>
+                      </CardHeader>
 
-                <CardFooter>
-                  <Button 
-                    asChild 
-                    className="btn-hero w-full"
-                  >
-                    <Link to={`/booking/${location.id}`}>
-                      Book Now
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
+                      <CardContent className="pt-0">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center text-primary font-bold text-xl">
+                            <DollarSign className="h-6 w-6 mr-0.5" />
+                            {location.rate}
+                            <span className="text-sm font-normal text-muted-foreground ml-1">/hr</span>
+                          </div>
+                          <Badge variant="outline" className="text-xs">
+                            <Shield className="h-3 w-3 mr-1" />
+                            Verified
+                          </Badge>
+                        </div>
+                        
+                        <div className="flex flex-wrap gap-2">
+                          {location.features.slice(0, 3).map((feature, index) => (
+                            <Badge key={index} variant="secondary" className="text-xs">
+                              {feature}
+                            </Badge>
+                          ))}
+                          {location.features.length > 3 && (
+                            <Badge variant="secondary" className="text-xs">
+                              +{location.features.length - 3} more
+                            </Badge>
+                          )}
+                        </div>
+                      </CardContent>
+
+                      <CardFooter className="flex gap-2">
+                        <Button 
+                          asChild 
+                          className="btn-hero flex-1 group-hover:shadow-lg transition-shadow"
+                        >
+                          <Link to={`/booking/${location.id}`}>
+                            Book Now
+                          </Link>
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-        </div>
         </div>
       </section>
 

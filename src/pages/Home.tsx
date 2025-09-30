@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Clock, MapPin, Calendar } from "lucide-react";
+import { Clock, MapPin, Calendar, Shield, Award, TrendingUp, Star, Users, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import heroBackground from "@/assets/hero-background.jpg";
 
 const Home = () => {
@@ -30,6 +31,20 @@ const Home = () => {
       title: "Easy Online Booking",
       description: "Simple booking process with instant confirmation"
     }
+  ];
+
+  const stats = [
+    { value: "1,450+", label: "Happy Clients", icon: Users },
+    { value: "3,200+", label: "Successful Bookings", icon: TrendingUp },
+    { value: "4.9/5", label: "Average Rating", icon: Star },
+    { value: "100%", label: "Verified Spaces", icon: Shield }
+  ];
+
+  const trustBadges = [
+    { icon: Shield, label: "Secure Payments" },
+    { icon: Award, label: "Top Rated" },
+    { icon: CheckCircle2, label: "Instant Confirmation" },
+    { icon: Users, label: "24/7 Support" }
   ];
 
   return (
@@ -104,10 +119,48 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Stats Section */}
+      <section className="py-12 bg-gradient-to-r from-primary/5 via-purple-50 to-pink-50 dark:from-primary/10 dark:via-purple-950/30 dark:to-pink-950/30 border-y">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <stat.icon className="h-8 w-8 text-primary mr-2" />
+                </div>
+                <div className="text-3xl sm:text-4xl font-bold text-foreground mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Badges */}
+      <section className="py-8 bg-white dark:bg-gray-900 border-b">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12">
+            {trustBadges.map((badge, index) => (
+              <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                <badge.icon className="h-5 w-5 text-primary" />
+                <span className="text-sm font-medium">{badge.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Benefits Section */}
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
+            <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0">
+              Why Choose Us
+            </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
               Why Choose Book-A-Space?
             </h2>
@@ -118,10 +171,10 @@ const Home = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => (
-              <Card key={index} className="card-elevated text-center p-8 hover:shadow-lg transition-shadow">
+              <Card key={index} className="card-elevated text-center p-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border-2 hover:border-primary/50">
                 <CardContent className="pt-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <benefit.icon className="h-8 w-8 text-primary" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <benefit.icon className="h-8 w-8 text-white" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground mb-3">
                     {benefit.title}
