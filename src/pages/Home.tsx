@@ -118,6 +118,11 @@ const Home = () => {
             </div>
           </div>
         </div>
+
+        {/* Scrolling Images Below Hero */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 pb-8">
+          <ImageCarousel compact />
+        </div>
       </section>
 
       {/* Stats Section */}
@@ -154,9 +159,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* Image Carousel */}
-      <ImageCarousel />
 
       {/* Benefits Section */}
       <section className="py-20 bg-background">

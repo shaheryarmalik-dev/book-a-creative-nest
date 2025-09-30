@@ -10,7 +10,11 @@ const images = Object.keys(imagesGlob)
   .sort()
   .map((key) => (imagesGlob as Record<string, string>)[key]);
 
-const ImageCarousel = () => {
+interface ImageCarouselProps {
+  compact?: boolean;
+}
+
+const ImageCarousel = ({ compact = false }: ImageCarouselProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,6 +45,36 @@ const ImageCarousel = () => {
 
   // Duplicate images for seamless loop
   const duplicatedImages = [...images, ...images];
+
+  if (compact) {
+    return (
+      <div className="overflow-hidden">
+        <div 
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-hidden scroll-smooth px-4"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {duplicatedImages.map((image, index) => (
+            <div
+              key={index}
+              className="flex-shrink-0 w-[280px] h-[180px] rounded-lg overflow-hidden shadow-xl border-2 border-white/20"
+            >
+              <img
+                src={image}
+                alt={`Creative space ${(index % images.length) + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+        <style>{`
+          div::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
     <section className="py-12 bg-secondary overflow-hidden">
