@@ -34,15 +34,33 @@ const Contact = () => {
 
   const onSubmit = async (data: ContactForm) => {
     try {
-      // Simulate sending email
-      console.log("Contact form data:", data);
-      
-      toast({
-        title: "Message sent successfully!",
-        description: "We'll get back to you within 24 hours.",
+      const payload = {
+        access_key: "2019f54a-a1da-4155-a014-bed5d9b702dc",
+        subject: `Contact form: ${data.subject}`,
+        from_name: data.name,
+        from_email: data.email,
+        phone: data.phone ?? "",
+        message: data.message,
+        // basic honeypot field to reduce spam
+        botcheck: ""
+      };
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
       });
-      
-      form.reset();
+      const json = await res.json();
+
+      if (json.success) {
+        toast({
+          title: "Message sent!",
+          description: "We'll get back to you within 24 hours.",
+        });
+        form.reset();
+      } else {
+        throw new Error(json.message || "Submission failed");
+      }
     } catch (error) {
       toast({
         title: "Error",
