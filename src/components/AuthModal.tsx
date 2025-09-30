@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { LogIn, UserPlus, Mail, Lock, User } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -51,9 +52,11 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const onLoginSubmit = async (data: LoginForm) => {
     setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log("Login data:", data);
+      const { error } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      });
+      if (error) throw error;
       
       toast({
         title: "Login successful!",
@@ -65,7 +68,7 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
     } catch (error) {
       toast({
         title: "Login failed",
-        description: "Invalid credentials. Please try again.",
+        description: (error as Error).message || "Invalid credentials. Please try again.",
         variant: "destructive"
       });
     } finally {
@@ -76,9 +79,12 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const onSignupSubmit = async (data: SignupForm) => {
     setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log("Signup data:", data);
+      const { error } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: { data: { full_name: data.name } }
+      });
+      if (error) throw error;
       
       toast({
         title: "Account created!",
@@ -90,7 +96,7 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
     } catch (error) {
       toast({
         title: "Signup failed",
-        description: "Something went wrong. Please try again.",
+        description: (error as Error).message || "Something went wrong. Please try again.",
         variant: "destructive"
       });
     } finally {
