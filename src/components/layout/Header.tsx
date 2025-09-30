@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, LogIn, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AuthModal from "@/components/AuthModal";
+import { supabase } from "@/integrations/supabase/client";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const location = useLocation();
 
   const navLinks = [
@@ -28,6 +30,20 @@ const Header = () => {
   };
 
   const isActive = (path: string) => location.pathname === path;
+
+  // Listen to auth state changes and set user email
+  useEffect(() => {
+    const init = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUserEmail(session?.user?.email ?? null);
+    };
+    init();
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUserEmail(session?.user?.email ?? null);
+      if (session) setAuthModalOpen(false);
+    });
+    return () => sub.subscription.unsubscribe();
+  }, []);
 
   return (
     <header className="bg-white/98 backdrop-blur-lg border-b border-gray-200/60 sticky top-0 z-50 shadow-lg">
@@ -58,21 +74,36 @@ const Header = () => {
               </Link>
             ))}
             <div className="flex items-center gap-3 ml-6">
-              <Button 
-                variant="ghost" 
-                size="default" 
-                onClick={() => openAuthModal("login")} 
-                className="font-semibold text-gray-700 hover:text-primary hover:bg-gray-50 px-5"
-              >
-                <LogIn className="mr-2 h-4 w-4" /> Log In
-              </Button>
-              <Button 
-                size="default" 
-                className="btn-hero shadow-xl hover:shadow-2xl transition-all font-semibold px-6" 
-                onClick={() => openAuthModal("signup")}
-              >
-                <UserPlus className="mr-2 h-4 w-4" /> Sign Up
-              </Button>
+              {userEmail ? (
+                <>
+                  <span className="text-sm text-gray-600 hidden lg:inline">{userEmail}</span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={async () => { await supabase.auth.signOut(); }}
+                  >
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button 
+                    variant="ghost" 
+                    size="default" 
+                    onClick={() => openAuthModal("login")} 
+                    className="font-semibold text-gray-700 hover:text-primary hover:bg-gray-50 px-5"
+                  >
+                    <LogIn className="mr-2 h-4 w-4" /> Log In
+                  </Button>
+                  <Button 
+                    size="default" 
+                    className="btn-hero shadow-xl hover:shadow-2xl transition-all font-semibold px-6" 
+                    onClick={() => openAuthModal("signup")}
+                  >
+                    <UserPlus className="mr-2 h-4 w-4" /> Sign Up
+                  </Button>
+                </>
+              )}
             </div>
           </nav>
 
