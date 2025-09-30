@@ -134,3 +134,19 @@ All colors MUST be HSL.
     background: var(--gradient-hero);
   }
 }
+
+@layer utilities {
+  /* Slow zoom animation for hero background */
+  @keyframes slow-zoom {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+
+  .animate-slow-zoom {
+    animation: slow-zoom 20s ease-in-out infinite alternate;
+  }
+}

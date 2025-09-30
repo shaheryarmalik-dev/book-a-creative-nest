@@ -52,9 +52,13 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <section 
-        className="relative min-h-[80vh] flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroBackground})` }}
+        className="relative min-h-[80vh] flex items-center justify-center overflow-hidden"
       >
+        {/* Animated Background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center animate-slow-zoom"
+          style={{ backgroundImage: `url(${heroBackground})` }}
+        ></div>
         <div className="absolute inset-0 gradient-hero"></div>
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
@@ -117,11 +121,6 @@ const Home = () => {
               </Button>
             </div>
           </div>
-        </div>
-
-        {/* Scrolling Images Below Hero */}
-        <div className="absolute bottom-0 left-0 right-0 z-20 pb-8">
-          <ImageCarousel compact />
         </div>
       </section>
 
