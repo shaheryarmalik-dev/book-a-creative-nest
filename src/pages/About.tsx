@@ -1,5 +1,7 @@
 import { Users, Target, Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const About = () => {
   const values = [
@@ -107,18 +109,12 @@ const About = () => {
             Let's bring your vision to life in the perfect setting.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/locations" 
-              className="btn-hero inline-flex items-center justify-center px-8 py-3 text-lg font-medium rounded-lg no-underline"
-            >
-              Browse Locations
-            </a>
-            <a 
-              href="mailto:admin@book-a-space.com" 
-              className="btn-accent inline-flex items-center justify-center px-8 py-3 text-lg font-medium rounded-lg no-underline"
-            >
-              Contact Us
-            </a>
+            <Button asChild size="lg" className="btn-hero text-lg px-8 py-4">
+              <Link to="/locations">Browse Locations</Link>
+            </Button>
+            <Button asChild size="lg" className="btn-accent text-lg px-8 py-4">
+              <Link to="/contact">Contact Us</Link>
+            </Button>
           </div>
         </div>
       </section>
