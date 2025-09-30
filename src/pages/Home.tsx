@@ -185,7 +185,7 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-gradient-to-r from-primary/5 via-purple-50 to-pink-50 dark:from-primary/10 dark:via-purple-950/30 dark:to-pink-950/30 border-y">
+      <section className="py-12 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border-y border-blue-100/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -206,7 +206,7 @@ const Home = () => {
       </section>
 
       {/* Trust Badges */}
-      <section className="py-8 bg-white dark:bg-gray-900 border-b">
+      <section className="py-8 bg-gradient-to-r from-slate-50 via-gray-50 to-slate-50 border-b border-slate-200/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12">
             {trustBadges.map((badge, index) => (
@@ -220,7 +220,7 @@ const Home = () => {
       </section>
 
       {/* Parallax Gallery Section - Giggster Style */}
-      <section ref={galleryRef} className="py-20 bg-background overflow-hidden">
+      <section ref={galleryRef} className="py-20 bg-gradient-to-b from-white via-blue-50/30 to-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0">
@@ -327,7 +327,7 @@ const Home = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-secondary">
+      <section className="py-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-teal-600 text-white border-0">
@@ -362,15 +362,17 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-secondary">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+      <section className="py-20 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 relative overflow-hidden">
+        {/* Decorative overlay */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE0YzMuMzEgMCA2LTIuNjkgNi02cy0yLjY5LTYtNi02LTYgMi42OS02IDYgMi42OSA2IDYgNiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Ready to Book Your Perfect Space?
           </h2>
-          <p className="text-lg text-muted-foreground mb-8">
+          <p className="text-lg text-blue-100 mb-8">
             Browse our curated collection of creative spaces and book your next project location today.
           </p>
-          <Button asChild size="lg" className="btn-accent text-lg px-8 py-4">
+          <Button asChild size="lg" className="bg-white text-primary hover:bg-gray-100 shadow-2xl text-lg px-10 py-4 font-bold rounded-xl hover:scale-105 transition-all">
             <Link to="/locations">Explore Locations</Link>
           </Button>
         </div>
