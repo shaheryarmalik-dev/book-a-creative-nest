@@ -1,15 +1,34 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Clock, MapPin, Calendar, Shield, Award, TrendingUp, Star, Users, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import ImageCarousel from "@/components/ImageCarousel";
-import heroBackground from "@/assets/hero-background.jpg";
+
+// Import all space images for background
+const heroImagesGlob = import.meta.glob(
+  "/src/assets/locations/artsy-modern-apt-film-studio/*.jpg",
+  { eager: true, query: "?url", import: "default" }
+);
+
+const heroImages = Object.keys(heroImagesGlob)
+  .sort()
+  .map((key) => (heroImagesGlob as Record<string, string>)[key]);
 
 const Home = () => {
   const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Change background image every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   const activities = [
     { value: "photo", label: "Photo Shoot" },
     { value: "film", label: "Filming" },
@@ -54,18 +73,27 @@ const Home = () => {
       <section 
         className="relative min-h-[95vh] flex items-center justify-center overflow-hidden"
       >
-        {/* Animated Background */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center animate-slow-zoom"
-          style={{ backgroundImage: `url(${heroBackground})` }}
-        ></div>
-        <div className="absolute inset-0 gradient-hero"></div>
+        {/* Real Space Images Background with Fade Transition */}
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ 
+              backgroundImage: `url(${image})`,
+              backgroundPosition: 'center center'
+            }}
+          />
+        ))}
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
             Book Inspiring Creative Spaces{" "}
             <span className="text-primary">by the Hour</span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             Discover unique locations perfect for photoshoots, filming, meetings, and creative projects. 
             Professional spaces available at affordable hourly rates.
           </p>
@@ -121,11 +149,6 @@ const Home = () => {
               </Button>
             </div>
           </div>
-        </div>
-
-        {/* Scrolling Image Carousel at Bottom of Hero */}
-        <div className="absolute bottom-8 left-0 right-0 z-20">
-          <ImageCarousel compact />
         </div>
       </section>
 
