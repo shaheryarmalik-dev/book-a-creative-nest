@@ -42,9 +42,16 @@ const Home = () => {
         
         // Only calculate offset when gallery is in viewport
         if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
-          // Calculate how much the gallery section has been scrolled through
-          const scrollProgress = windowHeight - sectionTop;
+          // Calculate scroll progress within the section
+          // Clamp the value to prevent movement outside the section
+          const scrollProgress = Math.max(0, Math.min(windowHeight - sectionTop, sectionHeight));
           setGalleryOffset(scrollProgress);
+        } else if (sectionTop >= windowHeight) {
+          // Section hasn't entered viewport yet
+          setGalleryOffset(0);
+        } else {
+          // Section has passed completely
+          setGalleryOffset(0);
         }
       }
     };
@@ -233,7 +240,7 @@ const Home = () => {
             <div 
               className="space-y-6"
               style={{
-                transform: `translateY(${galleryOffset * 0.05}px)`,
+                transform: `translateY(${Math.min(galleryOffset * 0.02, 100)}px)`,
                 transition: 'transform 0.05s ease-out'
               }}
             >
@@ -253,7 +260,7 @@ const Home = () => {
             <div 
               className="space-y-6 hidden sm:block"
               style={{
-                transform: `translateY(${galleryOffset * -0.08}px)`,
+                transform: `translateY(${Math.max(galleryOffset * -0.03, -100)}px)`,
                 transition: 'transform 0.05s ease-out'
               }}
             >
@@ -273,7 +280,7 @@ const Home = () => {
             <div 
               className="space-y-6 hidden lg:block"
               style={{
-                transform: `translateY(${galleryOffset * 0.06}px)`,
+                transform: `translateY(${Math.min(galleryOffset * 0.025, 100)}px)`,
                 transition: 'transform 0.05s ease-out'
               }}
             >
@@ -293,7 +300,7 @@ const Home = () => {
             <div 
               className="space-y-6 hidden xl:block"
               style={{
-                transform: `translateY(${galleryOffset * -0.04}px)`,
+                transform: `translateY(${Math.max(galleryOffset * -0.015, -100)}px)`,
                 transition: 'transform 0.05s ease-out'
               }}
             >
