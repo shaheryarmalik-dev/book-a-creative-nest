@@ -20,7 +20,8 @@ const heroImages = Object.keys(heroImagesGlob)
 const Home = () => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [scrollY, setScrollY] = useState(0);
+  const [galleryOffset, setGalleryOffset] = useState(0);
+  const galleryRef = useRef<HTMLDivElement>(null);
 
   // Change background image every 5 seconds
   useEffect(() => {
@@ -30,12 +31,26 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Track scroll position for parallax effect
+  // Track scroll position relative to gallery section only
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (galleryRef.current) {
+        const rect = galleryRef.current.getBoundingClientRect();
+        const sectionTop = rect.top;
+        const sectionHeight = rect.height;
+        const windowHeight = window.innerHeight;
+        
+        // Only calculate offset when gallery is in viewport
+        if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
+          // Calculate how much the gallery section has been scrolled through
+          const scrollProgress = windowHeight - sectionTop;
+          setGalleryOffset(scrollProgress);
+        }
+      }
     };
+    
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial calculation
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -198,7 +213,7 @@ const Home = () => {
       </section>
 
       {/* Parallax Gallery Section - Giggster Style */}
-      <section className="py-20 bg-background overflow-hidden">
+      <section ref={galleryRef} className="py-20 bg-background overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0">
@@ -218,8 +233,8 @@ const Home = () => {
             <div 
               className="space-y-6"
               style={{
-                transform: `translateY(${scrollY * 0.05}px)`,
-                transition: 'transform 0.1s ease-out'
+                transform: `translateY(${galleryOffset * 0.05}px)`,
+                transition: 'transform 0.05s ease-out'
               }}
             >
               {heroImages.slice(0, 4).map((image, index) => (
@@ -238,8 +253,8 @@ const Home = () => {
             <div 
               className="space-y-6 hidden sm:block"
               style={{
-                transform: `translateY(${scrollY * -0.08}px)`,
-                transition: 'transform 0.1s ease-out'
+                transform: `translateY(${galleryOffset * -0.08}px)`,
+                transition: 'transform 0.05s ease-out'
               }}
             >
               {heroImages.slice(4, 8).map((image, index) => (
@@ -258,8 +273,8 @@ const Home = () => {
             <div 
               className="space-y-6 hidden lg:block"
               style={{
-                transform: `translateY(${scrollY * 0.06}px)`,
-                transition: 'transform 0.1s ease-out'
+                transform: `translateY(${galleryOffset * 0.06}px)`,
+                transition: 'transform 0.05s ease-out'
               }}
             >
               {heroImages.slice(8, 12).map((image, index) => (
@@ -278,8 +293,8 @@ const Home = () => {
             <div 
               className="space-y-6 hidden xl:block"
               style={{
-                transform: `translateY(${scrollY * -0.04}px)`,
-                transition: 'transform 0.1s ease-out'
+                transform: `translateY(${galleryOffset * -0.04}px)`,
+                transition: 'transform 0.05s ease-out'
               }}
             >
               {heroImages.slice(12, 15).map((image, index) => (
