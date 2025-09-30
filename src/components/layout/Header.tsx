@@ -80,7 +80,11 @@ const Header = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={async () => { await supabase.auth.signOut(); }}
+                    onClick={async () => {
+                      await supabase.auth.signOut();
+                      setUserEmail(null);
+                      window.location.reload();
+                    }}
                   >
                     Sign Out
                   </Button>
