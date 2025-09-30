@@ -2,9 +2,12 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, LogIn, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AuthModal from "@/components/AuthModal";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<"login" | "signup">("login");
   const location = useLocation();
 
   const navLinks = [
@@ -12,7 +15,17 @@ const Header = () => {
     { href: "/locations", label: "Locations" },
     { href: "/about", label: "About" },
     { href: "/clients", label: "Clients" },
+    { href: "/contact", label: "Contact" },
   ];
+
+  const openAuthModal = (mode: "login" | "signup") => {
+    setAuthMode(mode);
+    setAuthModalOpen(true);
+  };
+
+  const switchAuthMode = () => {
+    setAuthMode(prev => prev === "login" ? "signup" : "login");
+  };
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -44,14 +57,21 @@ const Header = () => {
               </Link>
             ))}
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" onClick={() => openAuthModal("login")}>
                 <LogIn className="mr-2" /> Log In
               </Button>
-              <Button size="sm" className="btn-hero">
+              <Button size="sm" className="btn-hero" onClick={() => openAuthModal("signup")}>
                 <UserPlus className="mr-2" /> Sign Up
               </Button>
             </div>
           </nav>
+
+          <AuthModal 
+            isOpen={authModalOpen} 
+            onClose={() => setAuthModalOpen(false)}
+            mode={authMode}
+            onSwitchMode={switchAuthMode}
+          />
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -85,10 +105,10 @@ const Header = () => {
                 </Link>
               ))}
               <div className="flex gap-2">
-                <Button variant="ghost" className="w-fit" onClick={() => setIsMenuOpen(false)}>
+                <Button variant="ghost" className="w-fit" onClick={() => { setIsMenuOpen(false); openAuthModal("login"); }}>
                   <LogIn className="mr-2" /> Log In
                 </Button>
-                <Button className="btn-hero w-fit" onClick={() => setIsMenuOpen(false)}>
+                <Button className="btn-hero w-fit" onClick={() => { setIsMenuOpen(false); openAuthModal("signup"); }}>
                   <UserPlus className="mr-2" /> Sign Up
                 </Button>
               </div>

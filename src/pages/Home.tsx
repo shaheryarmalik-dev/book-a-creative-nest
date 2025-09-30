@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import ImageCarousel from "@/components/ImageCarousel";
 import heroBackground from "@/assets/hero-background.jpg";
 
 const Home = () => {
@@ -153,6 +154,9 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Image Carousel */}
+      <ImageCarousel />
 
       {/* Benefits Section */}
       <section className="py-20 bg-background">

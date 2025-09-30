@@ -640,8 +640,8 @@ const Locations = () => {
           <p className="text-lg text-muted-foreground mb-6">
             Contact us to discuss your specific needs. We're always adding new locations and can help you find the perfect space.
           </p>
-          <Button size="lg" className="btn-accent">
-            Contact Us
+          <Button size="lg" className="btn-accent" asChild>
+            <Link to="/contact">Contact Us</Link>
           </Button>
         </div>
       </section>
