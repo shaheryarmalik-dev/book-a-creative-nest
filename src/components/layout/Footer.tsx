@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <img src="/logo.svg" alt="Book-A-Space Logo" className="w-10 h-10" />
+              <img src="/book-a-creative-nest/logo.svg" alt="Book-A-Space Logo" className="w-10 h-10" />
               <span className="font-bold text-2xl text-foreground">Book-A-Space</span>
             </div>
             <p className="text-muted-foreground text-sm max-w-md leading-relaxed">

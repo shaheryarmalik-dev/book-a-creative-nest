@@ -35,7 +35,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-18">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <img src="/logo.svg" alt="Book-A-Space Logo" className="w-10 h-10 transition-transform group-hover:scale-110" />
+            <img src="/book-a-creative-nest/logo.svg" alt="Book-A-Space Logo" className="w-10 h-10 transition-transform group-hover:scale-110" />
             <span className="font-bold text-2xl text-foreground tracking-tight">Book-A-Space</span>
           </Link>
 
