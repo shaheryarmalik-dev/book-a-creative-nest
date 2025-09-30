@@ -362,17 +362,17 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 relative overflow-hidden">
         {/* Decorative overlay */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE0YzMuMzEgMCA2LTIuNjkgNi02cy0yLjY5LTYtNi02LTYgMi42OS02IDYgMi42OSA2IDYgNiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMTRjMy4zMSAwIDYtMi42OSA2LTZzLTIuNjktNi02LTYtNiAyLjY5LTYgNiAyLjY5IDYgNiA2Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-40"></div>
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 drop-shadow-lg">
             Ready to Book Your Perfect Space?
           </h2>
-          <p className="text-lg text-blue-100 mb-8">
+          <p className="text-lg text-white/95 mb-8 drop-shadow">
             Browse our curated collection of creative spaces and book your next project location today.
           </p>
-          <Button asChild size="lg" className="bg-white text-primary hover:bg-gray-100 shadow-2xl text-lg px-10 py-4 font-bold rounded-xl hover:scale-105 transition-all">
+          <Button asChild size="lg" className="bg-white text-primary hover:bg-gray-50 shadow-2xl text-lg px-10 py-4 font-bold rounded-xl hover:scale-105 transition-all">
             <Link to="/locations">Explore Locations</Link>
           </Button>
         </div>
