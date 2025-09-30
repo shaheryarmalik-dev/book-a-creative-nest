@@ -181,7 +181,7 @@ const Locations = () => {
             </div>
           </form>
 
-          {/* Quick chips */
+          {/* Quick chips */}
           <div className="mt-3 flex flex-wrap gap-2">
             {[
               { v: "photo", l: "Photo Shoot" },
@@ -406,6 +406,7 @@ const Locations = () => {
               </DrawerContent>
             </Drawer>
           </div>
+          {/* close mobile filters wrapper */}
           <div className="grid grid-cols-1 md:grid-cols-[240px,1fr] gap-8">
             <aside className="hidden md:block">
               <div className="sticky top-32 space-y-6">
@@ -521,6 +522,7 @@ const Locations = () => {
               </Card>
             ))}
           </div>
+        </div>
         </div>
       </section>
 
