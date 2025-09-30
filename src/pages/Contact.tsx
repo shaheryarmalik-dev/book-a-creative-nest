@@ -213,20 +213,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Map or Additional Info */}
-      <section className="py-16 bg-secondary">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-foreground mb-4">
-            Looking to List Your Space?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-6">
-            Join our network of creative space hosts and start earning by sharing your unique location.
-          </p>
-          <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-            Become a Host
-          </Button>
-        </div>
-      </section>
+      {/* Removed Host CTA section per request */}
     </div>
   );
 };
