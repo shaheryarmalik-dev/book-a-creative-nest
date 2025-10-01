@@ -45,12 +45,6 @@ const Footer = () => {
               >
                 About
               </Link>
-              <Link 
-                to="/clients" 
-                className="text-gray-400 hover:text-white transition-colors text-sm"
-              >
-                Clients
-              </Link>
             </nav>
           </div>
 
