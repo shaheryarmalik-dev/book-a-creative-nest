@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { LogIn, UserPlus, Mail, Lock, User } from "lucide-react";
 import { auth } from "@/integrations/firebase/client";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -91,7 +91,12 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const onSignupSubmit = async (data: SignupForm) => {
     setIsLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      
+      // Update the user's display name
+      await updateProfile(userCredential.user, {
+        displayName: data.name
+      });
       
       toast({
         title: "Account created!",
