@@ -101,6 +101,7 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
       signupForm.reset();
       onClose();
     } catch (error: any) {
+      console.error('Signup error:', error);
       let errorMessage = "Something went wrong. Please try again.";
       
       if (error.code === 'auth/api-key-not-valid') {
@@ -109,6 +110,12 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
         errorMessage = "This email is already registered. Please log in instead.";
       } else if (error.code === 'auth/weak-password') {
         errorMessage = "Password should be at least 6 characters.";
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = "Please enter a valid email address.";
+      } else if (error.code === 'auth/operation-not-allowed') {
+        errorMessage = "Email/Password sign-in is not enabled. Please check Firebase settings.";
+      } else {
+        errorMessage = `Error: ${error.code || error.message}`;
       }
       
       toast({
