@@ -39,6 +39,7 @@ const Home = () => {
   const [showPlanningSuggestions, setShowPlanningSuggestions] = useState(false);
   const [planningSuggestions, setPlanningSuggestions] = useState([]);
   const [hoveredActivity, setHoveredActivity] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // Background images that will cycle through
   const backgroundImages = [
@@ -146,6 +147,33 @@ const Home = () => {
   const selectPlanning = (planning) => {
     setSearchPlanning(planning);
     setShowPlanningSuggestions(false);
+  };
+
+  // Why FrameScout slides data
+  const whyFrameScoutSlides = [
+    {
+      title: "New and never-ending possibilities",
+      description: "Find everything from professionally equipped studios to unconventional rooms and residences. From vintage Cuban kitchens to modern art studios, we offer the perfect backdrop for your creative vision.",
+      image: studio01
+    },
+    {
+      title: "Complete production support", 
+      description: "Beyond just spaces, we provide full production services including location scouting, crew coordination, and professional equipment. Your creative vision, our expertise.",
+      image: studio02
+    },
+    {
+      title: "$2M Production Insurance",
+      description: "Every project is protected with comprehensive production insurance coverage, giving you peace of mind for your most important shoots.",
+      image: studio03
+    }
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % whyFrameScoutSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + whyFrameScoutSlides.length) % whyFrameScoutSlides.length);
   };
 
   const handleSearch = () => {
@@ -480,23 +508,23 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Why FrameScout Locations Section */}
+      {/* Why FrameScout Locations Section - Interactive Slider */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Image */}
+            {/* Left Side - Dynamic Image */}
             <div className="relative">
               <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <img 
-                  src={studio01} 
-                  alt="Professional production setup"
-                  className="w-full h-full object-cover"
+                  src={whyFrameScoutSlides[currentSlide].image} 
+                  alt={whyFrameScoutSlides[currentSlide].title}
+                  className="w-full h-full object-cover transition-all duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
             </div>
 
-            {/* Right Side - Content */}
+            {/* Right Side - Slider Content */}
             <div className="space-y-6">
               <div className="space-y-4">
                 <h2 className="text-5xl font-bold text-gray-900 leading-tight">
@@ -505,55 +533,39 @@ const Home = () => {
                   <span className="text-blue-600">Locations</span>
                 </h2>
                 
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                      New and never-ending possibilities
-                    </h3>
-                    <p className="text-lg text-gray-600 leading-relaxed">
-                      Find everything from professionally equipped studios to unconventional rooms and residences. 
-                      From vintage Cuban kitchens to modern art studios, we offer the perfect backdrop for your creative vision.
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                      Complete production support
-                    </h3>
-                    <p className="text-lg text-gray-600 leading-relaxed">
-                      Beyond just spaces, we provide full production services including location scouting, 
-                      crew coordination, and professional equipment. Your creative vision, our expertise.
-                    </p>
-                  </div>
-
-                <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                      $2M Production Insurance
-                    </h3>
-                    <p className="text-lg text-gray-600 leading-relaxed">
-                      Every project is protected with comprehensive production insurance coverage, 
-                      giving you peace of mind for your most important shoots.
-                    </p>
-                  </div>
+                {/* Single Slide Content */}
+                <div className="min-h-[200px] flex flex-col justify-center">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 transition-all duration-500">
+                    {whyFrameScoutSlides[currentSlide].title}
+                  </h3>
+                  <p className="text-lg text-gray-600 leading-relaxed transition-all duration-500">
+                    {whyFrameScoutSlides[currentSlide].description}
+                  </p>
                 </div>
               </div>
 
-              {/* Navigation indicators */}
+              {/* Navigation controls */}
               <div className="flex items-center justify-between pt-6">
                 <div className="flex items-center space-x-4">
-                  <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                  <button 
+                    onClick={prevSlide}
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                  >
                     <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
-                  <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                  <button 
+                    onClick={nextSlide}
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                  >
                     <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
                 </div>
                 <div className="text-sm text-gray-500 font-medium">
-                  01 / 03
+                  {String(currentSlide + 1).padStart(2, '0')} / {String(whyFrameScoutSlides.length).padStart(2, '0')}
                 </div>
               </div>
             </div>
