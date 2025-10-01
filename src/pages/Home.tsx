@@ -411,40 +411,42 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Left Side - Activity Categories */}
-            <div className="space-y-4">
-              {[
-                { name: "Photo shoot", image: studio01, location: "Los Angeles, CA" },
-                { name: "Meeting", image: studio02, location: "Los Angeles, CA" },
-                { name: "Birthday party", image: studio03, location: "Los Angeles, CA" },
-                { name: "Video shoot", image: studio04, location: "Los Angeles, CA" },
-                { name: "Baby shower", image: studio05, location: "Los Angeles, CA" },
-                { name: "Workshop", image: studio06, location: "Los Angeles, CA" },
-                { name: "Wedding reception", image: studio07, location: "Los Angeles, CA" },
-                { name: "Live music", image: studio08, location: "Los Angeles, CA" },
-                { name: "Party", image: studio09, location: "Los Angeles, CA" },
-                { name: "Music video", image: studio10, location: "Los Angeles, CA" },
-                { name: "Bridal shower", image: studio11, location: "Los Angeles, CA" },
-                { name: "Event", image: studio12, location: "Los Angeles, CA" },
-                { name: "Engagement party", image: studio13, location: "Los Angeles, CA" },
-                { name: "Corporate event", image: studio14, location: "Los Angeles, CA" },
-                { name: "Graduation party", image: studio15, location: "Los Angeles, CA" },
-                { name: "Pop-up", image: laGemImage, location: "Los Angeles, CA" }
-              ].map((activity, index) => (
-                <div
-                  key={index}
-                  className="group cursor-pointer p-4 rounded-lg hover:bg-gray-50 transition-all duration-300"
-                  onMouseEnter={() => setHoveredActivity(activity)}
-                  onMouseLeave={() => setHoveredActivity(null)}
-                  onClick={() => navigate('/locations')}
-                >
-                  <span className="text-gray-700 group-hover:text-blue-600 font-medium text-lg">
-                    {activity.name}
-                  </span>
-                </div>
-              ))}
+            {/* Left Side - Location Categories Grid */}
+            <div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+                {[
+                  { name: "Vintage Cuban Elegance", image: studio01, location: "Los Angeles, CA" },
+                  { name: "Artsy Beautiful Home", image: studio02, location: "Los Angeles, CA" },
+                  { name: "Creative Space LA", image: studio03, location: "Los Angeles, CA" },
+                  { name: "Peerspace Board", image: studio04, location: "Los Angeles, CA" },
+                  { name: "Modern Studio", image: studio05, location: "Los Angeles, CA" },
+                  { name: "Event Space", image: studio06, location: "Los Angeles, CA" },
+                  { name: "Blue Cloud Studios", image: studio07, location: "Los Angeles, CA" },
+                  { name: "Imperial Art Studios", image: studio08, location: "Los Angeles, CA" },
+                  { name: "Riverfront Stages", image: studio09, location: "Los Angeles, CA" },
+                  { name: "Creative Space", image: studio10, location: "Los Angeles, CA" },
+                  { name: "Professional Studio", image: studio11, location: "Los Angeles, CA" },
+                  { name: "Event Venue", image: studio12, location: "Los Angeles, CA" },
+                  { name: "Creative Workspace", image: studio13, location: "Los Angeles, CA" },
+                  { name: "Modern Studio Space", image: studio14, location: "Los Angeles, CA" },
+                  { name: "Creative Production", image: studio15, location: "Los Angeles, CA" },
+                  { name: "LA Gem Studio", image: laGemImage, location: "Los Angeles, CA" }
+                ].map((location, index) => (
+                  <div
+                    key={index}
+                    className="group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-300 border border-gray-200 hover:border-blue-300"
+                    onMouseEnter={() => setHoveredActivity(location)}
+                    onMouseLeave={() => setHoveredActivity(null)}
+                    onClick={() => navigate('/locations')}
+                  >
+                    <span className="text-gray-700 group-hover:text-blue-600 font-medium text-sm leading-tight">
+                      {location.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
               
-              <div className="pt-6">
+              <div className="text-center">
                 <Button 
                   asChild
                   className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-lg font-semibold rounded-lg"
@@ -531,7 +533,7 @@ const Home = () => {
                         {feature}
                       </Badge>
                     ))}
-                  </div>
+            </div>
                   
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-semibold text-gray-900">
