@@ -358,6 +358,176 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Stats Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Trusted by Creative Professionals
+            </h2>
+            <p className="text-xl text-gray-600">
+              Join thousands of satisfied clients who trust FrameScout Locations
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-blue-600 mb-2">500+</div>
+              <div className="text-gray-600">Projects Completed</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
+              <div className="text-gray-600">Creative Spaces</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-blue-600 mb-2">100+</div>
+              <div className="text-gray-600">Happy Clients</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-blue-600 mb-2">5+</div>
+              <div className="text-gray-600">Years Experience</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Popular Categories
+            </h2>
+            <p className="text-xl text-gray-600">
+              Find the perfect space for your specific needs
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {[
+              { name: "Studios", icon: "🎬", count: "25+" },
+              { name: "Event Spaces", icon: "🎉", count: "15+" },
+              { name: "Offices", icon: "🏢", count: "20+" },
+              { name: "Residential", icon: "🏠", count: "30+" },
+              { name: "Industrial", icon: "🏭", count: "10+" },
+              { name: "Outdoor", icon: "🌳", count: "8+" }
+            ].map((category, index) => (
+              <Card key={index} className="text-center p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group cursor-pointer">
+                <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                  {category.icon}
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-1">{category.name}</h3>
+                <p className="text-sm text-gray-500">{category.count} spaces</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              What Our Clients Say
+            </h2>
+            <p className="text-xl text-gray-600">
+              Trusted by creative professionals worldwide
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Sarah Johnson",
+                role: "Film Director",
+                content: "FrameScout Locations made our production seamless. The location scouting was exceptional and the crew coordination was flawless.",
+                rating: 5,
+                image: "👩‍💼"
+              },
+              {
+                name: "Mike Chen",
+                role: "Photographer",
+                content: "Professional equipment and expert crew made our shoot a huge success. Highly recommended for any creative project!",
+                rating: 5,
+                image: "👨‍🎨"
+              },
+              {
+                name: "Lisa Rodriguez",
+                role: "Event Producer",
+                content: "Their location scouting service found us the perfect venue. The team was professional, efficient, and exceeded expectations.",
+                rating: 5,
+                image: "👩‍🎭"
+              }
+            ].map((testimonial, index) => (
+              <Card key={index} className="p-6 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center mb-4">
+                  <div className="text-3xl mr-3">{testimonial.image}</div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                    <p className="text-sm text-gray-500">{testimonial.role}</p>
+                  </div>
+                </div>
+                <div className="flex items-center mb-3">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-600 italic">"{testimonial.content}"</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              How It Works
+            </h2>
+            <p className="text-xl text-gray-600">
+              Get started with FrameScout Locations in three simple steps
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                step: "01",
+                title: "Search & Discover",
+                description: "Browse our extensive collection of professional locations and find the perfect space for your project.",
+                icon: "🔍"
+              },
+              {
+                step: "02", 
+                title: "Book & Coordinate",
+                description: "Contact us to discuss your needs and we'll handle all the coordination and logistics.",
+                icon: "📅"
+              },
+              {
+                step: "03",
+                title: "Create & Produce",
+                description: "Focus on your creative vision while we ensure everything runs smoothly behind the scenes.",
+                icon: "🎬"
+              }
+            ].map((step, index) => (
+              <div key={index} className="text-center">
+                <div className="relative mb-6">
+                  <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                    {step.step}
+                  </div>
+                  <div className="text-4xl mb-4">{step.icon}</div>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
+                <p className="text-gray-600">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 text-white">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
