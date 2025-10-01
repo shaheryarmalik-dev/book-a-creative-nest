@@ -467,7 +467,7 @@ const Locations = () => {
                   </button>
                   
                   <div className="absolute top-4 left-4">
-                    <Badge className="bg-white/90 text-gray-100 hover:bg-white">
+                    <Badge className="bg-white/90 text-gray-900 hover:bg-white">
                       {location.type}
                     </Badge>
                   </div>

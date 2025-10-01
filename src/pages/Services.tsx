@@ -235,7 +235,7 @@ const Services = () => {
                   <div key={index} className="min-w-[200px] max-w-[200px] snap-start">
                     <div className="relative h-36 w-full overflow-hidden rounded-xl shadow group">
                       <img src={service.image} alt={service.title} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                      <Badge className="absolute top-3 left-3 bg-white/90 text-gray-100">Service</Badge>
+                      <Badge className="absolute top-3 left-3 bg-white/90 text-gray-900">Service</Badge>
                     </div>
                     <div className="mt-2">
                       <h4 className="text-sm font-semibold text-gray-100 line-clamp-1">{service.title}</h4>

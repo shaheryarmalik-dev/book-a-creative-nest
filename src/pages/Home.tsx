@@ -305,7 +305,7 @@ const Home = () => {
             begins
           </h1>
           <div className="flex justify-center mb-4">
-            <Button asChild size="lg" className="bg-white text-gray-100 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
+            <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
               <Link to="/locations">Find your space</Link>
             </Button>
           </div>
@@ -469,12 +469,12 @@ const Home = () => {
                 ].map((location, index) => (
                   <div
                     key={index}
-                    className="group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-300 border border-gray-200 hover:border-blue-300"
+                    className="group cursor-pointer p-3 rounded-lg hover:bg-slate-700/50 transition-all duration-300 border border-slate-600 hover:border-blue-400"
                     onMouseEnter={() => setHoveredActivity(location)}
                     onMouseLeave={() => setHoveredActivity(null)}
                     onClick={() => navigate('/locations')}
                   >
-                    <span className="text-gray-700 group-hover:text-blue-600 font-medium text-sm leading-tight">
+                    <span className="text-gray-200 group-hover:text-blue-400 font-medium text-sm leading-tight">
                       {location.name}
                     </span>
                 </div>
@@ -556,22 +556,22 @@ const Home = () => {
                 <div className="flex items-center space-x-4">
                   <button 
                     onClick={prevSlide}
-                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                    className="p-2 rounded-full bg-slate-700 hover:bg-slate-600 transition-colors"
                   >
-                    <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
                   <button 
                     onClick={nextSlide}
-                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                    className="p-2 rounded-full bg-slate-700 hover:bg-slate-600 transition-colors"
                   >
-                    <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
                 </div>
-                <div className="text-sm text-gray-500 font-medium">
+                <div className="text-sm text-gray-300 font-medium">
                   {String(currentSlide + 1).padStart(2, '0')} / {String(whyFrameScoutSlides.length).padStart(2, '0')}
                 </div>
               </div>
@@ -764,10 +764,10 @@ const Home = () => {
               Find the perfect location for your next creative project
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-white text-gray-100 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
+              <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
                 <Link to="/locations">Browse Locations</Link>
               </Button>
-              <Button asChild size="lg" className="rounded-full bg-white/90 text-gray-100 hover:bg-white px-8 py-6 text-lg font-semibold shadow-xl">
+              <Button asChild size="lg" className="rounded-full bg-white/90 text-gray-900 hover:bg-white px-8 py-6 text-lg font-semibold shadow-xl">
                 <Link to="/contact">Contact Us</Link>
           </Button>
             </div>
