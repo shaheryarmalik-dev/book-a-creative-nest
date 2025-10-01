@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { LogIn, UserPlus, Mail, Lock, User } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { auth } from "@/integrations/firebase/client";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -67,11 +68,7 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const onLoginSubmit = async (data: LoginForm) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
-      });
-      if (error) throw error;
+      await signInWithEmailAndPassword(auth, data.email, data.password);
       
       toast({
         title: "Login successful!",
@@ -80,10 +77,10 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
       
       loginForm.reset();
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Login failed",
-        description: (error as Error).message || "Invalid credentials. Please try again.",
+        description: error.message || "Invalid credentials. Please try again.",
         variant: "destructive"
       });
     } finally {
@@ -94,25 +91,7 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const onSignupSubmit = async (data: SignupForm) => {
     setIsLoading(true);
     try {
-      const { data: signUpData, error } = await supabase.auth.signUp({
-        email: data.email,
-        password: data.password,
-        options: {
-          data: { full_name: data.name },
-          emailRedirectTo: "https://shaheryarmalik-dev.github.io/book-a-creative-nest/#/"
-        }
-      });
-      if (error) throw error;
-
-      // If email confirmations are disabled, Supabase will create a session automatically.
-      // If not, attempt to sign in immediately so the flow works without email.
-      if (!signUpData.session) {
-        const { error: signInError } = await supabase.auth.signInWithPassword({
-          email: data.email,
-          password: data.password,
-        });
-        if (signInError) throw signInError;
-      }
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
       
       toast({
         title: "Account created!",
@@ -121,10 +100,10 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
 
       signupForm.reset();
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Signup failed",
-        description: (error as Error).message || "Something went wrong. Please try again.",
+        description: error.message || "Something went wrong. Please try again.",
         variant: "destructive"
       });
     } finally {

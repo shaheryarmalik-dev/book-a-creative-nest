@@ -3,13 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, LogIn, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AuthModal from "@/components/AuthModal";
-import { supabase } from "@/integrations/supabase/client";
+import { auth } from "@/integrations/firebase/client";
+import { signOut } from "firebase/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
-  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const location = useLocation();
 
   const navLinks = [
@@ -31,18 +33,13 @@ const Header = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  // Listen to auth state changes and set user email
   useEffect(() => {
-    const init = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setUserEmail(session?.user?.email ?? null);
-    };
-    init();
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUserEmail(session?.user?.email ?? null);
-      if (session) setAuthModalOpen(false);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      if (user) setAuthModalOpen(false);
     });
-    return () => sub.subscription.unsubscribe();
+
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -74,16 +71,14 @@ const Header = () => {
               </Link>
             ))}
             <div className="flex items-center gap-3 ml-6">
-              {userEmail ? (
+              {user ? (
                 <>
-                  <span className="text-sm text-gray-600 hidden lg:inline">{userEmail}</span>
+                  <span className="text-sm text-gray-600 hidden lg:inline">{user.email}</span>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={async () => {
-                      await supabase.auth.signOut();
-                      setUserEmail(null);
-                      window.location.reload();
+                      await signOut(auth);
                     }}
                   >
                     Sign Out
@@ -150,12 +145,30 @@ const Header = () => {
                 </Link>
               ))}
               <div className="flex gap-2">
-                <Button variant="ghost" className="w-fit" onClick={() => { setIsMenuOpen(false); openAuthModal("login"); }}>
-                  <LogIn className="mr-2" /> Log In
-                </Button>
-                <Button className="btn-hero w-fit" onClick={() => { setIsMenuOpen(false); openAuthModal("signup"); }}>
-                  <UserPlus className="mr-2" /> Sign Up
-                </Button>
+                {user ? (
+                  <>
+                    <span className="text-sm text-gray-600">{user.email}</span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={async () => {
+                        await signOut(auth);
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant="ghost" className="w-fit" onClick={() => { setIsMenuOpen(false); openAuthModal("login"); }}>
+                      <LogIn className="mr-2" /> Log In
+                    </Button>
+                    <Button className="btn-hero w-fit" onClick={() => { setIsMenuOpen(false); openAuthModal("signup"); }}>
+                      <UserPlus className="mr-2" /> Sign Up
+                    </Button>
+                  </>
+                )}
               </div>
             </nav>
           </div>
