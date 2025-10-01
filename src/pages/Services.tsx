@@ -1,8 +1,16 @@
-import { Camera, Video, MapPin, Users, Mic, Lightbulb, Zap, Shield, Award, CheckCircle2, Star } from "lucide-react";
+import { Camera, Video, MapPin, Users, Mic, Lightbulb, Zap, Shield, Award, CheckCircle2, Star, ChevronLeft, ChevronRight, Search, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Link } from "react-router-dom";
+// sample thumbnails (we reuse the location imagery to illustrate services like Airbnb cards)
+import studio01 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
+import studio02 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-02.jpg";
+import studio03 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-03.jpg";
+import studio04 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-04.jpg";
+import studio05 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-05.jpg";
 
 const Services = () => {
   const services = [
@@ -10,6 +18,7 @@ const Services = () => {
       icon: <Camera className="h-12 w-12" />,
       title: "Production Services",
       description: "Complete production support for your creative projects",
+      image: studio01,
       features: [
         "Pre-production planning",
         "Location scouting",
@@ -23,6 +32,7 @@ const Services = () => {
       icon: <Video className="h-12 w-12" />,
       title: "Filming & Photography",
       description: "Professional filming and photography services",
+      image: studio02,
       features: [
         "Professional camera equipment",
         "Lighting setup",
@@ -36,6 +46,7 @@ const Services = () => {
       icon: <MapPin className="h-12 w-12" />,
       title: "Location Scouting",
       description: "Expert location scouting to find the perfect space",
+      image: studio03,
       features: [
         "Location research",
         "Site visits",
@@ -49,6 +60,7 @@ const Services = () => {
       icon: <Users className="h-12 w-12" />,
       title: "Crewing Services",
       description: "Professional crew and talent for your productions",
+      image: studio04,
       features: [
         "Director coordination",
         "Cameraman services",
@@ -62,6 +74,7 @@ const Services = () => {
       icon: <Mic className="h-12 w-12" />,
       title: "Audio Services",
       description: "Professional audio recording and sound services",
+      image: studio05,
       features: [
         "Sound recording",
         "Audio mixing",
@@ -75,6 +88,7 @@ const Services = () => {
       icon: <Lightbulb className="h-12 w-12" />,
       title: "Creative Direction",
       description: "Creative direction and artistic guidance",
+      image: studio01,
       features: [
         "Creative consultation",
         "Art direction",
@@ -84,6 +98,13 @@ const Services = () => {
       ],
       price: "Contact for pricing"
     }
+  ];
+
+  // Group services into Airbnb-like categories/rows
+  const rows: { heading: string; items: typeof services }[] = [
+    { heading: "Production", items: services.filter(s => s.title.includes("Production") || s.title.includes("Creative")) },
+    { heading: "Filming & Photography", items: services.filter(s => s.title.includes("Filming") || s.title.includes("Audio")) },
+    { heading: "Logistics & Crew", items: services.filter(s => s.title.includes("Scouting") || s.title.includes("Crewing")) },
   ];
 
   const testimonials = [
@@ -144,60 +165,97 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Our Production Services
-            </h2>
-            <p className="text-xl text-gray-600">
-              Professional services for all your creative production needs
-            </p>
+      {/* Airbnb-like filter bar */}
+      <section className="sticky top-16 z-40 bg-white/90 backdrop-blur border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex flex-col md:flex-row gap-2">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                <Input placeholder="Where?" className="pl-12 h-12 rounded-xl" />
+              </div>
+            </div>
+            <div className="flex-1">
+              <div className="relative">
+                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                <Input type="date" className="pl-12 h-12 rounded-xl" />
+              </div>
+            </div>
+            <div className="flex-1">
+              <Select>
+                <SelectTrigger className="h-12 rounded-xl">
+                  <SelectValue placeholder="Type of service" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="production">Production</SelectItem>
+                  <SelectItem value="filming">Filming & Photography</SelectItem>
+                  <SelectItem value="scouting">Location Scouting</SelectItem>
+                  <SelectItem value="crew">Crewing</SelectItem>
+                  <SelectItem value="audio">Audio</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Button className="h-12 px-6 rounded-xl bg-black hover:bg-gray-800 text-white">Search</Button>
           </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
-                <CardHeader className="text-center pb-4">
-                  <div className="flex justify-center mb-4">
-                    <div className="p-4 bg-blue-100 rounded-full text-blue-600 group-hover:bg-blue-200 transition-colors">
-                      {service.icon}
+      {/* Airbnb-like rows */}
+      <section className="py-10 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          {rows.map((row, rIndex) => (
+            <div key={rIndex}>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-2xl font-bold text-gray-900">{row.heading}</h3>
+                <div className="flex gap-2">
+                  <button
+                    aria-label="scroll left"
+                    onClick={() => {
+                      const el = document.getElementById(`row-${rIndex}`);
+                      if (el) el.scrollBy({ left: -400, behavior: 'smooth' });
+                    }}
+                    className="p-2 rounded-full border hover:bg-gray-50"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button
+                    aria-label="scroll right"
+                    onClick={() => {
+                      const el = document.getElementById(`row-${rIndex}`);
+                      if (el) el.scrollBy({ left: 400, behavior: 'smooth' });
+                    }}
+                    className="p-2 rounded-full border hover:bg-gray-50"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+              <div id={`row-${rIndex}`} className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2">
+                {row.items.map((service, index) => (
+                  <div key={index} className="min-w-[280px] max-w-[280px] snap-start">
+                    <div className="relative h-48 w-full overflow-hidden rounded-xl shadow group">
+                      <img src={service.image} alt={service.title} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      <Badge className="absolute top-3 left-3 bg-white/90 text-gray-900">Service</Badge>
+                    </div>
+                    <div className="mt-3">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-semibold text-gray-900 line-clamp-1">{service.title}</h4>
+                        <div className="flex items-center gap-1">
+                          <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+                          <span className="text-sm text-gray-600">5.0</span>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-600 line-clamp-2">{service.description}</p>
+                      <div className="mt-2 text-sm text-gray-900 font-medium">{service.price}</div>
+                      <Button asChild className="mt-2 w-full"> 
+                        <Link to="/contact">Contact</Link>
+                      </Button>
                     </div>
                   </div>
-                  <CardTitle className="text-xl font-bold text-gray-900">
-                    {service.title}
-                  </CardTitle>
-                  <p className="text-gray-600 mt-2">
-                    {service.description}
-                  </p>
-                </CardHeader>
-                
-                <CardContent className="pt-0">
-                  <ul className="space-y-2 mb-6">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                        <CheckCircle2 className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <div className="text-center">
-                    <p className="text-lg font-semibold text-gray-900 mb-4">
-                      {service.price}
-                    </p>
-                    <Button 
-                      asChild 
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                    >
-                      <Link to="/contact">Contact Us</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
