@@ -54,7 +54,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -69,14 +69,14 @@ const About = () => {
       </section>
 
       {/* Production Insurance Banner */}
-      <section className="bg-blue-50 border-b border-blue-100">
+      <section className="bg-slate-800/50 border-b border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-center gap-3">
             <Shield className="h-6 w-6 text-blue-600" />
-            <span className="text-lg font-semibold text-blue-900">
+            <span className="text-lg font-semibold text-gray-100">
               Production Insurance Coverage: $2 Million
             </span>
-            <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+            <Badge variant="secondary" className="bg-blue-600 text-white">
               Protected
             </Badge>
           </div>
@@ -84,13 +84,13 @@ const About = () => {
       </section>
 
       {/* Our Story */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-slate-900/30">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gray-50 rounded-xl p-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
-            <div className="space-y-6 text-gray-600">
+          <div className="bg-slate-800/50 rounded-xl p-8 border border-slate-700">
+            <h2 className="text-3xl font-bold text-gray-100 mb-6">Our Story</h2>
+            <div className="space-y-6 text-gray-300">
               <p className="text-lg leading-relaxed">
-                <strong className="text-gray-900">FrameScout Locations</strong> is your complete production partner, 
+                <strong className="text-white">FrameScout Locations</strong> is your complete production partner, 
                 offering professional services and unique creative spaces for filmmakers, photographers, 
                 and content creators.
               </p>
@@ -100,7 +100,7 @@ const About = () => {
                 team of experienced professionals ensures your project is executed flawlessly.
               </p>
               <p className="text-lg leading-relaxed">
-                With <strong className="text-gray-900">$2 million in production insurance coverage</strong>, 
+                With <strong className="text-gray-100">$2 million in production insurance coverage</strong>, 
                 you can focus on your creative vision while we handle all the logistics and technical details.
               </p>
             </div>
@@ -109,13 +109,13 @@ const About = () => {
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-slate-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               Our Production Services
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Complete production support for all your creative needs
             </p>
           </div>
@@ -129,7 +129,7 @@ const About = () => {
                   </div>
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-                <p className="text-gray-600">{service.description}</p>
+                <p className="text-gray-300">{service.description}</p>
               </Card>
             ))}
           </div>
@@ -137,13 +137,13 @@ const About = () => {
       </section>
 
       {/* Stats */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-slate-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               Our Impact
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Trusted by creative professionals worldwide
             </p>
           </div>
@@ -152,7 +152,7 @@ const About = () => {
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-4xl font-bold text-blue-600 mb-2">{stat.number}</div>
-                <div className="text-gray-600">{stat.label}</div>
+                <div className="text-gray-300">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -160,13 +160,13 @@ const About = () => {
       </section>
 
       {/* Values */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-slate-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               Our Values
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               What drives us to deliver exceptional results
             </p>
           </div>
@@ -180,7 +180,7 @@ const About = () => {
                   </div>
                 </div>
                 <h3 className="text-xl font-semibold mb-4">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
+                <p className="text-gray-300">{value.description}</p>
               </Card>
             ))}
           </div>
@@ -188,13 +188,13 @@ const About = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-slate-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               Why Choose FrameScout Locations?
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Professional production services with industry expertise
             </p>
           </div>
@@ -205,7 +205,7 @@ const About = () => {
                 <Award className="h-8 w-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Industry Expertise</h3>
-              <p className="text-gray-600">Years of experience in production and creative services</p>
+              <p className="text-gray-300">Years of experience in production and creative services</p>
             </div>
             
             <div className="text-center">
@@ -213,7 +213,7 @@ const About = () => {
                 <Shield className="h-8 w-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Fully Insured</h3>
-              <p className="text-gray-600">$2 million production insurance coverage</p>
+              <p className="text-gray-300">$2 million production insurance coverage</p>
             </div>
             
             <div className="text-center">
@@ -221,7 +221,7 @@ const About = () => {
                 <Zap className="h-8 w-8 text-purple-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Fast Response</h3>
-              <p className="text-gray-600">Quick turnaround and efficient project management</p>
+              <p className="text-gray-300">Quick turnaround and efficient project management</p>
             </div>
           </div>
         </div>
