@@ -103,26 +103,26 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary/10 via-purple-50 to-pink-50 dark:from-primary/20 dark:via-purple-950/30 dark:to-pink-950/30 py-16">
+      <section className="bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             Get in Touch
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
           </p>
         </div>
       </section>
 
       {/* Production Insurance Banner */}
-      <section className="bg-blue-50 border-b border-blue-100">
+      <section className="bg-slate-800/50 border-b border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-center gap-3">
             <Shield className="h-6 w-6 text-blue-600" />
-            <span className="text-lg font-semibold text-blue-900">
+            <span className="text-lg font-semibold text-gray-100">
               Production Insurance Coverage: $2 Million
             </span>
-            <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+            <Badge variant="secondary" className="bg-blue-600 text-white">
               Protected
             </Badge>
           </div>

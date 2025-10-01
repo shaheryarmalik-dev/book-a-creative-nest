@@ -151,14 +151,14 @@ const Services = () => {
       </section>
 
       {/* Production Insurance Banner */}
-      <section className="bg-blue-50 border-b border-blue-100">
+      <section className="bg-slate-800/50 border-b border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-center gap-3">
             <Shield className="h-6 w-6 text-blue-600" />
-            <span className="text-lg font-semibold text-blue-900">
+            <span className="text-lg font-semibold text-gray-100">
               Production Insurance Coverage: $2 Million
             </span>
-            <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+            <Badge variant="secondary" className="bg-blue-600 text-white">
               Protected
             </Badge>
           </div>
@@ -166,7 +166,7 @@ const Services = () => {
       </section>
 
       {/* Airbnb-like filter bar */}
-      <section className="sticky top-16 z-40 bg-white/90 backdrop-blur border-b">
+      <section className="sticky top-16 z-40 bg-slate-900/95 backdrop-blur border-b border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex flex-col md:flex-row gap-2">
             <div className="flex-1">
@@ -201,12 +201,12 @@ const Services = () => {
       </section>
 
       {/* Airbnb-like rows */}
-      <section className="py-10 bg-white">
+      <section className="py-10 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           {rows.map((row, rIndex) => (
             <div key={rIndex}>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-bold text-gray-900">{row.heading}</h3>
+                <h3 className="text-2xl font-bold text-gray-100">{row.heading}</h3>
                 <div className="flex gap-2">
                   <button
                     aria-label="scroll left"
@@ -235,16 +235,16 @@ const Services = () => {
                   <div key={index} className="min-w-[200px] max-w-[200px] snap-start">
                     <div className="relative h-36 w-full overflow-hidden rounded-xl shadow group">
                       <img src={service.image} alt={service.title} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                      <Badge className="absolute top-3 left-3 bg-white/90 text-gray-900">Service</Badge>
+                      <Badge className="absolute top-3 left-3 bg-white/90 text-gray-100">Service</Badge>
                     </div>
                     <div className="mt-2">
-                      <h4 className="text-sm font-semibold text-gray-900 line-clamp-1">{service.title}</h4>
+                      <h4 className="text-sm font-semibold text-gray-100 line-clamp-1">{service.title}</h4>
                       <div className="flex items-center gap-1 mt-1">
                         <Star className="h-3.5 w-3.5 text-yellow-400 fill-yellow-400" />
-                        <span className="text-xs text-gray-600">5.0</span>
+                        <span className="text-xs text-gray-300">5.0</span>
                       </div>
-                      <p className="text-xs text-gray-600 line-clamp-2 mt-1">{service.description}</p>
-                      <div className="mt-1 text-xs text-gray-900 font-medium">{service.price}</div>
+                      <p className="text-xs text-gray-300 line-clamp-2 mt-1">{service.description}</p>
+                      <div className="mt-1 text-xs text-gray-100 font-medium">{service.price}</div>
                       <Button asChild variant="outline" className="mt-2 h-8 text-xs w-full"> 
                         <Link to="/contact">Contact</Link>
                       </Button>
@@ -258,13 +258,13 @@ const Services = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-slate-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               Why Choose Our Services?
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Professional production services with industry expertise
             </p>
           </div>
@@ -275,7 +275,7 @@ const Services = () => {
                 <Award className="h-8 w-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Industry Expertise</h3>
-              <p className="text-gray-600">Years of experience in production and creative services</p>
+              <p className="text-gray-300">Years of experience in production and creative services</p>
             </div>
             
             <div className="text-center">
@@ -283,7 +283,7 @@ const Services = () => {
                 <Shield className="h-8 w-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Fully Insured</h3>
-              <p className="text-gray-600">$2 million production insurance coverage</p>
+              <p className="text-gray-300">$2 million production insurance coverage</p>
             </div>
             
             <div className="text-center">
@@ -291,7 +291,7 @@ const Services = () => {
                 <Zap className="h-8 w-8 text-purple-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Fast Response</h3>
-              <p className="text-gray-600">Quick turnaround and efficient project management</p>
+              <p className="text-gray-300">Quick turnaround and efficient project management</p>
             </div>
             
             <div className="text-center">
@@ -299,20 +299,20 @@ const Services = () => {
                 <Star className="h-8 w-8 text-orange-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Quality Guaranteed</h3>
-              <p className="text-gray-600">High-quality results for every project</p>
+              <p className="text-gray-300">High-quality results for every project</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-slate-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               What Our Clients Say
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Trusted by creative professionals
             </p>
           </div>
@@ -325,9 +325,9 @@ const Services = () => {
                     <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 mb-4">"{testimonial.content}"</p>
+                <p className="text-gray-300 mb-4">"{testimonial.content}"</p>
                 <div>
-                  <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                  <p className="font-semibold text-gray-100">{testimonial.name}</p>
                   <p className="text-sm text-gray-500">{testimonial.role}</p>
                 </div>
               </Card>

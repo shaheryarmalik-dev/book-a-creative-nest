@@ -305,7 +305,7 @@ const Home = () => {
             begins
           </h1>
           <div className="flex justify-center mb-4">
-            <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
+            <Button asChild size="lg" className="bg-white text-gray-100 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
               <Link to="/locations">Find your space</Link>
             </Button>
           </div>
@@ -322,7 +322,7 @@ const Home = () => {
                     onChange={(e) => handlePlanningChange(e.target.value)}
                     onFocus={() => setShowPlanningSuggestions(true)}
                     onBlur={() => setTimeout(() => setShowPlanningSuggestions(false), 200)}
-                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900 placeholder-gray-500"
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-100 placeholder-gray-500"
                   />
                   {/* Planning Suggestions Dropdown */}
                   {showPlanningSuggestions && planningSuggestions.length > 0 && (
@@ -330,7 +330,7 @@ const Home = () => {
                       {planningSuggestions.map((planning, index) => (
                         <div
                           key={index}
-                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-900 border-b border-gray-100 last:border-b-0"
+                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-100 border-b border-gray-100 last:border-b-0"
                           onClick={() => selectPlanning(planning)}
                         >
                           <div className="flex items-center">
@@ -352,7 +352,7 @@ const Home = () => {
                     onChange={(e) => handleLocationChange(e.target.value)}
                     onFocus={() => setShowLocationSuggestions(true)}
                     onBlur={() => setTimeout(() => setShowLocationSuggestions(false), 200)}
-                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900 placeholder-gray-500"
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-100 placeholder-gray-500"
                   />
                   {/* Location Suggestions Dropdown */}
                   {showLocationSuggestions && locationSuggestions.length > 0 && (
@@ -360,7 +360,7 @@ const Home = () => {
                       {locationSuggestions.map((location, index) => (
                         <div
                           key={index}
-                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-900 border-b border-gray-100 last:border-b-0"
+                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-100 border-b border-gray-100 last:border-b-0"
                           onClick={() => selectLocation(location)}
                         >
                           <div className="flex items-center">
@@ -380,7 +380,7 @@ const Home = () => {
                     type="date"
                     value={searchDate}
                     onChange={(e) => setSearchDate(e.target.value)}
-                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900"
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-100"
                   />
                 </div>
               </div>
@@ -419,14 +419,14 @@ const Home = () => {
       </section>
 
       {/* Production Insurance Banner */}
-      <section className="bg-blue-50 border-b border-blue-100">
+      <section className="bg-slate-800/50 border-b border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-center gap-3">
             <Shield className="h-6 w-6 text-blue-600" />
-            <span className="text-lg font-semibold text-blue-900">
+            <span className="text-lg font-semibold text-gray-100">
               Production Insurance Coverage: $2 Million
             </span>
-            <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+            <Badge variant="secondary" className="bg-blue-600 text-white">
               Protected
             </Badge>
           </div>
@@ -434,13 +434,13 @@ const Home = () => {
       </section>
 
       {/* Interactive Location Categories - Peerspace Style */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-slate-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               A space for every moment
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Book a unique space for your activity
             </p>
                 </div>
@@ -477,9 +477,9 @@ const Home = () => {
                     <span className="text-gray-700 group-hover:text-blue-600 font-medium text-sm leading-tight">
                       {location.name}
                     </span>
-                  </div>
+                </div>
                 ))}
-              </div>
+                </div>
               
               <div className="text-center">
                 <Button 
@@ -487,7 +487,7 @@ const Home = () => {
                   className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-lg font-semibold rounded-lg"
                 >
                   <Link to="/locations">Browse all activities</Link>
-                </Button>
+              </Button>
               </div>
             </div>
 
@@ -516,7 +516,7 @@ const Home = () => {
       </section>
 
       {/* Why FrameScout Locations Section - Interactive Slider */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-slate-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Dynamic Image */}
@@ -534,7 +534,7 @@ const Home = () => {
             {/* Right Side - Slider Content */}
             <div className="space-y-6">
               <div className="space-y-4">
-                <h2 className="text-5xl font-bold text-gray-900 leading-tight">
+                <h2 className="text-5xl font-bold text-gray-100 leading-tight">
                   Why FrameScout
                   <br />
                   <span className="text-blue-600">Locations</span>
@@ -542,10 +542,10 @@ const Home = () => {
                 
                 {/* Single Slide Content */}
                 <div className="min-h-[200px] flex flex-col justify-center">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 transition-all duration-500">
+                  <h3 className="text-2xl font-bold text-gray-100 mb-4 transition-all duration-500">
                     {whyFrameScoutSlides[currentSlide].title}
                   </h3>
-                  <p className="text-lg text-gray-600 leading-relaxed transition-all duration-500">
+                  <p className="text-lg text-gray-300 leading-relaxed transition-all duration-500">
                     {whyFrameScoutSlides[currentSlide].description}
                   </p>
                 </div>
@@ -558,7 +558,7 @@ const Home = () => {
                     onClick={prevSlide}
                     className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
                   >
-                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
@@ -566,7 +566,7 @@ const Home = () => {
                     onClick={nextSlide}
                     className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
                   >
-                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
@@ -583,13 +583,13 @@ const Home = () => {
       {/* (Removed) Featured banner section per request */}
 
       {/* Services Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-slate-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               Our Production Services
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Complete production support for all your creative needs
             </p>
           </div>
@@ -603,7 +603,7 @@ const Home = () => {
                   </div>
                 </div>
                 <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-600 transition-colors">{service.title}</h3>
-                <p className="text-gray-600">{service.description}</p>
+                <p className="text-gray-300">{service.description}</p>
               </Card>
             ))}
           </div>
@@ -611,13 +611,13 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-slate-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               Trusted by Creative Professionals
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Join thousands of satisfied clients who trust FrameScout Locations
             </p>
           </div>
@@ -625,19 +625,19 @@ const Home = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">500+</div>
-              <div className="text-gray-600">Projects Completed</div>
+              <div className="text-gray-300">Projects Completed</div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
-              <div className="text-gray-600">Creative Spaces</div>
+              <div className="text-gray-300">Creative Spaces</div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">100+</div>
-              <div className="text-gray-600">Happy Clients</div>
+              <div className="text-gray-300">Happy Clients</div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">5+</div>
-              <div className="text-gray-600">Years Experience</div>
+              <div className="text-gray-300">Years Experience</div>
             </div>
           </div>
         </div>
@@ -645,13 +645,13 @@ const Home = () => {
 
 
       {/* Testimonials Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-slate-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               What Our Clients Say
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Trusted by creative professionals worldwide
             </p>
           </div>
@@ -684,7 +684,7 @@ const Home = () => {
                 <div className="flex items-center mb-4">
                   <div className="text-3xl mr-3">{testimonial.image}</div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                    <h4 className="font-semibold text-gray-100">{testimonial.name}</h4>
                     <p className="text-sm text-gray-500">{testimonial.role}</p>
                   </div>
                 </div>
@@ -693,7 +693,7 @@ const Home = () => {
                     <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   ))}
                   </div>
-                <p className="text-gray-600 italic">"{testimonial.content}"</p>
+                <p className="text-gray-300 italic">"{testimonial.content}"</p>
               </Card>
             ))}
           </div>
@@ -701,13 +701,13 @@ const Home = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-slate-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-100 mb-4">
               How It Works
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Get started with FrameScout Locations in three simple steps
             </p>
           </div>
@@ -740,8 +740,8 @@ const Home = () => {
                   </div>
                   <div className="text-4xl mb-4">{step.icon}</div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-600">{step.description}</p>
+                <h3 className="text-xl font-semibold text-gray-100 mb-3">{step.title}</h3>
+                <p className="text-gray-300">{step.description}</p>
               </div>
             ))}
           </div>
@@ -759,17 +759,17 @@ const Home = () => {
           <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
             <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4">
               Ready to Start Your Production?
-            </h2>
+          </h2>
             <p className="text-lg md:text-xl text-white/90 max-w-3xl mb-6">
               Find the perfect location for your next creative project
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
+              <Button asChild size="lg" className="bg-white text-gray-100 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
                 <Link to="/locations">Browse Locations</Link>
               </Button>
-              <Button asChild size="lg" className="rounded-full bg-white/90 text-gray-900 hover:bg-white px-8 py-6 text-lg font-semibold shadow-xl">
+              <Button asChild size="lg" className="rounded-full bg-white/90 text-gray-100 hover:bg-white px-8 py-6 text-lg font-semibold shadow-xl">
                 <Link to="/contact">Contact Us</Link>
-              </Button>
+          </Button>
             </div>
           </div>
         </div>

@@ -311,12 +311,12 @@ const Locations = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <div className="bg-slate-900 border-b border-slate-700 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-gray-900">Creative Spaces</h1>
-              <span className="text-gray-500">({filteredLocations.length} spaces)</span>
+              <h1 className="text-2xl font-bold text-gray-100">Creative Spaces</h1>
+              <span className="text-gray-400">({filteredLocations.length} spaces)</span>
             </div>
             
             <div className="flex items-center space-x-4">
@@ -424,11 +424,11 @@ const Locations = () => {
         </div>
 
       {/* Production Insurance Banner */}
-      <div className="bg-blue-50 border-b border-blue-100">
+      <div className="bg-slate-800/50 border-b border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center justify-center gap-3">
             <Shield className="h-5 w-5 text-blue-600" />
-            <span className="text-sm font-semibold text-blue-900">
+            <span className="text-sm font-semibold text-gray-100">
               Production Insurance Coverage: $2 Million
             </span>
             <Badge variant="secondary" className="bg-blue-100 text-blue-800">
@@ -461,13 +461,13 @@ const Locations = () => {
                       className={`h-5 w-5 ${
                         favorites.includes(location.id) 
                           ? 'fill-red-500 text-red-500' 
-                          : 'text-gray-600'
+                          : 'text-gray-300'
                       }`} 
                     />
                   </button>
                   
                   <div className="absolute top-4 left-4">
-                    <Badge className="bg-white/90 text-gray-900 hover:bg-white">
+                    <Badge className="bg-white/90 text-gray-100 hover:bg-white">
                       {location.type}
                     </Badge>
                   </div>
@@ -484,7 +484,7 @@ const Locations = () => {
                 
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold text-lg text-gray-900 line-clamp-2">
+                    <h3 className="font-semibold text-lg text-gray-100 line-clamp-2">
                       {location.title}
                     </h3>
                   </div>
@@ -495,7 +495,7 @@ const Locations = () => {
                     <span className="text-gray-500">({location.reviews} reviews)</span>
                   </div>
                   
-                  <p className="text-gray-600 mb-3">{location.location}</p>
+                  <p className="text-gray-300 mb-3">{location.location}</p>
                   
                   <div className="flex flex-wrap gap-1 mb-4">
                     {location.features.slice(0, 2).map((feature, index) => (
@@ -506,7 +506,7 @@ const Locations = () => {
                 </div>
                   
                   <div className="flex items-center justify-between">
-                    <span className="text-lg font-semibold text-gray-900">
+                    <span className="text-lg font-semibold text-gray-100">
                       Contact for pricing
                     </span>
                     <Button 
@@ -542,7 +542,7 @@ const Locations = () => {
                         className={`h-5 w-5 ${
                           favorites.includes(location.id) 
                             ? 'fill-red-500 text-red-500' 
-                            : 'text-gray-600'
+                            : 'text-gray-300'
                         }`} 
                       />
                     </button>
@@ -550,7 +550,7 @@ const Locations = () => {
                   
                   <CardContent className="flex-1 p-6">
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-semibold text-xl text-gray-900">
+                      <h3 className="font-semibold text-xl text-gray-100">
                       {location.title}
                     </h3>
                       <Badge className="bg-gray-100 text-gray-800">
@@ -564,7 +564,7 @@ const Locations = () => {
                       <span className="text-gray-500">({location.reviews} reviews)</span>
                   </div>
                   
-                    <p className="text-gray-600 mb-3">{location.location}</p>
+                    <p className="text-gray-300 mb-3">{location.location}</p>
                     
                     <div className="flex flex-wrap gap-1 mb-4">
                     {location.features.map((feature, index) => (
@@ -575,7 +575,7 @@ const Locations = () => {
                   </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-semibold text-gray-900">
+                      <span className="text-xl font-semibold text-gray-100">
                         Contact for pricing
                       </span>
                   <Button 
