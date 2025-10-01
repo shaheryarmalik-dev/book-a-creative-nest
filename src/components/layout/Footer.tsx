@@ -77,10 +77,15 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center">
-          <p className="text-gray-400 text-sm">
-            © {currentYear} FrameScout Locations. All rights reserved.
-          </p>
+        <div className="border-t border-gray-700 mt-8 pt-8">
+          <div className="text-center space-y-2">
+            <p className="text-gray-400 text-sm">
+              © {currentYear} FrameScout Locations. All rights reserved.
+            </p>
+            <p className="text-gray-500 text-xs">
+              EIN: 39-4495856 | Email: framescoutlocations@gmail.com
+            </p>
+          </div>
         </div>
       </div>
     </footer>
