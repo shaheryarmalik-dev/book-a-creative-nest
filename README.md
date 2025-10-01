@@ -23,25 +23,25 @@ Webhook (optional in dev):
 
 In the app, the booking form posts to `/api/create-checkout-session` and redirects to Stripe Checkout in USD, pricing by hours × hourly rate.
 
-# Welcome to your Lovable project
+# FrameScout Locations
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/b58e77d0-af05-4594-8d94-b1fa6d8db852
+Public site: https://shaheryarmalik-dev.github.io/book-a-creative-nest/#/
 
 ## How can I edit this code?
 
 There are several ways of editing your application.
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/b58e77d0-af05-4594-8d94-b1fa6d8db852) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
+Local development:
+```
+npm i
+npm run dev
+```
 
 **Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+If you want to work locally using your own IDE, clone this repo and push changes.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -85,14 +85,12 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## Deploy
 
-Simply open [Lovable](https://lovable.dev/projects/b58e77d0-af05-4594-8d94-b1fa6d8db852) and click on Share -> Publish.
+Deploy to GitHub Pages with:
+```
+npm run deploy
+```
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Custom domain
+You can connect a custom domain in your hosting provider settings.
