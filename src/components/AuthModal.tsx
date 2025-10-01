@@ -101,9 +101,19 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
       signupForm.reset();
       onClose();
     } catch (error: any) {
+      let errorMessage = "Something went wrong. Please try again.";
+      
+      if (error.code === 'auth/api-key-not-valid') {
+        errorMessage = "Firebase is not enabled. Please enable Authentication in Firebase Console.";
+      } else if (error.code === 'auth/email-already-in-use') {
+        errorMessage = "This email is already registered. Please log in instead.";
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = "Password should be at least 6 characters.";
+      }
+      
       toast({
         title: "Signup failed",
-        description: error.message || "Something went wrong. Please try again.",
+        description: errorMessage,
         variant: "destructive"
       });
     } finally {
