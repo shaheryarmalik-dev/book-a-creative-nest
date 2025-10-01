@@ -49,15 +49,15 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-gradient-to-r from-slate-100 via-blue-50 to-indigo-50 backdrop-blur-lg border-b border-blue-200/40 sticky top-0 z-50 shadow-xl">
+    <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 backdrop-blur-lg border-b border-slate-700/50 sticky top-0 z-50 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20 py-3">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-4 group">
             <img src="/book-a-creative-nest/logo.jpeg" alt="FrameScout Locations Logo" className="h-16 w-auto transition-all duration-300 group-hover:scale-105" />
             <div className="flex flex-col">
-              <span className="font-bold text-2xl text-gray-900 tracking-tight leading-none">FRAMESCOUT</span>
-              <span className="font-medium text-lg text-gray-700 tracking-wide leading-none">LOCATIONS</span>
+              <span className="font-bold text-2xl text-white tracking-tight leading-none">FRAMESCOUT</span>
+              <span className="font-medium text-lg text-gray-300 tracking-wide leading-none">LOCATIONS</span>
             </div>
           </Link>
 
@@ -69,12 +69,12 @@ const Header = () => {
                 to={link.href}
                 className={`font-semibold text-[15px] transition-all duration-200 relative group ${
                   isActive(link.href)
-                    ? "text-primary"
-                    : "text-gray-700 hover:text-primary"
+                    ? "text-blue-400"
+                    : "text-gray-200 hover:text-blue-400"
                 }`}
               >
                 {link.label}
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-200 ${
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
                   isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}></span>
               </Link>
@@ -82,7 +82,7 @@ const Header = () => {
             <div className="flex items-center gap-3 ml-6">
               {user ? (
                 <>
-                  <span className="text-sm text-gray-600 hidden lg:inline">{user.email}</span>
+                  <span className="text-sm text-gray-300 hidden lg:inline">{user.email}</span>
                   <Button
                     variant="outline"
                     size="sm"
@@ -99,7 +99,7 @@ const Header = () => {
                     variant="ghost" 
                     size="default" 
                     onClick={() => openAuthModal("login")} 
-                    className="font-semibold text-gray-700 hover:text-primary hover:bg-gray-50 px-5"
+                    className="font-semibold text-gray-200 hover:text-blue-400 hover:bg-slate-700/50 px-5"
                   >
                     <LogIn className="mr-2 h-4 w-4" /> Log In
                   </Button>
@@ -137,7 +137,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
+          <div className="md:hidden py-4 border-t border-slate-700/50 bg-slate-900/95">
             <nav className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <Link
@@ -145,8 +145,8 @@ const Header = () => {
                   to={link.href}
                   className={`font-medium transition-colors ${
                     isActive(link.href)
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "text-blue-400"
+                      : "text-gray-300 hover:text-blue-400"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -156,7 +156,7 @@ const Header = () => {
               <div className="flex gap-2">
                 {user ? (
                   <>
-                    <span className="text-sm text-gray-600">{user.email}</span>
+                    <span className="text-sm text-gray-300">{user.email}</span>
                     <Button
                       variant="outline"
                       size="sm"
