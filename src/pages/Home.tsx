@@ -16,13 +16,38 @@ import studio05 from "@/assets/locations/artsy-modern-apt-film-studio/creative-s
 import laGemImage from "@/assets/space-la-gem.jpg";
 import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
 
-const spaceImages = [studio01, studio02, studio03, studio04, studio05];
-
 const Home = () => {
   const navigate = useNavigate();
   const [searchLocation, setSearchLocation] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [searchGuests, setSearchGuests] = useState("");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Background images that will cycle through
+  const backgroundImages = [
+    studio01,
+    studio02,
+    studio03,
+    studio04,
+    studio05,
+    laGemImage,
+    joshuaTreeImage
+  ];
+
+  // Auto-rotate background images every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % backgroundImages.length
+      );
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
+
+  const handleSearch = () => {
+    navigate('/locations');
+  };
 
   const featuredLocations = [
     {
@@ -97,7 +122,7 @@ const Home = () => {
     {
       icon: <Camera className="h-8 w-8" />,
       title: "Production Services",
-      description: "Full-service production support for your creative projects"
+      description: "Complete production support from planning to execution"
     },
     {
       icon: <Video className="h-8 w-8" />,
@@ -116,83 +141,104 @@ const Home = () => {
     }
   ];
 
-  const handleSearch = () => {
-    navigate("/locations", { 
-      state: { 
-        location: searchLocation, 
-        date: searchDate, 
-        guests: searchGuests 
-      } 
-    });
-  };
-
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section - Peerspace Style */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Find the Perfect
-              <span className="block text-blue-400">Creative Space</span>
-          </h1>
-            <p className="text-xl md:text-2xl mb-12 text-gray-200">
-              Professional locations for filming, photography, events, and creative productions
-            </p>
-            
-            {/* Search Bar - Peerspace Style */}
-            <div className="bg-white rounded-2xl p-2 shadow-2xl max-w-4xl mx-auto">
-              <div className="flex flex-col md:flex-row gap-2">
-                <div className="flex-1">
-                  <div className="relative">
-                    <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input
-                      placeholder="Where do you need a space?"
-                      value={searchLocation}
-                      onChange={(e) => setSearchLocation(e.target.value)}
-                      className="pl-12 h-14 text-lg border-0 focus:ring-0"
-                    />
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="relative">
-                    <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input
-                      type="date"
-                      value={searchDate}
-                      onChange={(e) => setSearchDate(e.target.value)}
-                      className="pl-12 h-14 text-lg border-0 focus:ring-0"
-                    />
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="relative">
-                    <Users className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Select value={searchGuests} onValueChange={setSearchGuests}>
-                      <SelectTrigger className="pl-12 h-14 text-lg border-0 focus:ring-0">
-                        <SelectValue placeholder="How many people?" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1-5">1-5 people</SelectItem>
-                        <SelectItem value="6-10">6-10 people</SelectItem>
-                        <SelectItem value="11-20">11-20 people</SelectItem>
-                        <SelectItem value="21-50">21-50 people</SelectItem>
-                        <SelectItem value="50+">50+ people</SelectItem>
-                      </SelectContent>
-                    </Select>
-                </div>
-                </div>
-                <Button 
-                  onClick={handleSearch}
-                  className="h-14 px-8 bg-blue-600 hover:bg-blue-700 text-lg font-semibold rounded-xl"
-                >
-                  <Search className="mr-2 h-5 w-5" />
-                  Search
-                </Button>
+      {/* Hero Section - Peerspace Style with Dynamic Background */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Dynamic Background Images */}
+        <div className="absolute inset-0 z-0">
+          {backgroundImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <img
+                src={image}
+                alt={`Background ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40"></div>
             </div>
+          ))}
+        </div>
+
+        {/* Content Overlay */}
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+            Find a space.
+            <br />
+            <span className="text-blue-400">Fulfill your vision.</span>
+          </h1>
+          
+          {/* Search Bar - Peerspace Style */}
+          <div className="bg-white rounded-2xl p-2 shadow-2xl max-w-4xl mx-auto mb-8">
+            <div className="flex flex-col md:flex-row gap-2">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    placeholder="What are you planning?"
+                    value={searchLocation}
+                    onChange={(e) => setSearchLocation(e.target.value)}
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl"
+                  />
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="relative">
+                  <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    placeholder="Where?"
+                    value={searchLocation}
+                    onChange={(e) => setSearchLocation(e.target.value)}
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl"
+                  />
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="relative">
+                  <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    type="date"
+                    value={searchDate}
+                    onChange={(e) => setSearchDate(e.target.value)}
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl"
+                  />
+                </div>
+              </div>
+              <Button 
+                onClick={handleSearch}
+                className="h-14 px-8 bg-black hover:bg-gray-800 text-white text-lg font-semibold rounded-xl"
+              >
+                <Search className="mr-2 h-5 w-5" />
+                Search
+              </Button>
             </div>
           </div>
+
+          {/* Bottom Banner - Peerspace Style */}
+          <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
+            <div className="flex items-center justify-between text-white">
+              <div>
+                <p className="text-sm text-gray-300">Event — Unique outdoor space</p>
+                <p className="text-lg font-semibold">LOS ANGELES, CA</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-300">Professional Location</p>
+                <p className="text-lg font-semibold">FrameScout Locations</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Floating Elements Animation */}
+        <div className="absolute inset-0 z-5 pointer-events-none">
+          <div className="absolute top-20 left-10 w-4 h-4 bg-blue-400/30 rounded-full animate-pulse"></div>
+          <div className="absolute top-40 right-20 w-6 h-6 bg-yellow-400/30 rounded-full animate-bounce"></div>
+          <div className="absolute bottom-40 left-20 w-3 h-3 bg-green-400/30 rounded-full animate-ping"></div>
+          <div className="absolute bottom-20 right-10 w-5 h-5 bg-purple-400/30 rounded-full animate-pulse"></div>
         </div>
       </section>
 
@@ -211,7 +257,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Locations - Airbnb Style */}
+      {/* Featured Locations - Peerspace Style */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -224,25 +270,30 @@ const Home = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredLocations.map((location) => (
-              <Card key={location.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
+            {featuredLocations.map((location, index) => (
+              <Card 
+                key={location.id} 
+                className="group cursor-pointer hover:shadow-2xl transition-all duration-500 border-0 shadow-lg hover:-translate-y-2"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
                 <div className="relative overflow-hidden rounded-t-lg">
                   <img 
                     src={location.image} 
                     alt={location.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute top-4 right-4">
-                    <Badge className="bg-white/90 text-gray-900 hover:bg-white">
+                    <Badge className="bg-white/90 text-gray-900 hover:bg-white backdrop-blur-sm">
                       {location.type}
                     </Badge>
                   </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold text-lg text-gray-900 line-clamp-2">
+                    <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
                       {location.title}
-                  </h3>
+                    </h3>
                   </div>
                   
                   <div className="flex items-center gap-1 mb-2">
@@ -254,8 +305,8 @@ const Home = () => {
                   <p className="text-gray-600 mb-3">{location.location}</p>
                   
                   <div className="flex flex-wrap gap-1 mb-4">
-                    {location.features.slice(0, 2).map((feature, index) => (
-                      <Badge key={index} variant="outline" className="text-xs">
+                    {location.features.map((feature, featureIndex) => (
+                      <Badge key={featureIndex} variant="outline" className="text-xs">
                         {feature}
                       </Badge>
                     ))}
@@ -267,7 +318,7 @@ const Home = () => {
                     </span>
                     <Button 
                       asChild 
-                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      className="bg-blue-600 hover:bg-blue-700 text-white hover:scale-105 transition-transform"
                     >
                       <Link to="/contact">Contact Us</Link>
                     </Button>
@@ -276,40 +327,30 @@ const Home = () => {
               </Card>
             ))}
           </div>
-
-          <div className="text-center mt-12">
-            <Button 
-              asChild 
-              size="lg" 
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg"
-            >
-              <Link to="/locations">View All Locations</Link>
-            </Button>
-          </div>
         </div>
       </section>
 
-      {/* Production Services - MrLocationScout Style */}
+      {/* Services Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Complete Production Services
+              Our Production Services
             </h2>
             <p className="text-xl text-gray-600">
-              Everything you need for your creative production
+              Complete production support for all your creative needs
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="text-center p-8 hover:shadow-lg transition-shadow">
-                <div className="flex justify-center mb-4">
-                  <div className="p-4 bg-blue-100 rounded-full text-blue-600">
+              <Card key={index} className="text-center p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                <div className="flex justify-center mb-6">
+                  <div className="p-4 bg-blue-100 rounded-full text-blue-600 group-hover:bg-blue-200 group-hover:scale-110 transition-all duration-300">
                     {service.icon}
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+                <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-600 transition-colors">{service.title}</h3>
                 <p className="text-gray-600">{service.description}</p>
               </Card>
             ))}
@@ -318,30 +359,30 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 text-white">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold mb-6">
             Ready to Start Your Production?
           </h2>
           <p className="text-xl mb-8 text-blue-100">
-            Contact us to discuss your project and get a custom quote
+            Find the perfect location for your next creative project
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               asChild 
               size="lg" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg"
+              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg hover:scale-105 transition-transform"
             >
-              <Link to="/contact">Get Started</Link>
+              <Link to="/locations">Browse Locations</Link>
             </Button>
             <Button 
               asChild 
               variant="outline" 
               size="lg" 
-              className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-lg"
+              className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-lg hover:scale-105 transition-transform"
             >
-              <Link to="/locations">Browse Locations</Link>
-          </Button>
+              <Link to="/contact">Contact Us</Link>
+            </Button>
           </div>
         </div>
       </section>
