@@ -480,6 +480,87 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Why FrameScout Locations Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Image */}
+            <div className="relative">
+              <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
+                <img 
+                  src={studio01} 
+                  alt="Professional production setup"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              </div>
+            </div>
+
+            {/* Right Side - Content */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h2 className="text-5xl font-bold text-gray-900 leading-tight">
+                  Why FrameScout
+                  <br />
+                  <span className="text-blue-600">Locations</span>
+                </h2>
+                
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                      New and never-ending possibilities
+                    </h3>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      Find everything from professionally equipped studios to unconventional rooms and residences. 
+                      From vintage Cuban kitchens to modern art studios, we offer the perfect backdrop for your creative vision.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                      Complete production support
+                    </h3>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      Beyond just spaces, we provide full production services including location scouting, 
+                      crew coordination, and professional equipment. Your creative vision, our expertise.
+                    </p>
+                  </div>
+
+                <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                      $2M Production Insurance
+                    </h3>
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      Every project is protected with comprehensive production insurance coverage, 
+                      giving you peace of mind for your most important shoots.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Navigation indicators */}
+              <div className="flex items-center justify-between pt-6">
+                <div className="flex items-center space-x-4">
+                  <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="text-sm text-gray-500 font-medium">
+                  01 / 03
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Locations - Peerspace Style */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
