@@ -22,6 +22,8 @@ const Home = () => {
   const [searchDate, setSearchDate] = useState("");
   const [searchGuests, setSearchGuests] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
+  const [locationSuggestions, setLocationSuggestions] = useState([]);
 
   // Background images that will cycle through
   const backgroundImages = [
@@ -34,6 +36,20 @@ const Home = () => {
     joshuaTreeImage
   ];
 
+  // Location suggestions data
+  const locationOptions = [
+    "Los Angeles, CA",
+    "New York, NY", 
+    "Chicago, IL",
+    "Miami, FL",
+    "San Francisco, CA",
+    "Austin, TX",
+    "Seattle, WA",
+    "Boston, MA",
+    "Denver, CO",
+    "Nashville, TN"
+  ];
+
   // Auto-rotate background images every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
@@ -44,6 +60,25 @@ const Home = () => {
 
     return () => clearInterval(interval);
   }, [backgroundImages.length]);
+
+  // Handle location search with suggestions
+  const handleLocationChange = (value) => {
+    setSearchLocation(value);
+    if (value.length > 0) {
+      const filtered = locationOptions.filter(location => 
+        location.toLowerCase().includes(value.toLowerCase())
+      );
+      setLocationSuggestions(filtered);
+      setShowLocationSuggestions(true);
+    } else {
+      setShowLocationSuggestions(false);
+    }
+  };
+
+  const selectLocation = (location) => {
+    setSearchLocation(location);
+    setShowLocationSuggestions(false);
+  };
 
   const handleSearch = () => {
     navigate('/locations');
@@ -177,34 +212,51 @@ const Home = () => {
             <div className="flex flex-col md:flex-row gap-2">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                   <Input
                     placeholder="What are you planning?"
-                    value={searchLocation}
-                    onChange={(e) => setSearchLocation(e.target.value)}
-                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl"
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900 placeholder-gray-500"
                   />
                 </div>
               </div>
               <div className="flex-1">
                 <div className="relative">
-                  <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                   <Input
                     placeholder="Where?"
                     value={searchLocation}
-                    onChange={(e) => setSearchLocation(e.target.value)}
-                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl"
+                    onChange={(e) => handleLocationChange(e.target.value)}
+                    onFocus={() => setShowLocationSuggestions(true)}
+                    onBlur={() => setTimeout(() => setShowLocationSuggestions(false), 200)}
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900 placeholder-gray-500"
                   />
+                  {/* Location Suggestions Dropdown */}
+                  {showLocationSuggestions && locationSuggestions.length > 0 && (
+                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg z-50 mt-1 max-h-60 overflow-y-auto">
+                      {locationSuggestions.map((location, index) => (
+                        <div
+                          key={index}
+                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-900 border-b border-gray-100 last:border-b-0"
+                          onClick={() => selectLocation(location)}
+                        >
+                          <div className="flex items-center">
+                            <MapPin className="h-4 w-4 text-gray-400 mr-3" />
+                            <span className="text-sm">{location}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="flex-1">
                 <div className="relative">
-                  <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                   <Input
                     type="date"
                     value={searchDate}
                     onChange={(e) => setSearchDate(e.target.value)}
-                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl"
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900"
                   />
                 </div>
               </div>
@@ -221,7 +273,7 @@ const Home = () => {
           {/* Bottom Banner - Peerspace Style */}
           <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
             <div className="flex items-center justify-between text-white">
-              <div>
+                <div>
                 <p className="text-sm text-gray-300">Event — Unique outdoor space</p>
                 <p className="text-lg font-semibold">LOS ANGELES, CA</p>
               </div>
@@ -435,7 +487,7 @@ const Home = () => {
               Trusted by creative professionals worldwide
             </p>
           </div>
-
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
@@ -552,7 +604,7 @@ const Home = () => {
               className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-lg hover:scale-105 transition-transform"
             >
               <Link to="/contact">Contact Us</Link>
-            </Button>
+          </Button>
           </div>
         </div>
       </section>

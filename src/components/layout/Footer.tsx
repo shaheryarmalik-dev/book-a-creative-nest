@@ -85,7 +85,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © {currentYear} Book-A-Space. All rights reserved.
+            © {currentYear} FrameScout Locations. All rights reserved.
           </p>
         </div>
       </div>
