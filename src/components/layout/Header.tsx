@@ -35,6 +35,11 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
+    // Avoid initializing Firebase auth listener on GitHub Pages to prevent API key domain errors
+    if (typeof window !== 'undefined' && window.location.hostname.endsWith('github.io')) {
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       if (user) setAuthModalOpen(false);
