@@ -11,8 +11,11 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <img src="/book-a-creative-nest/logo.jpeg" alt="FrameScout Locations Logo" className="h-10 w-auto" />
-              <span className="font-bold text-2xl text-white">FrameScout Locations</span>
+              <img src="/book-a-creative-nest/logo.jpeg" alt="FrameScout Locations Logo" className="h-12 w-auto" />
+              <div className="flex flex-col">
+                <span className="font-bold text-xl text-white tracking-tight leading-none">FRAMESCOUT</span>
+                <span className="font-medium text-base text-gray-300 tracking-wide leading-none">LOCATIONS</span>
+              </div>
             </div>
             <p className="text-gray-400 text-sm max-w-md leading-relaxed">
               Professional location scouting and creative space rentals. From studios to unique venues, 

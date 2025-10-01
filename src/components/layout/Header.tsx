@@ -48,9 +48,12 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20 py-3">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <img src="/book-a-creative-nest/logo.jpeg" alt="FrameScout Locations Logo" className="h-14 w-auto transition-all duration-300 group-hover:scale-105" />
-            <span className="font-bold text-2xl text-gray-900 tracking-tight">FrameScout Locations</span>
+          <Link to="/" className="flex items-center space-x-4 group">
+            <img src="/book-a-creative-nest/logo.jpeg" alt="FrameScout Locations Logo" className="h-16 w-auto transition-all duration-300 group-hover:scale-105" />
+            <div className="flex flex-col">
+              <span className="font-bold text-2xl text-gray-900 tracking-tight leading-none">FRAMESCOUT</span>
+              <span className="font-medium text-lg text-gray-700 tracking-wide leading-none">LOCATIONS</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
