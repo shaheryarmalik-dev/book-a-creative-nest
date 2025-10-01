@@ -330,7 +330,7 @@ const Home = () => {
                       {planningSuggestions.map((planning, index) => (
                         <div
                           key={index}
-                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-100 border-b border-gray-100 last:border-b-0"
+                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-900 border-b border-gray-200 last:border-b-0"
                           onClick={() => selectPlanning(planning)}
                         >
                           <div className="flex items-center">
@@ -360,7 +360,7 @@ const Home = () => {
                       {locationSuggestions.map((location, index) => (
                         <div
                           key={index}
-                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-100 border-b border-gray-100 last:border-b-0"
+                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-900 border-b border-gray-200 last:border-b-0"
                           onClick={() => selectLocation(location)}
                         >
                           <div className="flex items-center">
