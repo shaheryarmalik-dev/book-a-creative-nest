@@ -580,17 +580,31 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Locations - Peerspace Style */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+      {/* Featured Locations - Peerspace Style with banner */}
+      <section className="py-0 bg-gray-50">
+        {/* Banner */}
+        <div
+          className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden"
+        >
+          <div
+            className="absolute inset-0 bg-center bg-cover"
+            style={{ backgroundImage: `url(${studio01})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+            <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4">
               Featured Creative Spaces
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-lg md:text-xl text-white/90 max-w-3xl mb-6">
               Professional locations for your next production
             </p>
+            <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
+              <Link to="/locations">Browse all locations</Link>
+              </Button>
           </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredLocations.map((location, index) => (
