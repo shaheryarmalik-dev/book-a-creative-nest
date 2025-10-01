@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { MapPin, DollarSign, LayoutGrid, List as ListIcon, SlidersHorizontal, Heart, Star, Users, Award, Shield, TrendingUp, Search, Filter, Calendar } from "lucide-react";
+import { MapPin, DollarSign, LayoutGrid, List as ListIcon, SlidersHorizontal, Heart, Star, Users, Award, Shield, TrendingUp, Search, Filter, Calendar, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,10 +10,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerFooter, DrawerTrigger, DrawerClose } from "@/components/ui/drawer";
 import { useToast } from "@/hooks/use-toast";
 
-// Use image paths directly
-const laGemImage = "/src/assets/space-la-gem.jpg";
-const joshuaTreeImage = "/src/assets/space-joshua-tree.jpg";
-const artsyModernAptImage = "/src/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
+// Import images properly for Vite
+import laGemImage from "@/assets/space-la-gem.jpg";
+import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
+import artsyModernAptImage from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
 
 const Locations = () => {
   const { toast } = useToast();
@@ -246,7 +246,7 @@ const Locations = () => {
       case 'bookings':
         return b.bookings - a.bookings;
       default:
-        return 0;
+    return 0;
     }
   });
 
@@ -288,22 +288,22 @@ const Locations = () => {
                     <DrawerTitle>Filters</DrawerTitle>
                   </DrawerHeader>
                   <div className="p-6 space-y-6">
-                    <div>
+            <div>
                       <label className="text-sm font-medium mb-2 block">Space Type</label>
                       <Select value={filters.type} onValueChange={(value) => setFilters(prev => ({ ...prev, type: value }))}>
-                        <SelectTrigger>
+                <SelectTrigger>
                           <SelectValue placeholder="All types" />
-                        </SelectTrigger>
-                        <SelectContent>
+                </SelectTrigger>
+                <SelectContent>
                           <SelectItem value="">All types</SelectItem>
                           {locationTypes.map(type => (
                             <SelectItem key={type} value={type}>{type}</SelectItem>
                           ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                </SelectContent>
+              </Select>
+            </div>
                     
-                    <div>
+            <div>
                       <label className="text-sm font-medium mb-2 block">Minimum Rating</label>
                       <Select value={filters.rating.toString()} onValueChange={(value) => setFilters(prev => ({ ...prev, rating: parseInt(value) }))}>
                         <SelectTrigger>
@@ -316,8 +316,8 @@ const Locations = () => {
                           <SelectItem value="4.8">4.8+ stars</SelectItem>
                         </SelectContent>
                       </Select>
-                    </div>
-                  </div>
+            </div>
+            </div>
                   <DrawerFooter>
                     <DrawerClose asChild>
                       <Button>Apply Filters</Button>
@@ -328,14 +328,14 @@ const Locations = () => {
 
               {/* View Toggle */}
               <div className="flex border border-gray-200 rounded-lg">
-                <Button
+              <Button
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                  size="sm"
+                size="sm"
                   onClick={() => setViewMode('grid')}
                   className="rounded-r-none"
                 >
                   <LayoutGrid className="h-4 w-4" />
-                </Button>
+              </Button>
                 <Button
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
@@ -354,14 +354,14 @@ const Locations = () => {
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-48">
                   <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
+              </SelectTrigger>
+              <SelectContent>
                   <SelectItem value="relevance">Relevance</SelectItem>
                   <SelectItem value="rating">Highest Rated</SelectItem>
                   <SelectItem value="reviews">Most Reviews</SelectItem>
                   <SelectItem value="bookings">Most Popular</SelectItem>
-                </SelectContent>
-              </Select>
+              </SelectContent>
+            </Select>
             </div>
           </div>
         </div>
@@ -379,8 +379,8 @@ const Locations = () => {
               Protected
             </Badge>
           </div>
-        </div>
-      </div>
+                </div>
+              </div>
 
       {/* Locations Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -389,9 +389,9 @@ const Locations = () => {
             {sortedLocations.map((location) => (
               <Card key={location.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
                 <div className="relative overflow-hidden rounded-t-lg">
-                  <img 
-                    src={location.image} 
-                    alt={location.title}
+                    <img 
+                      src={location.image} 
+                      alt={location.title}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <button
@@ -522,12 +522,12 @@ const Locations = () => {
                       <span className="text-xl font-semibold text-gray-900">
                         Contact for pricing
                       </span>
-                      <Button 
-                        asChild 
+                  <Button 
+                    asChild 
                         className="bg-blue-600 hover:bg-blue-700 text-white"
-                      >
+                  >
                         <Link to="/contact">Contact Us</Link>
-                      </Button>
+                  </Button>
                     </div>
                   </CardContent>
                 </div>
@@ -545,8 +545,8 @@ const Locations = () => {
               className="mt-4"
             >
               Clear Filters
-            </Button>
-          </div>
+          </Button>
+        </div>
         )}
       </div>
     </div>
