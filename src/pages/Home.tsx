@@ -392,7 +392,7 @@ const Home = () => {
                 Search
               </Button>
             </div>
-          </div>
+                </div>
 
           {/* Bottom Banner - Peerspace Style */}
           <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
@@ -443,11 +443,11 @@ const Home = () => {
             <p className="text-xl text-gray-600">
               Book a unique space for your activity
             </p>
-          </div>
+                </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Left Side - Location Categories Grid */}
-            <div>
+                <div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
                 {[
                   { name: "Vintage Cuban Elegance", image: studio01, location: "Los Angeles, CA" },
@@ -575,20 +575,20 @@ const Home = () => {
                   {String(currentSlide + 1).padStart(2, '0')} / {String(whyFrameScoutSlides.length).padStart(2, '0')}
                 </div>
               </div>
+                </div>
+                </div>
             </div>
-          </div>
-        </div>
       </section>
 
       {/* Featured Locations - Peerspace Style with banner */}
       <section className="py-0 bg-gray-50">
         {/* Banner */}
         <div
-          className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden"
+          className="relative h-[70vh] md:h-[85vh] w-full overflow-hidden"
         >
           <div
             className="absolute inset-0 bg-center bg-cover"
-            style={{ backgroundImage: `url(${studio01})` }}
+            style={{ backgroundImage: `url(${studio05})` }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
           <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
@@ -720,7 +720,7 @@ const Home = () => {
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   ))}
-                </div>
+                  </div>
                 <p className="text-gray-600 italic">"{testimonial.content}"</p>
               </Card>
             ))}

@@ -392,17 +392,17 @@ const Locations = () => {
                 >
                   <LayoutGrid className="h-4 w-4" />
               </Button>
-                <Button
+              <Button
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
-                  size="sm"
+                size="sm"
                   onClick={() => setViewMode('list')}
                   className="rounded-l-none"
                 >
                   <ListIcon className="h-4 w-4" />
                 </Button>
-              </div>
-            </div>
           </div>
+        </div>
+      </div>
 
           {/* Sort */}
           <div className="mt-4 flex items-center justify-between">
@@ -419,9 +419,9 @@ const Locations = () => {
               </SelectContent>
             </Select>
             </div>
+            </div>
           </div>
         </div>
-      </div>
 
       {/* Production Insurance Banner */}
       <div className="bg-blue-50 border-b border-blue-100">
@@ -434,9 +434,9 @@ const Locations = () => {
             <Badge variant="secondary" className="bg-blue-100 text-blue-800">
               Protected
             </Badge>
-          </div>
+                  </div>
+                  </div>
                 </div>
-              </div>
 
       {/* Locations Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -503,7 +503,7 @@ const Locations = () => {
                         {feature}
                       </Badge>
                     ))}
-                  </div>
+                </div>
                   
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-semibold text-gray-900">
@@ -515,11 +515,11 @@ const Locations = () => {
                     >
                       <Link to="/contact">Contact Us</Link>
                     </Button>
-                  </div>
+                </div>
                 </CardContent>
               </Card>
             ))}
-          </div>
+              </div>
         ) : (
           <div className="space-y-4">
             {sortedLocations.map((location) => (
@@ -551,29 +551,29 @@ const Locations = () => {
                   <CardContent className="flex-1 p-6">
                     <div className="flex items-start justify-between mb-2">
                       <h3 className="font-semibold text-xl text-gray-900">
-                        {location.title}
-                      </h3>
+                      {location.title}
+                    </h3>
                       <Badge className="bg-gray-100 text-gray-800">
                         {location.type}
                       </Badge>
-                    </div>
+                  </div>
                     
                     <div className="flex items-center gap-1 mb-2">
                       <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                       <span className="font-medium">{location.rating}</span>
                       <span className="text-gray-500">({location.reviews} reviews)</span>
-                    </div>
-                    
+                  </div>
+                  
                     <p className="text-gray-600 mb-3">{location.location}</p>
                     
                     <div className="flex flex-wrap gap-1 mb-4">
-                      {location.features.map((feature, index) => (
+                    {location.features.map((feature, index) => (
                         <Badge key={index} variant="outline" className="text-xs">
-                          {feature}
-                        </Badge>
-                      ))}
-                    </div>
-                    
+                        {feature}
+                      </Badge>
+                    ))}
+                  </div>
+
                     <div className="flex items-center justify-between">
                       <span className="text-xl font-semibold text-gray-900">
                         Contact for pricing
