@@ -7,14 +7,16 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 
-// Import space images for featured locations
-const spaceImages = [
-  "/src/assets/creative-space-la-film-photography-studio-01.jpg",
-  "/src/assets/creative-space-la-film-photography-studio-02.jpg", 
-  "/src/assets/creative-space-la-film-photography-studio-03.jpg",
-  "/src/assets/creative-space-la-film-photography-studio-04.jpg",
-  "/src/assets/creative-space-la-film-photography-studio-05.jpg"
-];
+// Import actual space images for featured locations
+import studio01 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
+import studio02 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-02.jpg";
+import studio03 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-03.jpg";
+import studio04 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-04.jpg";
+import studio05 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-05.jpg";
+import laGemImage from "@/assets/space-la-gem.jpg";
+import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
+
+const spaceImages = [studio01, studio02, studio03, studio04, studio05];
 
 const Home = () => {
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ const Home = () => {
       id: 1,
       title: "Vintage Cuban Elegance - Luxurious Latin Kitchen",
       location: "Los Angeles, CA",
-      image: spaceImages[0],
+      image: studio01,
       rating: 4.9,
       reviews: 127,
       price: "Contact for pricing",
@@ -38,7 +40,7 @@ const Home = () => {
       id: 2,
       title: "Artsy Beautiful Home",
       location: "Los Angeles, CA", 
-      image: spaceImages[1],
+      image: laGemImage,
       rating: 4.8,
       reviews: 89,
       price: "Contact for pricing",
@@ -49,7 +51,7 @@ const Home = () => {
       id: 3,
       title: "Creative Space LA - Film Photography Studio",
       location: "Los Angeles, CA",
-      image: spaceImages[2], 
+      image: studio02,
       rating: 4.9,
       reviews: 156,
       price: "Contact for pricing",
@@ -60,10 +62,10 @@ const Home = () => {
       id: 4,
       title: "Industrial Loft Space",
       location: "Los Angeles, CA",
-      image: spaceImages[3],
+      image: joshuaTreeImage,
       rating: 4.7,
       reviews: 73,
-      price: "Contact for pricing", 
+      price: "Contact for pricing",
       type: "Industrial",
       features: ["High Ceilings", "Exposed Brick", "Loading Access"]
     },
@@ -71,7 +73,7 @@ const Home = () => {
       id: 5,
       title: "Modern Office Space",
       location: "Los Angeles, CA",
-      image: spaceImages[4],
+      image: studio03,
       rating: 4.8,
       reviews: 94,
       price: "Contact for pricing",
@@ -81,8 +83,8 @@ const Home = () => {
     {
       id: 6,
       title: "Rooftop Event Space",
-      location: "Los Angeles, CA", 
-      image: spaceImages[0],
+      location: "Los Angeles, CA",
+      image: studio04,
       rating: 4.9,
       reviews: 112,
       price: "Contact for pricing",
@@ -134,7 +136,7 @@ const Home = () => {
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
               Find the Perfect
               <span className="block text-blue-400">Creative Space</span>
-            </h1>
+          </h1>
             <p className="text-xl md:text-2xl mb-12 text-gray-200">
               Professional locations for filming, photography, events, and creative productions
             </p>
@@ -179,7 +181,7 @@ const Home = () => {
                         <SelectItem value="50+">50+ people</SelectItem>
                       </SelectContent>
                     </Select>
-                  </div>
+                </div>
                 </div>
                 <Button 
                   onClick={handleSearch}
@@ -188,7 +190,7 @@ const Home = () => {
                   <Search className="mr-2 h-5 w-5" />
                   Search
                 </Button>
-              </div>
+            </div>
             </div>
           </div>
         </div>
@@ -220,7 +222,7 @@ const Home = () => {
               Professional locations for your next production
             </p>
           </div>
-
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredLocations.map((location) => (
               <Card key={location.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
@@ -240,7 +242,7 @@ const Home = () => {
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="font-semibold text-lg text-gray-900 line-clamp-2">
                       {location.title}
-                    </h3>
+                  </h3>
                   </div>
                   
                   <div className="flex items-center gap-1 mb-2">
@@ -339,7 +341,7 @@ const Home = () => {
               className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-lg"
             >
               <Link to="/locations">Browse Locations</Link>
-            </Button>
+          </Button>
           </div>
         </div>
       </section>
