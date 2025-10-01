@@ -420,20 +420,6 @@ const Home = () => {
               <div
                 key={index}
                 className="group relative cursor-pointer"
-                onMouseEnter={(e) => {
-                  const img = e.currentTarget.querySelector('.activity-image');
-                  if (img) {
-                    img.style.opacity = '1';
-                    img.style.transform = 'scale(1.05)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  const img = e.currentTarget.querySelector('.activity-image');
-                  if (img) {
-                    img.style.opacity = '0';
-                    img.style.transform = 'scale(1)';
-                  }
-                }}
                 onClick={() => navigate('/locations')}
               >
                 <div className="p-4 text-center border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-lg transition-all duration-300 group-hover:bg-blue-50">
@@ -443,7 +429,7 @@ const Home = () => {
                 </div>
                 
                 {/* Hover Image */}
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-64 h-48 rounded-lg overflow-hidden shadow-2xl z-50 opacity-0 transition-all duration-300 activity-image">
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-64 h-48 rounded-lg overflow-hidden shadow-2xl z-50 opacity-0 group-hover:opacity-100 transition-all duration-300">
                   <img 
                     src={activity.image} 
                     alt={activity.name}
