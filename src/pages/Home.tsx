@@ -375,12 +375,12 @@ const Home = () => {
               </div>
               <div className="flex-1">
                 <div className="relative">
-                  <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-900 z-10" />
+                  <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500 z-10 pointer-events-none" />
                   <Input
                     type="date"
                     value={searchDate}
                     onChange={(e) => setSearchDate(e.target.value)}
-                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900"
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900 bg-white"
                   />
                 </div>
               </div>
