@@ -24,6 +24,9 @@ const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
   const [locationSuggestions, setLocationSuggestions] = useState([]);
+  const [searchPlanning, setSearchPlanning] = useState("");
+  const [showPlanningSuggestions, setShowPlanningSuggestions] = useState(false);
+  const [planningSuggestions, setPlanningSuggestions] = useState([]);
 
   // Background images that will cycle through
   const backgroundImages = [
@@ -48,6 +51,40 @@ const Home = () => {
     "Boston, MA",
     "Denver, CO",
     "Nashville, TN"
+  ];
+
+  // Planning suggestions based on actual website locations
+  const planningOptions = [
+    "Film Production",
+    "Photography Shoot", 
+    "Video Production",
+    "Commercial Shoot",
+    "Music Video",
+    "Documentary",
+    "Corporate Video",
+    "Event Photography",
+    "Portrait Session",
+    "Product Photography",
+    "Fashion Shoot",
+    "Wedding Photography",
+    "Real Estate Photography",
+    "Content Creation",
+    "Social Media Content",
+    "YouTube Video",
+    "Podcast Recording",
+    "Interview Recording",
+    "Live Streaming",
+    "Art Exhibition",
+    "Creative Workshop",
+    "Team Building Event",
+    "Corporate Event",
+    "Product Launch",
+    "Brand Campaign",
+    "Marketing Video",
+    "Training Video",
+    "Educational Content",
+    "Tutorial Video",
+    "Behind the Scenes"
   ];
 
   // Auto-rotate background images every 4 seconds
@@ -78,6 +115,25 @@ const Home = () => {
   const selectLocation = (location) => {
     setSearchLocation(location);
     setShowLocationSuggestions(false);
+  };
+
+  // Handle planning search with suggestions
+  const handlePlanningChange = (value) => {
+    setSearchPlanning(value);
+    if (value.length > 0) {
+      const filtered = planningOptions.filter(planning => 
+        planning.toLowerCase().includes(value.toLowerCase())
+      );
+      setPlanningSuggestions(filtered);
+      setShowPlanningSuggestions(true);
+    } else {
+      setShowPlanningSuggestions(false);
+    }
+  };
+
+  const selectPlanning = (planning) => {
+    setSearchPlanning(planning);
+    setShowPlanningSuggestions(false);
   };
 
   const handleSearch = () => {
@@ -215,8 +271,29 @@ const Home = () => {
                   <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                   <Input
                     placeholder="What are you planning?"
+                    value={searchPlanning}
+                    onChange={(e) => handlePlanningChange(e.target.value)}
+                    onFocus={() => setShowPlanningSuggestions(true)}
+                    onBlur={() => setTimeout(() => setShowPlanningSuggestions(false), 200)}
                     className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900 placeholder-gray-500"
                   />
+                  {/* Planning Suggestions Dropdown */}
+                  {showPlanningSuggestions && planningSuggestions.length > 0 && (
+                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg z-50 mt-1 max-h-60 overflow-y-auto">
+                      {planningSuggestions.map((planning, index) => (
+                        <div
+                          key={index}
+                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-900 border-b border-gray-100 last:border-b-0"
+                          onClick={() => selectPlanning(planning)}
+                        >
+                          <div className="flex items-center">
+                            <Search className="h-4 w-4 text-gray-400 mr-3" />
+                            <span className="text-sm">{planning}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="flex-1">
