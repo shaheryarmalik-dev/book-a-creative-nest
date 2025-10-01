@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 
 const contactSchema = z.object({
@@ -14,6 +16,8 @@ const contactSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().optional(),
   subject: z.string().min(3, "Subject must be at least 3 characters").max(200),
+  budget: z.string().min(1, "Budget information is required"),
+  projectType: z.string().min(1, "Project type is required"),
   // Allow short messages; only require non-empty
   message: z.string().min(1, "Message is required").max(2000)
 });
@@ -29,6 +33,8 @@ const Contact = () => {
       email: "",
       phone: "",
       subject: "",
+      budget: "",
+      projectType: "",
       message: ""
     }
   });
@@ -41,6 +47,8 @@ const Contact = () => {
         from_name: data.name,
         from_email: data.email,
         phone: data.phone ?? "",
+        budget: data.budget,
+        project_type: data.projectType,
         message: data.message,
         // basic honeypot field to reduce spam
         botcheck: ""
@@ -103,6 +111,21 @@ const Contact = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
           </p>
+        </div>
+      </section>
+
+      {/* Production Insurance Banner */}
+      <section className="bg-blue-50 border-b border-blue-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-center gap-3">
+            <Shield className="h-6 w-6 text-blue-600" />
+            <span className="text-lg font-semibold text-blue-900">
+              Production Insurance Coverage: $2 Million
+            </span>
+            <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+              Protected
+            </Badge>
+          </div>
         </div>
       </section>
 
@@ -197,6 +220,61 @@ const Contact = () => {
                           <FormControl>
                             <Input placeholder="What is this regarding?" {...field} />
                           </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="budget"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>What is your budget? *</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select budget range" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="under-1k">Under $1,000</SelectItem>
+                              <SelectItem value="1k-5k">$1,000 - $5,000</SelectItem>
+                              <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
+                              <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
+                              <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
+                              <SelectItem value="50k-plus">$50,000+</SelectItem>
+                              <SelectItem value="discuss">Let's discuss</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="projectType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Project Type *</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select project type" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="filming">Filming/Video Production</SelectItem>
+                              <SelectItem value="photography">Photography</SelectItem>
+                              <SelectItem value="event">Event/Party</SelectItem>
+                              <SelectItem value="meeting">Meeting/Conference</SelectItem>
+                              <SelectItem value="content-creation">Content Creation</SelectItem>
+                              <SelectItem value="other">Other</SelectItem>
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       )}
