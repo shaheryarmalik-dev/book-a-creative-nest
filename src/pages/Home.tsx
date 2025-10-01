@@ -386,8 +386,91 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Locations - Peerspace Style */}
+      {/* Interactive Location Categories */}
       <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              A space for every moment
+            </h2>
+            <p className="text-xl text-gray-600">
+              Book a unique space for your activity
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+            {[
+              { name: "Photo shoot", image: studio01, location: "Los Angeles, CA" },
+              { name: "Meeting", image: studio02, location: "Los Angeles, CA" },
+              { name: "Birthday party", image: studio03, location: "Los Angeles, CA" },
+              { name: "Video shoot", image: studio04, location: "Los Angeles, CA" },
+              { name: "Baby shower", image: studio05, location: "Los Angeles, CA" },
+              { name: "Workshop", image: studio06, location: "Los Angeles, CA" },
+              { name: "Wedding reception", image: studio07, location: "Los Angeles, CA" },
+              { name: "Live music", image: studio08, location: "Los Angeles, CA" },
+              { name: "Party", image: studio09, location: "Los Angeles, CA" },
+              { name: "Music video", image: studio10, location: "Los Angeles, CA" },
+              { name: "Bridal shower", image: studio11, location: "Los Angeles, CA" },
+              { name: "Event", image: studio12, location: "Los Angeles, CA" },
+              { name: "Engagement party", image: studio13, location: "Los Angeles, CA" },
+              { name: "Corporate event", image: studio14, location: "Los Angeles, CA" },
+              { name: "Graduation party", image: studio15, location: "Los Angeles, CA" },
+              { name: "Pop-up", image: laGemImage, location: "Los Angeles, CA" }
+            ].map((activity, index) => (
+              <div
+                key={index}
+                className="group relative cursor-pointer"
+                onMouseEnter={(e) => {
+                  const img = e.currentTarget.querySelector('.activity-image');
+                  if (img) {
+                    img.style.opacity = '1';
+                    img.style.transform = 'scale(1.05)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  const img = e.currentTarget.querySelector('.activity-image');
+                  if (img) {
+                    img.style.opacity = '0';
+                    img.style.transform = 'scale(1)';
+                  }
+                }}
+                onClick={() => navigate('/locations')}
+              >
+                <div className="p-4 text-center border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-lg transition-all duration-300 group-hover:bg-blue-50">
+                  <span className="text-gray-700 group-hover:text-blue-600 font-medium">
+                    {activity.name}
+                  </span>
+                </div>
+                
+                {/* Hover Image */}
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-64 h-48 rounded-lg overflow-hidden shadow-2xl z-50 opacity-0 transition-all duration-300 activity-image">
+                  <img 
+                    src={activity.image} 
+                    alt={activity.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                    <p className="text-white font-semibold text-sm">{activity.name}</p>
+                    <p className="text-white/80 text-xs">{activity.location}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Button 
+              asChild
+              className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-lg font-semibold rounded-lg"
+            >
+              <Link to="/locations">Browse all activities</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Locations - Peerspace Style */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -520,38 +603,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Categories Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Popular Categories
-            </h2>
-            <p className="text-xl text-gray-600">
-              Find the perfect space for your specific needs
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {[
-              { name: "Studios", icon: "🎬", count: "25+" },
-              { name: "Event Spaces", icon: "🎉", count: "15+" },
-              { name: "Offices", icon: "🏢", count: "20+" },
-              { name: "Residential", icon: "🏠", count: "30+" },
-              { name: "Industrial", icon: "🏭", count: "10+" },
-              { name: "Outdoor", icon: "🌳", count: "8+" }
-            ].map((category, index) => (
-              <Card key={index} className="text-center p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group cursor-pointer">
-                <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                  {category.icon}
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-1">{category.name}</h3>
-                <p className="text-sm text-gray-500">{category.count} spaces</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials Section */}
       <section className="py-16 bg-white">
