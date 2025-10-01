@@ -10,10 +10,24 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerFooter, DrawerTrigger, DrawerClose } from "@/components/ui/drawer";
 import { useToast } from "@/hooks/use-toast";
 
-// Import images properly for Vite
+// Import all available images for unique locations
 import laGemImage from "@/assets/space-la-gem.jpg";
 import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
-import artsyModernAptImage from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
+import studio01 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
+import studio02 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-02.jpg";
+import studio03 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-03.jpg";
+import studio04 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-04.jpg";
+import studio05 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-05.jpg";
+import studio06 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-06.jpg";
+import studio07 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-07.jpg";
+import studio08 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-08.jpg";
+import studio09 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-09.jpg";
+import studio10 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-10.jpg";
+import studio11 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-11.jpg";
+import studio12 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-12.jpg";
+import studio13 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-13.jpg";
+import studio14 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-14.jpg";
+import studio15 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-15.jpg";
 
 const Locations = () => {
   const { toast } = useToast();
@@ -58,7 +72,7 @@ const Locations = () => {
       id: 1,
       title: "Vintage Cuban Elegance - Luxurious Latin Kitchen",
       location: "Los Angeles, CA",
-      image: artsyModernAptImage,
+      image: studio01,
       rating: 4.9,
       reviews: 127,
       type: "Kitchen & Dining",
@@ -72,7 +86,7 @@ const Locations = () => {
       id: 2,
       title: "Artsy Beautiful Home",
       location: "Los Angeles, CA",
-      image: laGemImage,
+      image: studio02,
       rating: 4.8,
       reviews: 89,
       type: "Residential",
@@ -86,7 +100,7 @@ const Locations = () => {
       id: 3,
       title: "Creative Space LA - Film Photography Studio",
       location: "Los Angeles, CA",
-      image: artsyModernAptImage,
+      image: studio03,
       rating: 4.9,
       reviews: 156,
       type: "Studio",
@@ -100,7 +114,7 @@ const Locations = () => {
       id: 4,
       title: "Peerspace Board - Creative Workspace",
       location: "Los Angeles, CA",
-      image: joshuaTreeImage,
+      image: studio04,
       rating: 4.7,
       reviews: 73,
       type: "Creative Workspace",
@@ -114,7 +128,7 @@ const Locations = () => {
       id: 5,
       title: "Peerspace Listing - Modern Studio",
       location: "Los Angeles, CA",
-      image: laGemImage,
+      image: studio05,
       rating: 4.8,
       reviews: 94,
       type: "Studio",
@@ -128,7 +142,7 @@ const Locations = () => {
       id: 6,
       title: "Peerspace Listing - Event Space",
       location: "Los Angeles, CA",
-      image: artsyModernAptImage,
+      image: studio06,
       rating: 4.9,
       reviews: 112,
       type: "Event Space",
@@ -142,7 +156,7 @@ const Locations = () => {
       id: 7,
       title: "Blue Cloud Studios",
       location: "Los Angeles, CA",
-      image: joshuaTreeImage,
+      image: studio07,
       rating: 4.6,
       reviews: 58,
       type: "Production Studio",
@@ -156,7 +170,7 @@ const Locations = () => {
       id: 8,
       title: "Imperial Art Studios",
       location: "Los Angeles, CA",
-      image: laGemImage,
+      image: studio08,
       rating: 4.9,
       reviews: 89,
       type: "Art Studio",
@@ -170,7 +184,7 @@ const Locations = () => {
       id: 9,
       title: "Riverfront Stages - Bar Stage",
       location: "Los Angeles, CA",
-      image: artsyModernAptImage,
+      image: studio09,
       rating: 4.8,
       reviews: 76,
       type: "Stage & Performance",
@@ -184,7 +198,7 @@ const Locations = () => {
       id: 10,
       title: "Peerspace Listing - Creative Space",
       location: "Los Angeles, CA",
-      image: joshuaTreeImage,
+      image: studio10,
       rating: 4.7,
       reviews: 63,
       type: "Creative Space",
@@ -198,7 +212,7 @@ const Locations = () => {
       id: 11,
       title: "Peerspace Listing - Professional Studio",
       location: "Los Angeles, CA",
-      image: laGemImage,
+      image: studio11,
       rating: 4.8,
       reviews: 98,
       type: "Professional Studio",
@@ -212,7 +226,7 @@ const Locations = () => {
       id: 12,
       title: "Peerspace Listing - Event Venue",
       location: "Los Angeles, CA",
-      image: artsyModernAptImage,
+      image: studio12,
       rating: 4.9,
       reviews: 105,
       type: "Event Venue",
@@ -226,7 +240,7 @@ const Locations = () => {
       id: 13,
       title: "Peerspace Listing - Creative Workspace",
       location: "Los Angeles, CA",
-      image: joshuaTreeImage,
+      image: studio13,
       rating: 4.7,
       reviews: 87,
       type: "Creative Workspace",
@@ -240,7 +254,7 @@ const Locations = () => {
       id: 14,
       title: "Peerspace Listing - Modern Studio",
       location: "Los Angeles, CA",
-      image: laGemImage,
+      image: studio14,
       rating: 4.8,
       reviews: 95,
       type: "Modern Studio",
@@ -254,7 +268,7 @@ const Locations = () => {
       id: 15,
       title: "Peerspace Listing - Creative Space",
       location: "Los Angeles, CA",
-      image: artsyModernAptImage,
+      image: studio15,
       rating: 4.9,
       reviews: 118,
       type: "Creative Space",
