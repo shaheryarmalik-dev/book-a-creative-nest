@@ -10,10 +10,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerFooter, DrawerTrigger, DrawerClose } from "@/components/ui/drawer";
 import { useToast } from "@/hooks/use-toast";
 
-// Import space images
-import laGemImage from "@/assets/space-la-gem.jpg";
-import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
-import artsyModernAptImage from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
+// Use image paths directly
+const laGemImage = "/src/assets/space-la-gem.jpg";
+const joshuaTreeImage = "/src/assets/space-joshua-tree.jpg";
+const artsyModernAptImage = "/src/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
 
 const Locations = () => {
   const { toast } = useToast();
