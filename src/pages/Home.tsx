@@ -767,7 +767,7 @@ const Home = () => {
               <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
                 <Link to="/locations">Browse Locations</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-full border-white text-white hover:bg-white hover:text-gray-900 px-8 py-6 text-lg font-semibold">
+              <Button asChild size="lg" className="rounded-full bg-white/90 text-gray-900 hover:bg-white px-8 py-6 text-lg font-semibold shadow-xl">
                 <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
