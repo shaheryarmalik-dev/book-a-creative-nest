@@ -606,64 +606,7 @@ const Home = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredLocations.map((location, index) => (
-              <Card 
-                key={location.id} 
-                className="group cursor-pointer hover:shadow-2xl transition-all duration-500 border-0 shadow-lg hover:-translate-y-2"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="relative overflow-hidden rounded-t-lg">
-                  <img 
-                    src={location.image} 
-                    alt={location.title}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute top-4 right-4">
-                    <Badge className="bg-white/90 text-gray-900 hover:bg-white backdrop-blur-sm">
-                      {location.type}
-                    </Badge>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
-                      {location.title}
-                    </h3>
-                  </div>
-                  
-                  <div className="flex items-center gap-1 mb-2">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span className="font-medium">{location.rating}</span>
-                    <span className="text-gray-500">({location.reviews} reviews)</span>
-                  </div>
-                  
-                  <p className="text-gray-600 mb-3">{location.location}</p>
-                  
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {location.features.map((feature, featureIndex) => (
-                      <Badge key={featureIndex} variant="outline" className="text-xs">
-                        {feature}
-                      </Badge>
-                    ))}
-            </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-semibold text-gray-900">
-                      {location.price}
-                    </span>
-                    <Button 
-                      asChild 
-                      className="bg-blue-600 hover:bg-blue-700 text-white hover:scale-105 transition-transform"
-                    >
-                      <Link to="/contact">Contact Us</Link>
-              </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {/* Cards removed per request */}
         </div>
       </section>
 
