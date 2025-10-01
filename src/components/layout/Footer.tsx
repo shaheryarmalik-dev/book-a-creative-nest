@@ -40,10 +40,22 @@ const Footer = () => {
                 Locations
               </Link>
               <Link 
+                to="/services" 
+                className="text-gray-400 hover:text-white transition-colors text-sm"
+              >
+                Services
+              </Link>
+              <Link 
                 to="/about" 
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
                 About
+              </Link>
+              <Link 
+                to="/contact" 
+                className="text-gray-400 hover:text-white transition-colors text-sm"
+              >
+                Contact
               </Link>
             </nav>
           </div>

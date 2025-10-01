@@ -83,8 +83,8 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      value: "admin@book-a-space.com",
-      link: "mailto:admin@book-a-space.com"
+      value: "framescoutlocations@gmail.com",
+      link: "mailto:framescoutlocations@gmail.com"
     },
     {
       icon: Phone,
