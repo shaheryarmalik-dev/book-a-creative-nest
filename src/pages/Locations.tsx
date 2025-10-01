@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { MapPin, DollarSign, LayoutGrid, List as ListIcon, SlidersHorizontal, Heart, Star, Users, Award, Shield, TrendingUp } from "lucide-react";
+import { MapPin, DollarSign, LayoutGrid, List as ListIcon, SlidersHorizontal, Heart, Star, Users, Award, Shield, TrendingUp, Search, Filter, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerFooter, DrawerTrigger, DrawerClose } from "@/components/ui/drawer";
 import { useToast } from "@/hooks/use-toast";
+
+// Import space images
 import laGemImage from "@/assets/space-la-gem.jpg";
 import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
 import artsyModernAptImage from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
@@ -22,6 +24,16 @@ const Locations = () => {
     } catch {
       return [];
     }
+  });
+
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [sortBy, setSortBy] = useState('relevance');
+  const [filters, setFilters] = useState({
+    location: '',
+    type: '',
+    amenities: [] as string[],
+    priceRange: '',
+    rating: 0
   });
 
   const toggleFavorite = (id: number) => {
@@ -40,611 +52,503 @@ const Locations = () => {
     });
   };
 
+  // All locations from client requirements
   const locations = [
     {
       id: 1,
-      title: "Eclectic Creative Space | Crystals, Buddha, Natural Light – L.A. Gem",
-      location: "Central LA, Los Ángeles, CA",
-      rate: 57,
-      image: laGemImage,
-      features: ["Natural Light", "Crystals", "Buddha Statue", "Creative Atmosphere"],
+      title: "Vintage Cuban Elegance - Luxurious Latin Kitchen",
+      location: "Los Angeles, CA",
+      image: artsyModernAptImage,
       rating: 4.9,
       reviews: 127,
+      type: "Kitchen & Dining",
+      features: ["Vintage Design", "Natural Light", "Kitchen Access", "Latin Style"],
+      amenities: ["Kitchen", "Dining Area", "Natural Light", "Vintage Decor"],
       instantBook: true,
       superhost: true,
-      bookings: 450
+      bookings: 89
     },
     {
       id: 2,
-      title: "Joshua Tree Oasis",
-      location: "Joshua Tree, CA",
-      rate: 70,
-      image: joshuaTreeImage,
-      features: ["Desert Views", "Outdoor Space", "Peaceful Setting", "Stunning Landscape"],
+      title: "Artsy Beautiful Home",
+      location: "Los Angeles, CA",
+      image: laGemImage,
       rating: 4.8,
       reviews: 89,
-      instantBook: true,
-      superhost: false,
-      bookings: 320
+      type: "Residential",
+      features: ["Modern Design", "Multiple Rooms", "Garden Access", "Artistic"],
+      amenities: ["Multiple Rooms", "Garden", "Modern Decor", "Natural Light"],
+      instantBook: false,
+      superhost: true,
+      bookings: 67
     },
     {
       id: 3,
-      title: "Artsy & Modern Apt with attached Film Studio",
+      title: "Creative Space LA - Film Photography Studio",
       location: "Los Angeles, CA",
-      rate: 85,
       image: artsyModernAptImage,
-      features: ["Attached Film Studio", "Modern Interiors", "Natural Light", "Production Ready"],
-      rating: 5.0,
-      reviews: 203,
+      rating: 4.9,
+      reviews: 156,
+      type: "Studio",
+      features: ["Professional Equipment", "Cyc Wall", "Lighting Setup", "Soundproof"],
+      amenities: ["Professional Lighting", "Cyc Wall", "Equipment", "Soundproof"],
       instantBook: true,
       superhost: true,
-      bookings: 680
+      bookings: 134
+    },
+    {
+      id: 4,
+      title: "Industrial Loft Space",
+      location: "Los Angeles, CA",
+      image: joshuaTreeImage,
+      rating: 4.7,
+      reviews: 73,
+      type: "Industrial",
+      features: ["High Ceilings", "Exposed Brick", "Loading Access", "Open Space"],
+      amenities: ["High Ceilings", "Exposed Brick", "Loading Dock", "Open Floor Plan"],
+      instantBook: false,
+      superhost: false,
+      bookings: 45
+    },
+    {
+      id: 5,
+      title: "Modern Office Space",
+      location: "Los Angeles, CA",
+      image: laGemImage,
+      rating: 4.8,
+      reviews: 94,
+      type: "Office",
+      features: ["Conference Rooms", "High-Speed WiFi", "Parking", "Professional"],
+      amenities: ["Conference Rooms", "WiFi", "Parking", "Professional Setup"],
+      instantBook: true,
+      superhost: true,
+      bookings: 78
+    },
+    {
+      id: 6,
+      title: "Rooftop Event Space",
+      location: "Los Angeles, CA",
+      image: artsyModernAptImage,
+      rating: 4.9,
+      reviews: 112,
+      type: "Event Space",
+      features: ["City Views", "Outdoor Space", "Catering Kitchen", "Panoramic"],
+      amenities: ["City Views", "Outdoor Space", "Catering Kitchen", "Panoramic Views"],
+      instantBook: false,
+      superhost: true,
+      bookings: 96
+    },
+    {
+      id: 7,
+      title: "Vintage Warehouse Studio",
+      location: "Los Angeles, CA",
+      image: joshuaTreeImage,
+      rating: 4.6,
+      reviews: 58,
+      type: "Warehouse",
+      features: ["Large Space", "Vintage Elements", "Flexible Layout", "Character"],
+      amenities: ["Large Space", "Vintage Elements", "Flexible Layout", "Character"],
+      instantBook: false,
+      superhost: false,
+      bookings: 34
+    },
+    {
+      id: 8,
+      title: "Luxury Penthouse Suite",
+      location: "Los Angeles, CA",
+      image: laGemImage,
+      rating: 4.9,
+      reviews: 89,
+      type: "Luxury",
+      features: ["Premium Location", "High-End Finishes", "City Views", "Exclusive"],
+      amenities: ["Premium Location", "High-End Finishes", "City Views", "Exclusive Access"],
+      instantBook: true,
+      superhost: true,
+      bookings: 67
+    },
+    {
+      id: 9,
+      title: "Art Gallery Space",
+      location: "Los Angeles, CA",
+      image: artsyModernAptImage,
+      rating: 4.8,
+      reviews: 76,
+      type: "Gallery",
+      features: ["White Walls", "Gallery Lighting", "Open Space", "Artistic"],
+      amenities: ["White Walls", "Gallery Lighting", "Open Space", "Artistic Atmosphere"],
+      instantBook: false,
+      superhost: true,
+      bookings: 52
+    },
+    {
+      id: 10,
+      title: "Cozy Residential Home",
+      location: "Los Angeles, CA",
+      image: joshuaTreeImage,
+      rating: 4.7,
+      reviews: 63,
+      type: "Residential",
+      features: ["Homey Feel", "Multiple Rooms", "Garden", "Comfortable"],
+      amenities: ["Homey Feel", "Multiple Rooms", "Garden", "Comfortable Living"],
+      instantBook: true,
+      superhost: false,
+      bookings: 41
+    },
+    {
+      id: 11,
+      title: "Professional Conference Center",
+      location: "Los Angeles, CA",
+      image: laGemImage,
+      rating: 4.8,
+      reviews: 98,
+      type: "Conference",
+      features: ["Multiple Rooms", "AV Equipment", "Catering", "Professional"],
+      amenities: ["Multiple Rooms", "AV Equipment", "Catering", "Professional Setup"],
+      instantBook: true,
+      superhost: true,
+      bookings: 82
+    },
+    {
+      id: 12,
+      title: "Outdoor Garden Venue",
+      location: "Los Angeles, CA",
+      image: artsyModernAptImage,
+      rating: 4.9,
+      reviews: 105,
+      type: "Outdoor",
+      features: ["Garden Setting", "Natural Light", "Outdoor Space", "Scenic"],
+      amenities: ["Garden Setting", "Natural Light", "Outdoor Space", "Scenic Views"],
+      instantBook: false,
+      superhost: true,
+      bookings: 89
     }
   ];
 
-  const { search } = useLocation();
-  const navigate = useNavigate();
-  const params = new URLSearchParams(search);
-  const qActivity = params.get("activity")?.toLowerCase() || "";
-  const qWhere = params.get("where")?.toLowerCase() || "";
-  const qWhen = params.get("when") || "";
-  const qMin = Number(params.get("min")) || 0;
-  const qMax = Number(params.get("max")) || 0;
-  const qSort = params.get("sort") || "";
-  const qFeatures = (params.get("features") || "")
-    .split(",")
-    .map((s) => s.trim().toLowerCase())
-    .filter(Boolean);
-  const qTypes = (params.get("types") || "")
-    .split(",")
-    .map((s) => s.trim().toLowerCase())
-    .filter(Boolean);
-  const qAmenities = (params.get("amenities") || "")
-    .split(",")
-    .map((s) => s.trim().toLowerCase())
-    .filter(Boolean);
-  const qView = (params.get("view") || "grid").toLowerCase();
-
-  // Persist filters to localStorage whenever they change
-  useEffect(() => {
-    const current = Object.fromEntries(params.entries());
-    try {
-      localStorage.setItem("locationsFilters", JSON.stringify(current));
-    } catch {}
-  }, [search]);
-
-  // Restore filters on first load if URL has no filters
-  useEffect(() => {
-    const hasAny = ["activity","where","when","min","max","features","sort"].some((k) => params.has(k));
-    if (hasAny) return;
-    try {
-      const raw = localStorage.getItem("locationsFilters");
-      if (!raw) return;
-      const saved = JSON.parse(raw) as Record<string, string>;
-      const next = new URLSearchParams();
-      ["activity","where","when","min","max","features","sort"].forEach((k) => {
-        if (saved[k]) next.set(k, saved[k]);
-      });
-      if (Array.from(next.keys()).length > 0) {
-        navigate(`/locations?${next.toString()}`);
-      }
-    } catch {}
-  // run only on mount
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const filtered = locations.filter((loc) => {
-    const matchesWhere = qWhere
-      ? loc.location.toLowerCase().includes(qWhere) || loc.title.toLowerCase().includes(qWhere)
-      : true;
-    const matchesActivity = qActivity
-      ? (
-          (qActivity === "photo" && loc.features.join(" ").toLowerCase().includes("studio")) ||
-          (qActivity === "film" && loc.features.join(" ").toLowerCase().includes("production")) ||
-          (qActivity === "event" && loc.features.join(" ").toLowerCase().includes("outdoor")) ||
-          (qActivity === "meeting" && loc.features.join(" ").toLowerCase().includes("conference"))
-        )
-      : true;
-    const matchesMin = qMin ? loc.rate >= qMin : true;
-    const matchesMax = qMax ? loc.rate <= qMax : true;
-    const titleLc = loc.title.toLowerCase();
-    const locFeaturesLc = loc.features.map((f) => f.toLowerCase()).join(" ");
-    const matchesFeatures = qFeatures.length ? qFeatures.every((f) => locFeaturesLc.includes(f)) : true;
-    const matchesTypes = qTypes.length ? qTypes.some((t) => titleLc.includes(t) || locFeaturesLc.includes(t)) : true;
-    const matchesAmenities = qAmenities.length ? qAmenities.every((a) => locFeaturesLc.includes(a)) : true;
-    return matchesWhere && matchesActivity && matchesMin && matchesMax && matchesFeatures && matchesTypes && matchesAmenities;
+  const filteredLocations = locations.filter(location => {
+    if (filters.location && !location.location.toLowerCase().includes(filters.location.toLowerCase())) {
+      return false;
+    }
+    if (filters.type && location.type !== filters.type) {
+      return false;
+    }
+    if (filters.rating > 0 && location.rating < filters.rating) {
+      return false;
+    }
+    return true;
   });
 
-  const sorted = [...filtered].sort((a, b) => {
-    if (qSort === "price_asc") return a.rate - b.rate;
-    if (qSort === "price_desc") return b.rate - a.rate;
-    return 0;
+  const sortedLocations = [...filteredLocations].sort((a, b) => {
+    switch (sortBy) {
+      case 'rating':
+        return b.rating - a.rating;
+      case 'reviews':
+        return b.reviews - a.reviews;
+      case 'bookings':
+        return b.bookings - a.bookings;
+      default:
+        return 0;
+    }
   });
+
+  const locationTypes = [...new Set(locations.map(loc => loc.type))];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Sticky Search */}
-      <div className="sticky top-16 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70 border-b">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <form
-            className="grid grid-cols-1 md:grid-cols-6 gap-3 items-end"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const form = e.target as HTMLFormElement;
-              const activity = (form.elements.namedItem("activity") as HTMLInputElement)?.value || "";
-              const where = (form.elements.namedItem("where") as HTMLInputElement)?.value || "";
-              const when = (form.elements.namedItem("when") as HTMLInputElement)?.value || "";
-              const min = (form.elements.namedItem("min") as HTMLInputElement)?.value || "";
-              const max = (form.elements.namedItem("max") as HTMLInputElement)?.value || "";
-              const next = new URLSearchParams();
-              if (activity) next.set("activity", activity);
-              if (where) next.set("where", where);
-              if (when) next.set("when", when);
-              if (min) next.set("min", String(min));
-              if (max) next.set("max", String(max));
-              if (qFeatures.length) next.set("features", qFeatures.join(","));
-              if (qSort) next.set("sort", qSort);
-              navigate(`/locations?${next.toString()}`);
-            }}
-            defaultValue={undefined}
-          >
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">What are you planning?</label>
-              <Select name="activity" defaultValue={qActivity || undefined}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select activity" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <h1 className="text-2xl font-bold text-gray-900">Creative Spaces</h1>
+              <span className="text-gray-500">({filteredLocations.length} spaces)</span>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              {/* Search */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder="Search locations..."
+                  value={filters.location}
+                  onChange={(e) => setFilters(prev => ({ ...prev, location: e.target.value }))}
+                  className="pl-10 w-64"
+                />
+              </div>
+
+              {/* Filters */}
+              <Drawer>
+                <DrawerTrigger asChild>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <SlidersHorizontal className="h-4 w-4" />
+                    Filters
+                  </Button>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <DrawerHeader>
+                    <DrawerTitle>Filters</DrawerTitle>
+                  </DrawerHeader>
+                  <div className="p-6 space-y-6">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Space Type</label>
+                      <Select value={filters.type} onValueChange={(value) => setFilters(prev => ({ ...prev, type: value }))}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="All types" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="">All types</SelectItem>
+                          {locationTypes.map(type => (
+                            <SelectItem key={type} value={type}>{type}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Minimum Rating</label>
+                      <Select value={filters.rating.toString()} onValueChange={(value) => setFilters(prev => ({ ...prev, rating: parseInt(value) }))}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Any rating" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="0">Any rating</SelectItem>
+                          <SelectItem value="4">4+ stars</SelectItem>
+                          <SelectItem value="4.5">4.5+ stars</SelectItem>
+                          <SelectItem value="4.8">4.8+ stars</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  <DrawerFooter>
+                    <DrawerClose asChild>
+                      <Button>Apply Filters</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </DrawerContent>
+              </Drawer>
+
+              {/* View Toggle */}
+              <div className="flex border border-gray-200 rounded-lg">
+                <Button
+                  variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setViewMode('grid')}
+                  className="rounded-r-none"
+                >
+                  <LayoutGrid className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant={viewMode === 'list' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setViewMode('list')}
+                  className="rounded-l-none"
+                >
+                  <ListIcon className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Sort */}
+          <div className="mt-4 flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-48">
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="photo">Photo Shoot</SelectItem>
-                  <SelectItem value="film">Filming</SelectItem>
-                  <SelectItem value="event">Event</SelectItem>
-                  <SelectItem value="meeting">Meeting</SelectItem>
+                  <SelectItem value="relevance">Relevance</SelectItem>
+                  <SelectItem value="rating">Highest Rated</SelectItem>
+                  <SelectItem value="reviews">Most Reviews</SelectItem>
+                  <SelectItem value="bookings">Most Popular</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">Where?</label>
-              <Input name="where" placeholder="City or neighborhood" defaultValue={qWhere} />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">When?</label>
-              <Input name="when" type="date" defaultValue={qWhen} />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">Min Price ($/hr)</label>
-              <Input name="min" type="number" min={0} placeholder="0" defaultValue={qMin || undefined} />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">Max Price ($/hr)</label>
-              <Input name="max" type="number" min={0} placeholder="" defaultValue={qMax || undefined} />
-            </div>
-            <div className="flex">
-              <Button type="submit" className="w-full md:w-auto">Search</Button>
-            </div>
-          </form>
-
-          {/* Quick chips */}
-          <div className="mt-3 flex flex-wrap gap-2">
-            {[
-              { v: "photo", l: "Photo Shoot" },
-              { v: "film", l: "Filming" },
-              { v: "event", l: "Event" },
-              { v: "meeting", l: "Meeting" },
-            ].map((c) => (
-              <Button
-                key={c.v}
-                variant={qActivity === c.v ? "default" : "outline"}
-                size="sm"
-                onClick={() => {
-                  const next = new URLSearchParams(params);
-                  if (qActivity === c.v) {
-                    next.delete("activity");
-                  } else {
-                    next.set("activity", c.v);
-                  }
-                  navigate(`/locations?${next.toString()}`);
-                }}
-              >
-                {c.l}
-              </Button>
-            ))}
-            {/* Clear filters */}
-            {(qActivity || qWhere || qWhen || qMin || qMax || qFeatures.length || qSort) ? (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => {
-                  navigate(`/locations`);
-                }}
-              >
-                Clear filters
-              </Button>
-            ) : null}
-          </div>
-
-          {/* Feature chips with counts */}
-          <div className="mt-3 flex flex-wrap gap-2">
-            {[
-              { v: "natural light", l: "Natural Light" },
-              { v: "outdoor", l: "Outdoor" },
-              { v: "studio", l: "Studio" },
-              { v: "production", l: "Production Ready" },
-            ].map((f) => {
-              const active = qFeatures.includes(f.v);
-              const count = filtered.filter((loc) => loc.features.map((x)=>x.toLowerCase()).join(" ").includes(f.v)).length;
-              return (
-                <Button
-                  key={f.v}
-                  variant={active ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => {
-                    const next = new URLSearchParams(params);
-                    const set = new Set(qFeatures);
-                    if (active) set.delete(f.v); else set.add(f.v);
-                    const arr = Array.from(set);
-                    if (arr.length) next.set("features", arr.join(",")); else next.delete("features");
-                    navigate(`/locations?${next.toString()}`);
-                  }}
-                >
-                  {f.l}
-                  <span className="ml-2 inline-flex items-center justify-center rounded-full bg-muted px-2 py-0.5 text-[10px]">
-                    {count}
-                  </span>
-                </Button>
-              );
-            })}
           </div>
         </div>
       </div>
 
-      {/* Header Section */}
-      <section className="bg-secondary py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between flex-wrap gap-4">
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
-              Creative Spaces
-            </h1>
-            <div className="flex items-center gap-3">
-              <div className="text-muted-foreground">
-                {filtered.length} result{filtered.length === 1 ? "" : "s"}
-              </div>
-              {(qActivity || qWhere || qWhen || qMin || qMax || qFeatures.length || qSort) ? (
-                <div className="rounded-full border px-3 py-1 text-xs text-muted-foreground">
-                  {(() => {
-                    const count = [
-                      qActivity ? 1 : 0,
-                      qWhere ? 1 : 0,
-                      qWhen ? 1 : 0,
-                      qMin ? 1 : 0,
-                      qMax ? 1 : 0,
-                      qFeatures.length ? 1 : 0,
-                      qSort ? 1 : 0,
-                    ].reduce((a,b)=>a+b,0);
-                    return `${count} filter${count===1?"":"s"}`;
-                  })()}
-                </div>
-              ) : null}
-            </div>
+      {/* Production Insurance Banner */}
+      <div className="bg-blue-50 border-b border-blue-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex items-center justify-center gap-3">
+            <Shield className="h-5 w-5 text-blue-600" />
+            <span className="text-sm font-semibold text-blue-900">
+              Production Insurance Coverage: $2 Million
+            </span>
+            <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+              Protected
+            </Badge>
           </div>
-          <div className="mt-3 flex items-center gap-3">
-            <span className="text-sm text-muted-foreground">Sort by</span>
-            <Select
-              defaultValue={qSort || undefined}
-              onValueChange={(val) => {
-                const next = new URLSearchParams(params);
-                if (val) next.set("sort", val); else next.delete("sort");
-                navigate(`/locations?${next.toString()}`);
-              }}
+        </div>
+      </div>
+
+      {/* Locations Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {viewMode === 'grid' ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sortedLocations.map((location) => (
+              <Card key={location.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
+                <div className="relative overflow-hidden rounded-t-lg">
+                  <img 
+                    src={location.image} 
+                    alt={location.title}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(location.id);
+                    }}
+                    className="absolute top-4 right-4 p-2 bg-white/90 rounded-full hover:bg-white transition-colors"
+                  >
+                    <Heart 
+                      className={`h-5 w-5 ${
+                        favorites.includes(location.id) 
+                          ? 'fill-red-500 text-red-500' 
+                          : 'text-gray-600'
+                      }`} 
+                    />
+                  </button>
+                  
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-white/90 text-gray-900 hover:bg-white">
+                      {location.type}
+                    </Badge>
+                  </div>
+
+                  {location.instantBook && (
+                    <div className="absolute bottom-4 left-4">
+                      <Badge className="bg-green-600 text-white">
+                        <Zap className="h-3 w-3 mr-1" />
+                        Instant Book
+                      </Badge>
+                    </div>
+                  )}
+                </div>
+                
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-semibold text-lg text-gray-900 line-clamp-2">
+                      {location.title}
+                    </h3>
+                  </div>
+                  
+                  <div className="flex items-center gap-1 mb-2">
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <span className="font-medium">{location.rating}</span>
+                    <span className="text-gray-500">({location.reviews} reviews)</span>
+                  </div>
+                  
+                  <p className="text-gray-600 mb-3">{location.location}</p>
+                  
+                  <div className="flex flex-wrap gap-1 mb-4">
+                    {location.features.slice(0, 2).map((feature, index) => (
+                      <Badge key={index} variant="outline" className="text-xs">
+                        {feature}
+                      </Badge>
+                    ))}
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-semibold text-gray-900">
+                      Contact for pricing
+                    </span>
+                    <Button 
+                      asChild 
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      <Link to="/contact">Contact Us</Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {sortedLocations.map((location) => (
+              <Card key={location.id} className="group cursor-pointer hover:shadow-lg transition-all duration-300">
+                <div className="flex">
+                  <div className="relative w-80 h-48 overflow-hidden rounded-l-lg">
+                    <img 
+                      src={location.image} 
+                      alt={location.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(location.id);
+                      }}
+                      className="absolute top-4 right-4 p-2 bg-white/90 rounded-full hover:bg-white transition-colors"
+                    >
+                      <Heart 
+                        className={`h-5 w-5 ${
+                          favorites.includes(location.id) 
+                            ? 'fill-red-500 text-red-500' 
+                            : 'text-gray-600'
+                        }`} 
+                      />
+                    </button>
+                  </div>
+                  
+                  <CardContent className="flex-1 p-6">
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="font-semibold text-xl text-gray-900">
+                        {location.title}
+                      </h3>
+                      <Badge className="bg-gray-100 text-gray-800">
+                        {location.type}
+                      </Badge>
+                    </div>
+                    
+                    <div className="flex items-center gap-1 mb-2">
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <span className="font-medium">{location.rating}</span>
+                      <span className="text-gray-500">({location.reviews} reviews)</span>
+                    </div>
+                    
+                    <p className="text-gray-600 mb-3">{location.location}</p>
+                    
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {location.features.map((feature, index) => (
+                        <Badge key={index} variant="outline" className="text-xs">
+                          {feature}
+                        </Badge>
+                      ))}
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-semibold text-gray-900">
+                        Contact for pricing
+                      </span>
+                      <Button 
+                        asChild 
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        <Link to="/contact">Contact Us</Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {filteredLocations.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No locations found matching your filters.</p>
+            <Button 
+              variant="outline" 
+              onClick={() => setFilters({ location: '', type: '', amenities: [], priceRange: '', rating: 0 })}
+              className="mt-4"
             >
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Recommended" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="price_asc">Price: Low to High</SelectItem>
-                <SelectItem value="price_desc">Price: High to Low</SelectItem>
-              </SelectContent>
-            </Select>
-            <div className="ml-auto flex items-center gap-2">
-              <Button
-                variant={qView === "grid" ? "default" : "outline"}
-                size="sm"
-                onClick={() => {
-                  const next = new URLSearchParams(params);
-                  next.set("view", "grid");
-                  navigate(`/locations?${next.toString()}`);
-                }}
-              >
-                <LayoutGrid className="mr-2" /> Grid
-              </Button>
-              <Button
-                variant={qView === "list" ? "default" : "outline"}
-                size="sm"
-                onClick={() => {
-                  const next = new URLSearchParams(params);
-                  next.set("view", "list");
-                  navigate(`/locations?${next.toString()}`);
-                }}
-              >
-                <ListIcon className="mr-2" /> List
-              </Button>
-            </div>
+              Clear Filters
+            </Button>
           </div>
-        </div>
-      </section>
-
-      {/* Layout with optional sidebar and view toggle */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-4 md:hidden flex justify-between">
-            <Drawer>
-              <DrawerTrigger asChild>
-                <Button variant="outline" size="sm"><SlidersHorizontal className="mr-2" /> Filters</Button>
-              </DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>Filters</DrawerTitle>
-                </DrawerHeader>
-                <div className="p-4 space-y-4">
-                  <div>
-                    <div className="text-sm font-medium mb-2">Types</div>
-                    {[
-                      { v: "studio", l: "Photo/Film Studio" },
-                      { v: "house", l: "House" },
-                      { v: "loft", l: "Loft" },
-                      { v: "outdoor", l: "Outdoor" },
-                    ].map((t) => {
-                      const checked = qTypes.includes(t.v);
-                      return (
-                        <label key={t.v} className="flex items-center gap-2 py-1">
-                          <Checkbox
-                            checked={checked}
-                            onCheckedChange={(val) => {
-                              const next = new URLSearchParams(params);
-                              const set = new Set(qTypes);
-                              if (val) set.add(t.v); else set.delete(t.v);
-                              const arr = Array.from(set);
-                              if (arr.length) next.set("types", arr.join(",")); else next.delete("types");
-                              navigate(`/locations?${next.toString()}`);
-                            }}
-                          />
-                          <span className="text-sm">{t.l}</span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                  <div>
-                    <div className="text-sm font-medium mb-2">Amenities</div>
-                    {[
-                      { v: "natural light", l: "Natural Light" },
-                      { v: "parking", l: "Parking" },
-                      { v: "kitchen", l: "Kitchen" },
-                      { v: "backdrop", l: "Backdrops" },
-                    ].map((a) => {
-                      const checked = qAmenities.includes(a.v);
-                      return (
-                        <label key={a.v} className="flex items-center gap-2 py-1">
-                          <Checkbox
-                            checked={checked}
-                            onCheckedChange={(val) => {
-                              const next = new URLSearchParams(params);
-                              const set = new Set(qAmenities);
-                              if (val) set.add(a.v); else set.delete(a.v);
-                              const arr = Array.from(set);
-                              if (arr.length) next.set("amenities", arr.join(",")); else next.delete("amenities");
-                              navigate(`/locations?${next.toString()}`);
-                            }}
-                          />
-                          <span className="text-sm">{a.l}</span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                </div>
-                <DrawerFooter>
-                  <DrawerClose asChild>
-                    <Button variant="secondary">Close</Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-          </div>
-          {/* close mobile filters wrapper */}
-          <div className="grid grid-cols-1 md:grid-cols-[240px,1fr] gap-8">
-            <aside className="hidden md:block">
-              <div className="sticky top-32 space-y-6">
-                <div>
-                  <div className="text-sm font-medium mb-2">Types</div>
-                  {[
-                    { v: "studio", l: "Photo/Film Studio" },
-                    { v: "house", l: "House" },
-                    { v: "loft", l: "Loft" },
-                    { v: "outdoor", l: "Outdoor" },
-                  ].map((t) => {
-                    const checked = qTypes.includes(t.v);
-                    return (
-                      <label key={t.v} className="flex items-center gap-2 py-1">
-                        <Checkbox
-                          checked={checked}
-                          onCheckedChange={(val) => {
-                            const next = new URLSearchParams(params);
-                            const set = new Set(qTypes);
-                            if (val) set.add(t.v); else set.delete(t.v);
-                            const arr = Array.from(set);
-                            if (arr.length) next.set("types", arr.join(",")); else next.delete("types");
-                            navigate(`/locations?${next.toString()}`);
-                          }}
-                        />
-                        <span className="text-sm">{t.l}</span>
-                      </label>
-                    );
-                  })}
-                </div>
-                <div>
-                  <div className="text-sm font-medium mb-2">Amenities</div>
-                  {[
-                    { v: "natural light", l: "Natural Light" },
-                    { v: "parking", l: "Parking" },
-                    { v: "kitchen", l: "Kitchen" },
-                    { v: "backdrop", l: "Backdrops" },
-                  ].map((a) => {
-                    const checked = qAmenities.includes(a.v);
-                    return (
-                      <label key={a.v} className="flex items-center gap-2 py-1">
-                        <Checkbox
-                          checked={checked}
-                          onCheckedChange={(val) => {
-                            const next = new URLSearchParams(params);
-                            const set = new Set(qAmenities);
-                            if (val) set.add(a.v); else set.delete(a.v);
-                            const arr = Array.from(set);
-                            if (arr.length) next.set("amenities", arr.join(",")); else next.delete("amenities");
-                            navigate(`/locations?${next.toString()}`);
-                          }}
-                        />
-                        <span className="text-sm">{a.l}</span>
-                      </label>
-                    );
-                  })}
-                </div>
-              </div>
-            </aside>
-            <div>
-              <div className={qView === "list" ? "space-y-6" : "grid grid-cols-1 md:grid-cols-2 gap-8"}>
-                {sorted.map((location) => {
-                  const isFavorite = favorites.includes(location.id);
-                  return (
-                    <Card key={location.id} className="card-elevated overflow-hidden hover:shadow-xl transition-all duration-300 group relative">
-                      <div className="relative">
-                        <Link to={`/booking/${location.id}`} className="block">
-                          <div className="aspect-video overflow-hidden cursor-pointer relative">
-                            <img 
-                              src={location.image} 
-                              alt={location.title}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          </div>
-                        </Link>
-                        
-                        {/* Favorite Button */}
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="absolute top-3 right-3 bg-white/90 hover:bg-white backdrop-blur-sm rounded-full h-10 w-10 shadow-lg z-10"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleFavorite(location.id);
-                          }}
-                        >
-                          <Heart 
-                            className={`h-5 w-5 transition-all ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`}
-                          />
-                        </Button>
-
-                        {/* Badges */}
-                        <div className="absolute top-3 left-3 flex flex-col gap-2">
-                          {location.superhost && (
-                            <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 shadow-lg">
-                              <Award className="h-3 w-3 mr-1" />
-                              Superhost
-                            </Badge>
-                          )}
-                          {location.instantBook && (
-                            <Badge className="bg-gradient-to-r from-green-600 to-teal-600 text-white border-0 shadow-lg">
-                              <TrendingUp className="h-3 w-3 mr-1" />
-                              Instant Book
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <CardHeader className="pb-3">
-                        {/* Rating and Reviews */}
-                        <div className="flex items-center gap-2 mb-2">
-                          <div className="flex items-center bg-primary/10 px-2 py-1 rounded-md">
-                            <Star className="h-4 w-4 text-yellow-500 fill-yellow-500 mr-1" />
-                            <span className="font-bold text-sm">{location.rating.toFixed(1)}</span>
-                          </div>
-                          <span className="text-xs text-muted-foreground">
-                            ({location.reviews} reviews)
-                          </span>
-                          <div className="flex items-center text-xs text-muted-foreground ml-auto">
-                            <Users className="h-3 w-3 mr-1" />
-                            {location.bookings}+ bookings
-                          </div>
-                        </div>
-                        
-                        <Link to={`/booking/${location.id}`} className="hover:underline">
-                          <h3 className="text-xl font-semibold text-foreground line-clamp-2 leading-tight">
-                            {location.title}
-                          </h3>
-                        </Link>
-                        <div className="flex items-center text-muted-foreground text-sm mt-2">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          {location.location}
-                        </div>
-                      </CardHeader>
-
-                      <CardContent className="pt-0">
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center text-primary font-bold text-xl">
-                            <DollarSign className="h-6 w-6 mr-0.5" />
-                            {location.rate}
-                            <span className="text-sm font-normal text-muted-foreground ml-1">/hr</span>
-                          </div>
-                          <Badge variant="outline" className="text-xs">
-                            <Shield className="h-3 w-3 mr-1" />
-                            Verified
-                          </Badge>
-                        </div>
-                        
-                        <div className="flex flex-wrap gap-2">
-                          {location.features.slice(0, 3).map((feature, index) => (
-                            <Badge key={index} variant="secondary" className="text-xs">
-                              {feature}
-                            </Badge>
-                          ))}
-                          {location.features.length > 3 && (
-                            <Badge variant="secondary" className="text-xs">
-                              +{location.features.length - 3} more
-                            </Badge>
-                          )}
-                        </div>
-                      </CardContent>
-
-                      <CardFooter className="flex gap-2">
-                        <Button 
-                          asChild 
-                          className="btn-hero flex-1 group-hover:shadow-lg transition-shadow"
-                        >
-                          <Link to={`/booking/${location.id}`}>
-                            Book Now
-                          </Link>
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-secondary">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-foreground mb-4">
-            Don't See What You're Looking For?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-6">
-            Contact us to discuss your specific needs. We're always adding new locations and can help you find the perfect space.
-          </p>
-          <Button size="lg" className="btn-accent" asChild>
-            <Link to="/contact">Contact Us</Link>
-          </Button>
-        </div>
-      </section>
+        )}
+      </div>
     </div>
   );
 };
