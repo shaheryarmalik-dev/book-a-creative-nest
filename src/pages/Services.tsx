@@ -230,24 +230,22 @@ const Services = () => {
                   </button>
                 </div>
               </div>
-              <div id={`row-${rIndex}`} className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2">
+              <div id={`row-${rIndex}`} className="flex gap-3 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2">
                 {row.items.map((service, index) => (
-                  <div key={index} className="min-w-[220px] max-w-[220px] lg:min-w-[240px] lg:max-w-[240px] snap-start">
-                    <div className="relative h-40 lg:h-44 w-full overflow-hidden rounded-xl shadow group">
+                  <div key={index} className="min-w-[200px] max-w-[200px] snap-start">
+                    <div className="relative h-36 w-full overflow-hidden rounded-xl shadow group">
                       <img src={service.image} alt={service.title} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       <Badge className="absolute top-3 left-3 bg-white/90 text-gray-900">Service</Badge>
                     </div>
-                    <div className="mt-3">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-gray-900 line-clamp-1">{service.title}</h4>
-                        <div className="flex items-center gap-1">
-                          <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                          <span className="text-sm text-gray-600">5.0</span>
-                        </div>
+                    <div className="mt-2">
+                      <h4 className="text-sm font-semibold text-gray-900 line-clamp-1">{service.title}</h4>
+                      <div className="flex items-center gap-1 mt-1">
+                        <Star className="h-3.5 w-3.5 text-yellow-400 fill-yellow-400" />
+                        <span className="text-xs text-gray-600">5.0</span>
                       </div>
-                      <p className="text-sm text-gray-600 line-clamp-2">{service.description}</p>
-                      <div className="mt-2 text-sm text-gray-900 font-medium">{service.price}</div>
-                      <Button asChild className="mt-2 w-full"> 
+                      <p className="text-xs text-gray-600 line-clamp-2 mt-1">{service.description}</p>
+                      <div className="mt-1 text-xs text-gray-900 font-medium">{service.price}</div>
+                      <Button asChild variant="outline" className="mt-2 h-8 text-xs w-full"> 
                         <Link to="/contact">Contact</Link>
                       </Button>
                     </div>
