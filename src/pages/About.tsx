@@ -59,7 +59,7 @@ const About = () => {
       <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-            About Book-A-Space
+            About FrameScout Locations
           </h1>
           <p className="text-xl text-gray-200 leading-relaxed">
             Your complete production partner offering professional services, unique creative spaces, 
@@ -90,7 +90,7 @@ const About = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
             <div className="space-y-6 text-gray-600">
               <p className="text-lg leading-relaxed">
-                <strong className="text-gray-900">Book-A-Space</strong> is your complete production partner, 
+                <strong className="text-gray-900">FrameScout Locations</strong> is your complete production partner, 
                 offering professional services and unique creative spaces for filmmakers, photographers, 
                 and content creators.
               </p>
@@ -192,7 +192,7 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Book-A-Space?
+              Why Choose FrameScout Locations?
             </h2>
             <p className="text-xl text-gray-600">
               Professional production services with industry expertise

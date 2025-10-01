@@ -49,8 +49,8 @@ const Header = () => {
         <div className="flex justify-between items-center h-20 py-3">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <img src="/book-a-creative-nest/logo.jpeg" alt="Book-A-Space Logo" className="h-14 w-auto transition-all duration-300 group-hover:scale-105" />
-            <span className="font-bold text-2xl text-gray-900 tracking-tight">Book-A-Space</span>
+            <img src="/book-a-creative-nest/logo.jpeg" alt="FrameScout Locations Logo" className="h-14 w-auto transition-all duration-300 group-hover:scale-105" />
+            <span className="font-bold text-2xl text-gray-900 tracking-tight">FrameScout Locations</span>
           </Link>
 
           {/* Desktop Navigation */}

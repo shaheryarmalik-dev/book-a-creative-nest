@@ -11,12 +11,12 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <img src="/book-a-creative-nest/logo.jpeg" alt="Book-A-Space Logo" className="h-10 w-auto" />
-              <span className="font-bold text-2xl text-white">Book-A-Space</span>
+              <img src="/book-a-creative-nest/logo.jpeg" alt="FrameScout Locations Logo" className="h-10 w-auto" />
+              <span className="font-bold text-2xl text-white">FrameScout Locations</span>
             </div>
             <p className="text-gray-400 text-sm max-w-md leading-relaxed">
-              Book inspiring creative spaces by the hour. From cozy apartments to breathtaking desert views, 
-              find the perfect location for your next project.
+              Professional location scouting and creative space rentals. From studios to unique venues, 
+              find the perfect location for your next production.
             </p>
           </div>
 
