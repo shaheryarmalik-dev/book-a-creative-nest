@@ -322,7 +322,7 @@ const Home = () => {
                     onChange={(e) => handlePlanningChange(e.target.value)}
                     onFocus={() => setShowPlanningSuggestions(true)}
                     onBlur={() => setTimeout(() => setShowPlanningSuggestions(false), 200)}
-                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-100 placeholder-gray-500"
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900 placeholder-gray-500 bg-white"
                   />
                   {/* Planning Suggestions Dropdown */}
                   {showPlanningSuggestions && planningSuggestions.length > 0 && (
@@ -352,7 +352,7 @@ const Home = () => {
                     onChange={(e) => handleLocationChange(e.target.value)}
                     onFocus={() => setShowLocationSuggestions(true)}
                     onBlur={() => setTimeout(() => setShowLocationSuggestions(false), 200)}
-                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-100 placeholder-gray-500"
+                    className="pl-12 h-14 text-lg border-0 focus:ring-0 rounded-xl text-gray-900 placeholder-gray-500 bg-white"
                   />
                   {/* Location Suggestions Dropdown */}
                   {showLocationSuggestions && locationSuggestions.length > 0 && (
