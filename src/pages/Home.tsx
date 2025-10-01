@@ -297,11 +297,18 @@ const Home = () => {
 
         {/* Content Overlay */}
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-            Find a space.
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+            Where
             <br />
-            <span className="text-blue-400">Fulfill your vision.</span>
+            <span className="text-blue-400">extraordinary</span>
+            <br />
+            begins
           </h1>
+          <div className="flex justify-center mb-4">
+            <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
+              <Link to="/locations">Find your space</Link>
+            </Button>
+          </div>
           
           {/* Search Bar - Peerspace Style */}
           <div className="bg-white rounded-2xl p-2 shadow-2xl max-w-4xl mx-auto mb-8">

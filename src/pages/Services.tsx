@@ -230,10 +230,10 @@ const Services = () => {
                   </button>
                 </div>
               </div>
-              <div id={`row-${rIndex}`} className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2">
+              <div id={`row-${rIndex}`} className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2">
                 {row.items.map((service, index) => (
-                  <div key={index} className="min-w-[280px] max-w-[280px] snap-start">
-                    <div className="relative h-48 w-full overflow-hidden rounded-xl shadow group">
+                  <div key={index} className="min-w-[220px] max-w-[220px] lg:min-w-[240px] lg:max-w-[240px] snap-start">
+                    <div className="relative h-40 lg:h-44 w-full overflow-hidden rounded-xl shadow group">
                       <img src={service.image} alt={service.title} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       <Badge className="absolute top-3 left-3 bg-white/90 text-gray-900">Service</Badge>
                     </div>
