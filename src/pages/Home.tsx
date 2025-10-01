@@ -38,6 +38,7 @@ const Home = () => {
   const [searchPlanning, setSearchPlanning] = useState("");
   const [showPlanningSuggestions, setShowPlanningSuggestions] = useState(false);
   const [planningSuggestions, setPlanningSuggestions] = useState([]);
+  const [hoveredActivity, setHoveredActivity] = useState(null);
 
   // Background images that will cycle through
   const backgroundImages = [
@@ -397,7 +398,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Interactive Location Categories */}
+      {/* Interactive Location Categories - Peerspace Style */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -409,59 +410,70 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-            {[
-              { name: "Photo shoot", image: studio01, location: "Los Angeles, CA" },
-              { name: "Meeting", image: studio02, location: "Los Angeles, CA" },
-              { name: "Birthday party", image: studio03, location: "Los Angeles, CA" },
-              { name: "Video shoot", image: studio04, location: "Los Angeles, CA" },
-              { name: "Baby shower", image: studio05, location: "Los Angeles, CA" },
-              { name: "Workshop", image: studio06, location: "Los Angeles, CA" },
-              { name: "Wedding reception", image: studio07, location: "Los Angeles, CA" },
-              { name: "Live music", image: studio08, location: "Los Angeles, CA" },
-              { name: "Party", image: studio09, location: "Los Angeles, CA" },
-              { name: "Music video", image: studio10, location: "Los Angeles, CA" },
-              { name: "Bridal shower", image: studio11, location: "Los Angeles, CA" },
-              { name: "Event", image: studio12, location: "Los Angeles, CA" },
-              { name: "Engagement party", image: studio13, location: "Los Angeles, CA" },
-              { name: "Corporate event", image: studio14, location: "Los Angeles, CA" },
-              { name: "Graduation party", image: studio15, location: "Los Angeles, CA" },
-              { name: "Pop-up", image: laGemImage, location: "Los Angeles, CA" }
-            ].map((activity, index) => (
-              <div
-                key={index}
-                className="group relative cursor-pointer"
-                onClick={() => navigate('/locations')}
-              >
-                <div className="p-4 text-center border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-lg transition-all duration-300 group-hover:bg-blue-50">
-                  <span className="text-gray-700 group-hover:text-blue-600 font-medium">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Left Side - Activity Categories */}
+            <div className="space-y-4">
+              {[
+                { name: "Photo shoot", image: studio01, location: "Los Angeles, CA" },
+                { name: "Meeting", image: studio02, location: "Los Angeles, CA" },
+                { name: "Birthday party", image: studio03, location: "Los Angeles, CA" },
+                { name: "Video shoot", image: studio04, location: "Los Angeles, CA" },
+                { name: "Baby shower", image: studio05, location: "Los Angeles, CA" },
+                { name: "Workshop", image: studio06, location: "Los Angeles, CA" },
+                { name: "Wedding reception", image: studio07, location: "Los Angeles, CA" },
+                { name: "Live music", image: studio08, location: "Los Angeles, CA" },
+                { name: "Party", image: studio09, location: "Los Angeles, CA" },
+                { name: "Music video", image: studio10, location: "Los Angeles, CA" },
+                { name: "Bridal shower", image: studio11, location: "Los Angeles, CA" },
+                { name: "Event", image: studio12, location: "Los Angeles, CA" },
+                { name: "Engagement party", image: studio13, location: "Los Angeles, CA" },
+                { name: "Corporate event", image: studio14, location: "Los Angeles, CA" },
+                { name: "Graduation party", image: studio15, location: "Los Angeles, CA" },
+                { name: "Pop-up", image: laGemImage, location: "Los Angeles, CA" }
+              ].map((activity, index) => (
+                <div
+                  key={index}
+                  className="group cursor-pointer p-4 rounded-lg hover:bg-gray-50 transition-all duration-300"
+                  onMouseEnter={() => setHoveredActivity(activity)}
+                  onMouseLeave={() => setHoveredActivity(null)}
+                  onClick={() => navigate('/locations')}
+                >
+                  <span className="text-gray-700 group-hover:text-blue-600 font-medium text-lg">
                     {activity.name}
                   </span>
                 </div>
-                
-                {/* Hover Image */}
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-64 h-48 rounded-lg overflow-hidden shadow-2xl z-50 opacity-0 group-hover:opacity-100 transition-all duration-300">
+              ))}
+              
+              <div className="pt-6">
+                <Button 
+                  asChild
+                  className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-lg font-semibold rounded-lg"
+                >
+                  <Link to="/locations">Browse all activities</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Side - Dynamic Image */}
+            <div className="relative">
+              <div className="sticky top-24">
+                <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
                   <img 
-                    src={activity.image} 
-                    alt={activity.name}
-                    className="w-full h-full object-cover"
+                    src={hoveredActivity ? hoveredActivity.image : studio01} 
+                    alt={hoveredActivity ? hoveredActivity.name : "Featured space"}
+                    className="w-full h-full object-cover transition-all duration-500"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                    <p className="text-white font-semibold text-sm">{activity.name}</p>
-                    <p className="text-white/80 text-xs">{activity.location}</p>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                    <p className="text-white font-bold text-xl">
+                      {hoveredActivity ? hoveredActivity.name : "Photo shoot"}
+                    </p>
+                    <p className="text-white/80 text-lg">
+                      {hoveredActivity ? hoveredActivity.location : "Los Angeles, CA"}
+                    </p>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Button 
-              asChild
-              className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-lg font-semibold rounded-lg"
-            >
-              <Link to="/locations">Browse all activities</Link>
-            </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -530,7 +542,7 @@ const Home = () => {
                       className="bg-blue-600 hover:bg-blue-700 text-white hover:scale-105 transition-transform"
                     >
                       <Link to="/contact">Contact Us</Link>
-                    </Button>
+              </Button>
                   </div>
                 </CardContent>
               </Card>
