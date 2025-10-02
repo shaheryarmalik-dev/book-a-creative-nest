@@ -624,7 +624,7 @@ const Home = () => {
               <div className="text-gray-300">Projects Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">15+</div>
               <div className="text-gray-300">Creative Spaces</div>
             </div>
             <div className="text-center">
