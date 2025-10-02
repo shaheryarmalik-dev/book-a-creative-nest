@@ -47,7 +47,9 @@ const Locations = () => {
     type: '',
     amenities: [] as string[],
     priceRange: '',
-    rating: 0
+    rating: 0,
+    instantBook: false,
+    superhost: false
   });
 
   const toggleFavorite = (id: number) => {
@@ -295,12 +297,42 @@ const Locations = () => {
         return false;
       }
     }
+    
+    // Filter by type
     if (filters.type && location.type !== filters.type) {
       return false;
     }
+    
+    // Filter by rating
     if (filters.rating > 0 && location.rating < filters.rating) {
       return false;
     }
+    
+    // Filter by amenities
+    if (filters.amenities.length > 0) {
+      const hasAllAmenities = filters.amenities.every(amenity =>
+        location.amenities.some(locationAmenity => 
+          locationAmenity.toLowerCase().includes(amenity.toLowerCase())
+        ) ||
+        location.features.some(feature => 
+          feature.toLowerCase().includes(amenity.toLowerCase())
+        )
+      );
+      if (!hasAllAmenities) {
+        return false;
+      }
+    }
+    
+    // Filter by instant book
+    if (filters.instantBook && !location.instantBook) {
+      return false;
+    }
+    
+    // Filter by superhost
+    if (filters.superhost && !location.superhost) {
+      return false;
+    }
+    
     return true;
   });
 
@@ -369,6 +401,22 @@ const Locations = () => {
                         </SelectContent>
                       </Select>
                     </div>
+
+                    <div>
+                      <label className="text-sm font-medium mb-2 block text-gray-100">Price Range (per hour)</label>
+                      <Select value={filters.priceRange} onValueChange={(value) => setFilters(prev => ({ ...prev, priceRange: value }))}>
+                        <SelectTrigger className="bg-slate-800 border-slate-700 text-gray-100">
+                          <SelectValue placeholder="Any price" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-800 border-slate-700">
+                          <SelectItem value="" className="text-gray-100">Any price</SelectItem>
+                          <SelectItem value="0-100" className="text-gray-100">Under $100</SelectItem>
+                          <SelectItem value="100-200" className="text-gray-100">$100 - $200</SelectItem>
+                          <SelectItem value="200-300" className="text-gray-100">$200 - $300</SelectItem>
+                          <SelectItem value="300+" className="text-gray-100">$300+</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                     
                     <div>
                       <label className="text-sm font-medium mb-2 block text-gray-100">Minimum Rating</label>
@@ -384,10 +432,84 @@ const Locations = () => {
                         </SelectContent>
                       </Select>
                     </div>
+
+                    <div>
+                      <label className="text-sm font-medium mb-3 block text-gray-100">Amenities</label>
+                      <div className="space-y-3">
+                        {['WiFi', 'Parking', 'Kitchen', 'Air Conditioning', 'Natural Light', 'Backdrop', 'Lighting Equipment', 'Sound System'].map((amenity) => (
+                          <div key={amenity} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={amenity}
+                              checked={filters.amenities.includes(amenity)}
+                              onCheckedChange={(checked) => {
+                                setFilters(prev => ({
+                                  ...prev,
+                                  amenities: checked
+                                    ? [...prev.amenities, amenity]
+                                    : prev.amenities.filter(a => a !== amenity)
+                                }));
+                              }}
+                              className="border-slate-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                            />
+                            <label
+                              htmlFor={amenity}
+                              className="text-sm text-gray-300 cursor-pointer"
+                            >
+                              {amenity}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="border-t border-slate-700 pt-6">
+                      <label className="text-sm font-medium mb-3 block text-gray-100">Booking Options</label>
+                      <div className="space-y-3">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="instantBook"
+                            checked={filters.instantBook}
+                            onCheckedChange={(checked) => setFilters(prev => ({ ...prev, instantBook: checked as boolean }))}
+                            className="border-slate-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                          />
+                          <label htmlFor="instantBook" className="text-sm text-gray-300 cursor-pointer flex items-center gap-2">
+                            <Zap className="h-4 w-4 text-blue-400" />
+                            Instant Book
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="superhost"
+                            checked={filters.superhost}
+                            onCheckedChange={(checked) => setFilters(prev => ({ ...prev, superhost: checked as boolean }))}
+                            className="border-slate-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                          />
+                          <label htmlFor="superhost" className="text-sm text-gray-300 cursor-pointer flex items-center gap-2">
+                            <Award className="h-4 w-4 text-yellow-400" />
+                            Superhost
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <DrawerFooter className="border-t border-slate-700">
+                  <DrawerFooter className="border-t border-slate-700 flex flex-row gap-3">
+                    <Button
+                      variant="outline"
+                      onClick={() => setFilters({
+                        location: '',
+                        type: '',
+                        amenities: [],
+                        priceRange: '',
+                        rating: 0,
+                        instantBook: false,
+                        superhost: false
+                      })}
+                      className="flex-1 bg-slate-800 text-gray-100 border-slate-600 hover:bg-slate-700"
+                    >
+                      Clear All
+                    </Button>
                     <DrawerClose asChild>
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full">Apply Filters</Button>
+                      <Button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white">Apply Filters</Button>
                     </DrawerClose>
                   </DrawerFooter>
                 </DrawerContent>
