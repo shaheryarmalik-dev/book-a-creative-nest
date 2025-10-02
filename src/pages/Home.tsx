@@ -52,52 +52,23 @@ const Home = () => {
     joshuaTreeImage
   ];
 
-  // Location suggestions data
-  const locationOptions = [
-    "Los Angeles, CA",
-    "New York, NY", 
-    "Chicago, IL",
-    "Miami, FL",
-    "San Francisco, CA",
-    "Austin, TX",
-    "Seattle, WA",
-    "Boston, MA",
-    "Denver, CO",
-    "Nashville, TN"
-  ];
-
-  // Planning suggestions based on actual website locations
-  const planningOptions = [
-    "Film Production",
-    "Photography Shoot", 
-    "Video Production",
-    "Commercial Shoot",
-    "Music Video",
-    "Documentary",
-    "Corporate Video",
-    "Event Photography",
-    "Portrait Session",
-    "Product Photography",
-    "Fashion Shoot",
-    "Wedding Photography",
-    "Real Estate Photography",
-    "Content Creation",
-    "Social Media Content",
-    "YouTube Video",
-    "Podcast Recording",
-    "Interview Recording",
-    "Live Streaming",
-    "Art Exhibition",
-    "Creative Workshop",
-    "Team Building Event",
-    "Corporate Event",
-    "Product Launch",
-    "Brand Campaign",
-    "Marketing Video",
-    "Training Video",
-    "Educational Content",
-    "Tutorial Video",
-    "Behind the Scenes"
+  // Actual locations from the website
+  const actualLocations = [
+    { id: 1, title: "Vintage Cuban Elegance - Luxurious Latin Kitchen", location: "Los Angeles, CA", type: "Kitchen & Dining", image: studio01 },
+    { id: 2, title: "Artsy Beautiful Home", location: "Los Angeles, CA", type: "Residential", image: studio02 },
+    { id: 3, title: "Creative Space LA - Film Photography Studio", location: "Los Angeles, CA", type: "Studio", image: studio03 },
+    { id: 4, title: "Peerspace Board - Creative Workspace", location: "Los Angeles, CA", type: "Creative Workspace", image: studio04 },
+    { id: 5, title: "Peerspace Listing - Modern Studio", location: "Los Angeles, CA", type: "Studio", image: studio05 },
+    { id: 6, title: "Peerspace Listing - Event Space", location: "Los Angeles, CA", type: "Event Space", image: studio06 },
+    { id: 7, title: "Blue Cloud Studios", location: "Los Angeles, CA", type: "Production Studio", image: studio07 },
+    { id: 8, title: "Imperial Art Studios", location: "Los Angeles, CA", type: "Art Studio", image: studio08 },
+    { id: 9, title: "Riverfront Stages - Bar Stage", location: "Los Angeles, CA", type: "Stage & Performance", image: studio09 },
+    { id: 10, title: "Peerspace Listing - Creative Space", location: "Los Angeles, CA", type: "Creative Space", image: studio10 },
+    { id: 11, title: "Peerspace Listing - Professional Studio", location: "Los Angeles, CA", type: "Professional Studio", image: studio11 },
+    { id: 12, title: "Peerspace Listing - Event Venue", location: "Los Angeles, CA", type: "Event Venue", image: studio12 },
+    { id: 13, title: "Peerspace Listing - Creative Workspace", location: "Los Angeles, CA", type: "Creative Workspace", image: studio13 },
+    { id: 14, title: "Peerspace Listing - Modern Studio", location: "Los Angeles, CA", type: "Modern Studio", image: studio14 },
+    { id: 15, title: "Peerspace Listing - Creative Space", location: "Los Angeles, CA", type: "Creative Space", image: studio15 }
   ];
 
   // Auto-rotate background images every 4 seconds
@@ -111,12 +82,14 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [backgroundImages.length]);
 
-  // Handle location search with suggestions
+  // Handle location search with actual location suggestions
   const handleLocationChange = (value) => {
     setSearchLocation(value);
     if (value.length > 0) {
-      const filtered = locationOptions.filter(location => 
-        location.toLowerCase().includes(value.toLowerCase())
+      const filtered = actualLocations.filter(location => 
+        location.title.toLowerCase().includes(value.toLowerCase()) ||
+        location.type.toLowerCase().includes(value.toLowerCase()) ||
+        location.location.toLowerCase().includes(value.toLowerCase())
       );
       setLocationSuggestions(filtered);
       setShowLocationSuggestions(true);
@@ -126,16 +99,18 @@ const Home = () => {
   };
 
   const selectLocation = (location) => {
-    setSearchLocation(location);
+    // Navigate to locations page when a location is selected
+    navigate('/locations');
     setShowLocationSuggestions(false);
   };
 
-  // Handle planning search with suggestions
+  // Handle planning search with actual location types
   const handlePlanningChange = (value) => {
     setSearchPlanning(value);
     if (value.length > 0) {
-      const filtered = planningOptions.filter(planning => 
-        planning.toLowerCase().includes(value.toLowerCase())
+      const filtered = actualLocations.filter(location => 
+        location.type.toLowerCase().includes(value.toLowerCase()) ||
+        location.title.toLowerCase().includes(value.toLowerCase())
       );
       setPlanningSuggestions(filtered);
       setShowPlanningSuggestions(true);
@@ -144,8 +119,9 @@ const Home = () => {
     }
   };
 
-  const selectPlanning = (planning) => {
-    setSearchPlanning(planning);
+  const selectPlanning = (location) => {
+    // Navigate to locations page when a planning type is selected
+    navigate('/locations');
     setShowPlanningSuggestions(false);
   };
 
@@ -326,16 +302,26 @@ const Home = () => {
                   />
                   {/* Planning Suggestions Dropdown */}
                   {showPlanningSuggestions && planningSuggestions.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg z-50 mt-1 max-h-60 overflow-y-auto">
-                      {planningSuggestions.map((planning, index) => (
+                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg z-50 mt-1 max-h-96 overflow-y-auto">
+                      {planningSuggestions.map((location, index) => (
                         <div
                           key={index}
-                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-900 border-b border-gray-200 last:border-b-0"
-                          onClick={() => selectPlanning(planning)}
+                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-900 border-b border-gray-200 last:border-b-0 transition-colors"
+                          onClick={() => selectPlanning(location)}
                         >
-                          <div className="flex items-center">
-                            <Search className="h-4 w-4 text-gray-400 mr-3" />
-                            <span className="text-sm">{planning}</span>
+                          <div className="flex items-center gap-3">
+                            <img 
+                              src={location.image} 
+                              alt={location.title}
+                              className="w-16 h-12 object-cover rounded"
+                            />
+                            <div className="flex-1">
+                              <div className="font-medium text-sm">{location.title}</div>
+                              <div className="text-xs text-gray-500 flex items-center gap-1">
+                                <MapPin className="h-3 w-3" />
+                                {location.type} • {location.location}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -356,16 +342,26 @@ const Home = () => {
                   />
                   {/* Location Suggestions Dropdown */}
                   {showLocationSuggestions && locationSuggestions.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg z-50 mt-1 max-h-60 overflow-y-auto">
+                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg z-50 mt-1 max-h-96 overflow-y-auto">
                       {locationSuggestions.map((location, index) => (
                         <div
                           key={index}
-                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-900 border-b border-gray-200 last:border-b-0"
+                          className="px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-900 border-b border-gray-200 last:border-b-0 transition-colors"
                           onClick={() => selectLocation(location)}
                         >
-                          <div className="flex items-center">
-                            <MapPin className="h-4 w-4 text-gray-400 mr-3" />
-                            <span className="text-sm">{location}</span>
+                          <div className="flex items-center gap-3">
+                            <img 
+                              src={location.image} 
+                              alt={location.title}
+                              className="w-16 h-12 object-cover rounded"
+                            />
+                            <div className="flex-1">
+                              <div className="font-medium text-sm">{location.title}</div>
+                              <div className="text-xs text-gray-500 flex items-center gap-1">
+                                <MapPin className="h-3 w-3" />
+                                {location.type} • {location.location}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       ))}
