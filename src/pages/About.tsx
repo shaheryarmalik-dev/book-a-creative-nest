@@ -240,15 +240,14 @@ const About = () => {
             <Button 
               asChild 
               size="lg" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg"
+              className="bg-black text-white hover:bg-gray-800 px-8 py-3 text-lg"
             >
               <Link to="/contact">Get Started</Link>
             </Button>
             <Button 
               asChild 
-              variant="outline" 
               size="lg" 
-              className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-lg"
+              className="bg-black text-white hover:bg-gray-800 px-8 py-3 text-lg"
             >
               <Link to="/locations">Browse Locations</Link>
             </Button>
