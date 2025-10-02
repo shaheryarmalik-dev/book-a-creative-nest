@@ -345,32 +345,32 @@ const Locations = () => {
               {/* Filters */}
               <Drawer>
                 <DrawerTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2">
+                  <Button variant="outline" className="flex items-center gap-2 bg-slate-800 text-gray-100 border-slate-600 hover:bg-slate-700">
                     <SlidersHorizontal className="h-4 w-4" />
                     Filters
                   </Button>
                 </DrawerTrigger>
                 <DrawerContent className="bg-slate-900 border-slate-700">
-                  <DrawerHeader>
-                    <DrawerTitle className="text-gray-100">Filters</DrawerTitle>
+                  <DrawerHeader className="border-b border-slate-700">
+                    <DrawerTitle className="text-gray-100 text-xl">Filters</DrawerTitle>
                   </DrawerHeader>
-                  <div className="p-6 space-y-6">
-            <div>
+                  <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto">
+                    <div>
                       <label className="text-sm font-medium mb-2 block text-gray-100">Space Type</label>
                       <Select value={filters.type} onValueChange={(value) => setFilters(prev => ({ ...prev, type: value }))}>
-                <SelectTrigger className="bg-slate-800 border-slate-700 text-gray-100">
+                        <SelectTrigger className="bg-slate-800 border-slate-700 text-gray-100">
                           <SelectValue placeholder="All types" />
-                </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-800 border-slate-700">
                           <SelectItem value="" className="text-gray-100">All types</SelectItem>
                           {locationTypes.map(type => (
                             <SelectItem key={type} value={type} className="text-gray-100">{type}</SelectItem>
                           ))}
-                </SelectContent>
-              </Select>
-            </div>
+                        </SelectContent>
+                      </Select>
+                    </div>
                     
-            <div>
+                    <div>
                       <label className="text-sm font-medium mb-2 block text-gray-100">Minimum Rating</label>
                       <Select value={filters.rating.toString()} onValueChange={(value) => setFilters(prev => ({ ...prev, rating: parseInt(value) }))}>
                         <SelectTrigger className="bg-slate-800 border-slate-700 text-gray-100">
@@ -383,11 +383,11 @@ const Locations = () => {
                           <SelectItem value="4.8" className="text-gray-100">4.8+ stars</SelectItem>
                         </SelectContent>
                       </Select>
-            </div>
-            </div>
-                  <DrawerFooter>
+                    </div>
+                  </div>
+                  <DrawerFooter className="border-t border-slate-700">
                     <DrawerClose asChild>
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white">Apply Filters</Button>
+                      <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full">Apply Filters</Button>
                     </DrawerClose>
                   </DrawerFooter>
                 </DrawerContent>
