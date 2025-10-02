@@ -281,8 +281,19 @@ const Locations = () => {
   ];
 
   const filteredLocations = locations.filter(location => {
-    if (filters.location && !location.location.toLowerCase().includes(filters.location.toLowerCase())) {
-      return false;
+    // Search across title, location city, type, and features
+    if (filters.location) {
+      const searchTerm = filters.location.toLowerCase();
+      const matchesTitle = location.title.toLowerCase().includes(searchTerm);
+      const matchesLocation = location.location.toLowerCase().includes(searchTerm);
+      const matchesType = location.type.toLowerCase().includes(searchTerm);
+      const matchesFeatures = location.features.some(feature => 
+        feature.toLowerCase().includes(searchTerm)
+      );
+      
+      if (!matchesTitle && !matchesLocation && !matchesType && !matchesFeatures) {
+        return false;
+      }
     }
     if (filters.type && location.type !== filters.type) {
       return false;
@@ -339,44 +350,44 @@ const Locations = () => {
                     Filters
                   </Button>
                 </DrawerTrigger>
-                <DrawerContent>
+                <DrawerContent className="bg-slate-900 border-slate-700">
                   <DrawerHeader>
-                    <DrawerTitle>Filters</DrawerTitle>
+                    <DrawerTitle className="text-gray-100">Filters</DrawerTitle>
                   </DrawerHeader>
                   <div className="p-6 space-y-6">
             <div>
-                      <label className="text-sm font-medium mb-2 block">Space Type</label>
+                      <label className="text-sm font-medium mb-2 block text-gray-100">Space Type</label>
                       <Select value={filters.type} onValueChange={(value) => setFilters(prev => ({ ...prev, type: value }))}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-slate-800 border-slate-700 text-gray-100">
                           <SelectValue placeholder="All types" />
                 </SelectTrigger>
-                <SelectContent>
-                          <SelectItem value="">All types</SelectItem>
+                <SelectContent className="bg-slate-800 border-slate-700">
+                          <SelectItem value="" className="text-gray-100">All types</SelectItem>
                           {locationTypes.map(type => (
-                            <SelectItem key={type} value={type}>{type}</SelectItem>
+                            <SelectItem key={type} value={type} className="text-gray-100">{type}</SelectItem>
                           ))}
                 </SelectContent>
               </Select>
             </div>
                     
             <div>
-                      <label className="text-sm font-medium mb-2 block">Minimum Rating</label>
+                      <label className="text-sm font-medium mb-2 block text-gray-100">Minimum Rating</label>
                       <Select value={filters.rating.toString()} onValueChange={(value) => setFilters(prev => ({ ...prev, rating: parseInt(value) }))}>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-slate-800 border-slate-700 text-gray-100">
                           <SelectValue placeholder="Any rating" />
                         </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="0">Any rating</SelectItem>
-                          <SelectItem value="4">4+ stars</SelectItem>
-                          <SelectItem value="4.5">4.5+ stars</SelectItem>
-                          <SelectItem value="4.8">4.8+ stars</SelectItem>
+                        <SelectContent className="bg-slate-800 border-slate-700">
+                          <SelectItem value="0" className="text-gray-100">Any rating</SelectItem>
+                          <SelectItem value="4" className="text-gray-100">4+ stars</SelectItem>
+                          <SelectItem value="4.5" className="text-gray-100">4.5+ stars</SelectItem>
+                          <SelectItem value="4.8" className="text-gray-100">4.8+ stars</SelectItem>
                         </SelectContent>
                       </Select>
             </div>
             </div>
                   <DrawerFooter>
                     <DrawerClose asChild>
-                      <Button>Apply Filters</Button>
+                      <Button className="bg-blue-600 hover:bg-blue-700 text-white">Apply Filters</Button>
                     </DrawerClose>
                   </DrawerFooter>
                 </DrawerContent>

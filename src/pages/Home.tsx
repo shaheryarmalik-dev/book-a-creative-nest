@@ -760,11 +760,11 @@ const Home = () => {
               Find the perfect location for your next creative project
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
-                <Link to="/locations">Browse Locations</Link>
+              <Button asChild size="lg" className="bg-black text-white hover:bg-gray-800 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
+                <Link to="/contact">Get Started</Link>
               </Button>
-              <Button asChild size="lg" className="rounded-full bg-white/90 text-gray-900 hover:bg-white px-8 py-6 text-lg font-semibold shadow-xl">
-                <Link to="/contact">Contact Us</Link>
+              <Button asChild size="lg" className="bg-black text-white hover:bg-gray-800 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
+                <Link to="/locations">Browse Locations</Link>
           </Button>
             </div>
           </div>
