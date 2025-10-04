@@ -2,6 +2,7 @@ import { Film, Tv, Award, Calendar, ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Credits = () => {
   const filmsInProduction = [
@@ -309,14 +310,14 @@ const Credits = () => {
               size="lg" 
               className="bg-black text-white hover:bg-gray-800 px-8 py-3 text-lg"
             >
-              <a href="/contact">Contact Us</a>
+              <Link to="/contact">Contact Us</Link>
             </Button>
             <Button 
               asChild 
               size="lg" 
               className="bg-black text-white hover:bg-gray-800 px-8 py-3 text-lg"
             >
-              <a href="/services">View Services</a>
+              <Link to="/services">View Services</Link>
             </Button>
           </div>
         </div>
