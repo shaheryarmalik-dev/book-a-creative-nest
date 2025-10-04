@@ -131,13 +131,13 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+      <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white section-padding-sm">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="heading-xl mb-6">
             Complete Production
-            <span className="block text-blue-400">Services</span>
+            <span className="block text-blue-400 mt-2">Services</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl mb-10 text-gray-200 max-w-3xl mx-auto font-light leading-relaxed">
             Everything you need for your creative production - from location scouting to crew coordination
           </p>
           <Button 

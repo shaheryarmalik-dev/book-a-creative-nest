@@ -56,12 +56,12 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+      <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white section-padding-sm">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="heading-xl mb-8">
             About FrameScout Locations
           </h1>
-          <p className="text-xl text-gray-200 leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-3xl mx-auto font-light">
             Your complete production partner offering professional services, unique creative spaces, 
             and comprehensive support for all your creative projects.
           </p>
@@ -109,13 +109,13 @@ const About = () => {
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 bg-slate-800/30">
+      <section className="section-padding-sm bg-slate-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-100 mb-4">
+          <div className="text-center mb-16">
+            <h2 className="heading-lg text-gray-100 mb-6">
               Our Production Services
             </h2>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto font-light">
               Complete production support for all your creative needs
             </p>
           </div>
