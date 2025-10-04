@@ -46,6 +46,12 @@ const Footer = () => {
                 Services
               </Link>
               <Link 
+                to="/credits" 
+                className="text-gray-400 hover:text-white transition-colors text-sm"
+              >
+                Production Credits
+              </Link>
+              <Link 
                 to="/about" 
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
