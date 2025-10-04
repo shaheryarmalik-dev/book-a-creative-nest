@@ -258,17 +258,23 @@ const Home = () => {
         {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
           <iframe
-            className="absolute top-1/2 left-1/2 w-screen h-screen"
+            className="absolute top-0 left-0 w-full h-full"
             style={{
-              minWidth: '100vw',
+              width: '100vw',
+              height: '56.25vw', // 16:9 aspect ratio
               minHeight: '100vh',
+              minWidth: '177.78vh', // 16:9 aspect ratio
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
               transform: 'translate(-50%, -50%)',
               pointerEvents: 'none'
             }}
-            src="https://www.youtube.com/embed/ET5qbBoQmmA?autoplay=1&mute=1&loop=1&playlist=ET5qbBoQmmA&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1"
+            src="https://www.youtube.com/embed/IgA7GiH2GUw?autoplay=1&mute=1&loop=1&playlist=IgA7GiH2GUw&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&fs=0"
             title="FrameScout Locations Showcase"
             frameBorder="0"
-            allow="autoplay; encrypted-media"
+            allow="autoplay; encrypted-media; fullscreen"
+            allowFullScreen
           />
           <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
         </div>
