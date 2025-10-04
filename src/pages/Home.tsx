@@ -281,22 +281,27 @@ const Home = () => {
         </div>
 
         {/* Content Overlay */}
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
-            Where
-            <br />
-            <span className="text-blue-400">extraordinary</span>
-            <br />
-            begins
-          </h1>
-          <div className="flex justify-center mb-4">
-            <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100 rounded-full px-8 py-6 text-lg font-semibold shadow-xl">
-              <Link to="/locations">Find your space</Link>
-            </Button>
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="animate-fade-in-up">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white mb-8 leading-[1.1] tracking-tight">
+              Where
+              <br />
+              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent">extraordinary</span>
+              <br />
+              begins
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto font-light">
+              Discover and book unique creative spaces for your next production
+            </p>
+            <div className="flex justify-center mb-12">
+              <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-50 rounded-full px-12 py-7 text-xl font-bold shadow-[0_10px_40px_rgba(255,255,255,0.3)] hover:shadow-[0_15px_50px_rgba(255,255,255,0.4)] hover:scale-105 transition-all duration-300">
+                <Link to="/locations">Find your space →</Link>
+              </Button>
+            </div>
           </div>
           
           {/* Search Bar - Peerspace Style */}
-          <div className="bg-white rounded-2xl p-2 shadow-2xl max-w-4xl mx-auto mb-8">
+          <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-3 shadow-[0_20px_60px_rgba(0,0,0,0.3)] max-w-5xl mx-auto mb-8 border border-white/20">
             <div className="flex flex-col md:flex-row gap-2">
               <div className="flex-1">
                 <div className="relative">

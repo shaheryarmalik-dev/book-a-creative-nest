@@ -574,14 +574,14 @@ const Locations = () => {
       {/* Locations Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {viewMode === 'grid' ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {sortedLocations.map((location) => (
-              <Card key={location.id} className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
-                <div className="relative overflow-hidden rounded-t-lg">
+              <Card key={location.id} className="group cursor-pointer card-hover border border-border/30 shadow-xl hover:shadow-[0_20px_60px_rgba(59,130,246,0.2)] transition-all duration-500 overflow-hidden bg-card/80 backdrop-blur-sm">
+                <div className="relative overflow-hidden">
                     <img 
                       src={location.image} 
                       alt={location.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-72 object-cover group-hover:scale-110 group-hover:brightness-110 transition-all duration-700"
                   />
                   <button
                     onClick={(e) => {
