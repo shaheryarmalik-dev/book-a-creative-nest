@@ -126,14 +126,15 @@ const Credits = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white section-padding-sm">
+      <section className="bg-gradient-to-br from-amber-900 via-yellow-900 to-orange-900 text-white section-padding-sm relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/10 to-amber-500/10"></div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+          <div className="text-center relative z-10">
             <div className="flex justify-center mb-8">
-              <Award className="h-20 w-20 text-yellow-400" />
+              <Award className="h-20 w-20 text-yellow-300 drop-shadow-[0_0_15px_rgba(252,211,77,0.5)]" />
             </div>
             <h1 className="heading-xl mb-8">
-              Production Credits
+              <span className="bg-gradient-to-r from-yellow-300 to-amber-300 bg-clip-text text-transparent">Production Credits</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-3xl mx-auto font-light mb-10">
               FrameScout Locations has been involved in numerous film and television productions,

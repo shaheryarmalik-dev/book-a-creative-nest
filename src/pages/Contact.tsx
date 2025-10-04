@@ -103,10 +103,11 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 section-padding-sm">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="bg-gradient-to-br from-purple-900 via-pink-900 to-rose-900 section-padding-sm relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10"></div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="heading-xl text-white mb-8">
-            Get in Touch
+            <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">Get in Touch</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto font-light leading-relaxed">
             Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.

@@ -56,10 +56,11 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white section-padding-sm">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white section-padding-sm relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10"></div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="heading-xl mb-8">
-            About FrameScout Locations
+            About <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">FrameScout Locations</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-3xl mx-auto font-light">
             Your complete production partner offering professional services, unique creative spaces, 

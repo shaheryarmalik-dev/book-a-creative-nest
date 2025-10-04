@@ -286,10 +286,10 @@ const Home = () => {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white mb-8 leading-[1.1] tracking-tight">
               Where
               <br />
-              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent">extraordinary</span>
+              <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-400 bg-clip-text text-transparent animate-gradient">extraordinary</span>
               <br />
               begins
-          </h1>
+            </h1>
             <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto font-light">
               Discover and book unique creative spaces for your next production
             </p>

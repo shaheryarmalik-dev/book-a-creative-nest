@@ -576,7 +576,7 @@ const Locations = () => {
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {sortedLocations.map((location) => (
-              <Card key={location.id} className="group cursor-pointer card-hover border border-border/30 shadow-xl hover:shadow-[0_20px_60px_rgba(59,130,246,0.2)] transition-all duration-500 overflow-hidden bg-card/80 backdrop-blur-sm">
+              <Card key={location.id} className="group cursor-pointer card-hover border border-border/30 shadow-xl hover:shadow-[0_25px_70px_rgba(147,51,234,0.3)] transition-all duration-500 overflow-hidden bg-gradient-to-br from-card via-card to-card/60 backdrop-blur-sm">
                 <div className="relative overflow-hidden">
                     <img 
                       src={location.image} 
