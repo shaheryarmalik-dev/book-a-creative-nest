@@ -32,6 +32,7 @@ const Home = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [searchGuests, setSearchGuests] = useState("");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
   const [locationSuggestions, setLocationSuggestions] = useState([]);
   const [searchPlanning, setSearchPlanning] = useState("");
@@ -39,6 +40,20 @@ const Home = () => {
   const [planningSuggestions, setPlanningSuggestions] = useState([]);
   const [hoveredActivity, setHoveredActivity] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Background images for hero slideshow
+  const backgroundImages = [
+    studio01,
+    studio02,
+    studio03,
+    studio04,
+    studio05,
+    studio06,
+    studio07,
+    studio08,
+    studio09,
+    studio10
+  ];
 
   // Actual locations from the website
   const actualLocations = [
@@ -59,6 +74,16 @@ const Home = () => {
     { id: 15, title: "Peerspace Listing - Creative Space", location: "Los Angeles, CA", type: "Creative Space", image: studio15 }
   ];
 
+  // Auto-rotate background images every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % backgroundImages.length
+      );
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
 
   // Handle location search with actual location suggestions
   const handleLocationChange = (value) => {
@@ -230,25 +255,22 @@ const Home = () => {
     <div className="min-h-screen bg-background">
       {/* Hero Section - Peerspace Style with Video Background */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Video Background */}
+        {/* YouTube Video Background */}
         <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            {/* Placeholder video - Replace with actual video URL when ready */}
-            <source src="https://cdn.coverr.co/videos/coverr-luxurious-modern-apartment-interior-8031/1080p.mp4" type="video/mp4" />
-            {/* Fallback to first image if video fails to load */}
-            <img
-              src={studio01}
-              alt="Background"
-              className="w-full h-full object-cover"
-            />
-          </video>
-          <div className="absolute inset-0 bg-black/40"></div>
+          <iframe
+            className="absolute top-1/2 left-1/2 w-screen h-screen"
+            style={{
+              minWidth: '100vw',
+              minHeight: '100vh',
+              transform: 'translate(-50%, -50%)',
+              pointerEvents: 'none'
+            }}
+            src="https://www.youtube.com/embed/ET5qbBoQmmA?autoplay=1&mute=1&loop=1&playlist=ET5qbBoQmmA&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1"
+            title="FrameScout Locations Showcase"
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+          />
+          <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
         </div>
 
         {/* Content Overlay */}
