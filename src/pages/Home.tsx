@@ -277,25 +277,25 @@ const Home = () => {
             allow="autoplay; encrypted-media; fullscreen"
             allowFullScreen
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-sky-400/80 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
         </div>
 
         {/* Content Overlay */}
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in-up">
-            <h1 className="heading-xl text-white mb-6">
-              Find & Book Inspiring
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white mb-8 leading-[1.1] tracking-tight">
+              Where
               <br />
-              Creative Spaces
+              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent">extraordinary</span>
               <br />
-              <span className="text-amber-400">by the Hour</span>
-            </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
-              Discover unique locations for film, photography, and creative productions
+              begins
+          </h1>
+            <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto font-light">
+              Discover and book unique creative spaces for your next production
             </p>
             <div className="flex justify-center mb-12">
-              <Button asChild size="lg" className="btn-hero">
-                <Link to="/locations">Explore Spaces</Link>
+              <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-50 rounded-full px-12 py-7 text-xl font-bold shadow-[0_10px_40px_rgba(255,255,255,0.3)] hover:shadow-[0_15px_50px_rgba(255,255,255,0.4)] hover:scale-105 transition-all duration-300">
+                <Link to="/locations">Find your space →</Link>
               </Button>
             </div>
           </div>

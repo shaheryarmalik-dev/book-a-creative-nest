@@ -387,22 +387,22 @@ const Locations = () => {
                     <DrawerTitle className="text-gray-100 text-xl">Filters</DrawerTitle>
                   </DrawerHeader>
                   <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto">
-                    <div>
+            <div>
                       <label className="text-sm font-medium mb-2 block text-gray-100">Space Type</label>
                       <Select value={filters.type} onValueChange={(value) => setFilters(prev => ({ ...prev, type: value }))}>
                         <SelectTrigger className="bg-slate-800 border-slate-700 text-gray-100">
                           <SelectValue placeholder="All types" />
-                        </SelectTrigger>
+                </SelectTrigger>
                         <SelectContent className="bg-slate-800 border-slate-700">
                           <SelectItem value="" className="text-gray-100">All types</SelectItem>
                           {locationTypes.map(type => (
                             <SelectItem key={type} value={type} className="text-gray-100">{type}</SelectItem>
                           ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                </SelectContent>
+              </Select>
+            </div>
 
-                    <div>
+            <div>
                       <label className="text-sm font-medium mb-2 block text-gray-100">Price Range (per hour)</label>
                       <Select value={filters.priceRange} onValueChange={(value) => setFilters(prev => ({ ...prev, priceRange: value }))}>
                         <SelectTrigger className="bg-slate-800 border-slate-700 text-gray-100">
@@ -416,9 +416,9 @@ const Locations = () => {
                           <SelectItem value="300+" className="text-gray-100">$300+</SelectItem>
                         </SelectContent>
                       </Select>
-                    </div>
+            </div>
                     
-                    <div>
+            <div>
                       <label className="text-sm font-medium mb-2 block text-gray-100">Minimum Rating</label>
                       <Select value={filters.rating.toString()} onValueChange={(value) => setFilters(prev => ({ ...prev, rating: parseInt(value) }))}>
                         <SelectTrigger className="bg-slate-800 border-slate-700 text-gray-100">
@@ -431,9 +431,9 @@ const Locations = () => {
                           <SelectItem value="4.8" className="text-gray-100">4.8+ stars</SelectItem>
                         </SelectContent>
                       </Select>
-                    </div>
+            </div>
 
-                    <div>
+            <div>
                       <label className="text-sm font-medium mb-3 block text-gray-100">Amenities</label>
                       <div className="space-y-3">
                         {['WiFi', 'Parking', 'Kitchen', 'Air Conditioning', 'Natural Light', 'Backdrop', 'Lighting Equipment', 'Sound System'].map((amenity) => (
@@ -457,10 +457,10 @@ const Locations = () => {
                             >
                               {amenity}
                             </label>
-                          </div>
+            </div>
                         ))}
-                      </div>
-                    </div>
+            </div>
+            </div>
 
                     <div className="border-t border-slate-700 pt-6">
                       <label className="text-sm font-medium mb-3 block text-gray-100">Booking Options</label>
@@ -493,7 +493,7 @@ const Locations = () => {
                     </div>
                   </div>
                   <DrawerFooter className="border-t border-slate-700 flex flex-row gap-3">
-                    <Button
+              <Button
                       variant="outline"
                       onClick={() => setFilters({
                         location: '',
@@ -507,7 +507,7 @@ const Locations = () => {
                       className="flex-1 bg-slate-800 text-gray-100 border-slate-600 hover:bg-slate-700"
                     >
                       Clear All
-                    </Button>
+              </Button>
                     <DrawerClose asChild>
                       <Button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white">Apply Filters</Button>
                     </DrawerClose>
@@ -522,12 +522,12 @@ const Locations = () => {
                 size="sm"
                   onClick={() => setViewMode('grid')}
                   className="rounded-r-none"
-                >
+              >
                   <LayoutGrid className="h-4 w-4" />
               </Button>
-              <Button
+                <Button
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
-                size="sm"
+                  size="sm"
                   onClick={() => setViewMode('list')}
                   className="rounded-l-none"
                 >
