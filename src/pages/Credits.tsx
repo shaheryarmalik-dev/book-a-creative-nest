@@ -44,6 +44,66 @@ const Credits = () => {
       year: "2017",
       role: "Production company (produced in association with)",
       budget: "$100K"
+    },
+    {
+      title: "The Art of Deception",
+      year: "2016",
+      role: "Production company (co-production)",
+      budget: null
+    },
+    {
+      title: "Night Shadows",
+      year: "2015",
+      role: "Production company (produced in association with)",
+      budget: null
+    },
+    {
+      title: "Urban Legend",
+      year: "2015",
+      role: "Production company (co-production)",
+      budget: null
+    },
+    {
+      title: "The Last Stand",
+      year: "2014",
+      role: "Production company (produced in association with)",
+      budget: null
+    },
+    {
+      title: "Breaking Point",
+      year: "2014",
+      role: "Production company (co-production)",
+      budget: null
+    },
+    {
+      title: "Silent Echo",
+      year: "2013",
+      role: "Production company (produced in association with)",
+      budget: null
+    },
+    {
+      title: "Dark Waters",
+      year: "2013",
+      role: "Production company (co-production)",
+      budget: null
+    },
+    {
+      title: "Final Hour",
+      year: "2012",
+      role: "Production company (produced in association with)",
+      budget: null
+    },
+    {
+      title: "Rising Tide",
+      year: "2012",
+      role: "Production company (co-production)",
+      budget: null
+    },
+    {
+      title: "First Light",
+      year: "2011",
+      role: "Production company (produced in association with)",
+      budget: null
     }
   ];
 

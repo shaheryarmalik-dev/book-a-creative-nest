@@ -32,7 +32,6 @@ const Home = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [searchGuests, setSearchGuests] = useState("");
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
   const [locationSuggestions, setLocationSuggestions] = useState([]);
   const [searchPlanning, setSearchPlanning] = useState("");
@@ -40,17 +39,6 @@ const Home = () => {
   const [planningSuggestions, setPlanningSuggestions] = useState([]);
   const [hoveredActivity, setHoveredActivity] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Background images that will cycle through
-  const backgroundImages = [
-    studio01,
-    studio02,
-    studio03,
-    studio04,
-    studio05,
-    laGemImage,
-    joshuaTreeImage
-  ];
 
   // Actual locations from the website
   const actualLocations = [
@@ -71,16 +59,6 @@ const Home = () => {
     { id: 15, title: "Peerspace Listing - Creative Space", location: "Los Angeles, CA", type: "Creative Space", image: studio15 }
   ];
 
-  // Auto-rotate background images every 4 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        (prevIndex + 1) % backgroundImages.length
-      );
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [backgroundImages.length]);
 
   // Handle location search with actual location suggestions
   const handleLocationChange = (value) => {
@@ -250,25 +228,27 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section - Peerspace Style with Dynamic Background */}
+      {/* Hero Section - Peerspace Style with Video Background */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Dynamic Background Images */}
+        {/* Video Background */}
         <div className="absolute inset-0 z-0">
-          {backgroundImages.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              <img
-                src={image}
-                alt={`Background ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/40"></div>
-            </div>
-          ))}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            {/* Placeholder video - Replace with actual video URL when ready */}
+            <source src="https://cdn.coverr.co/videos/coverr-luxurious-modern-apartment-interior-8031/1080p.mp4" type="video/mp4" />
+            {/* Fallback to first image if video fails to load */}
+            <img
+              src={studio01}
+              alt="Background"
+              className="w-full h-full object-cover"
+            />
+          </video>
+          <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
         {/* Content Overlay */}
