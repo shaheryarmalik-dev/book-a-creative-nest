@@ -49,15 +49,15 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 backdrop-blur-lg border-b border-slate-700/50 sticky top-0 z-50 shadow-xl">
+    <header className="bg-white/95 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20 py-3">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-4 group">
             <img src="/book-a-creative-nest/logo.jpeg" alt="FrameScout Locations Logo" className="h-16 w-auto transition-all duration-300 group-hover:scale-105" />
             <div className="flex flex-col">
-              <span className="font-bold text-2xl text-white tracking-tight leading-none">FRAMESCOUT</span>
-              <span className="font-medium text-lg text-gray-300 tracking-wide leading-none">LOCATIONS</span>
+              <span className="font-bold text-2xl text-slate-900 tracking-tight leading-none">FRAMESCOUT</span>
+              <span className="font-medium text-lg text-slate-600 tracking-wide leading-none">LOCATIONS</span>
             </div>
           </Link>
 
@@ -69,8 +69,8 @@ const Header = () => {
                 to={link.href}
                 className={`font-semibold text-[15px] transition-all duration-200 relative group ${
                   isActive(link.href)
-                    ? "text-blue-400"
-                    : "text-gray-200 hover:text-blue-400"
+                    ? "text-primary"
+                    : "text-slate-700 hover:text-primary"
                 }`}
               >
                 {link.label}
