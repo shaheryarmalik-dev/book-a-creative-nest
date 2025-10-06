@@ -9,25 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerFooter, DrawerTrigger, DrawerClose } from "@/components/ui/drawer";
 import { useToast } from "@/hooks/use-toast";
-
-// Import all available images for unique locations
-import laGemImage from "@/assets/space-la-gem.jpg";
-import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
-import studio01 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
-import studio02 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-02.jpg";
-import studio03 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-03.jpg";
-import studio04 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-04.jpg";
-import studio05 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-05.jpg";
-import studio06 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-06.jpg";
-import studio07 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-07.jpg";
-import studio08 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-08.jpg";
-import studio09 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-09.jpg";
-import studio10 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-10.jpg";
-import studio11 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-11.jpg";
-import studio12 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-12.jpg";
-import studio13 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-13.jpg";
-import studio14 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-14.jpg";
-import studio15 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-15.jpg";
+import { locations as allLocations, ACTIVITY_CATEGORIES } from "@/data/locations";
+import LocationActivities from "@/components/LocationActivities";
 
 const Locations = () => {
   const { toast } = useToast();
@@ -49,7 +32,8 @@ const Locations = () => {
     priceRange: '',
     rating: 0,
     instantBook: false,
-    superhost: false
+    superhost: false,
+    activityCategories: [] as string[]
   });
 
   const toggleFavorite = (id: number) => {
@@ -68,219 +52,7 @@ const Locations = () => {
     });
   };
 
-  // Actual client locations from provided links
-  const locations = [
-    {
-      id: 1,
-      title: "Vintage Cuban Elegance - Luxurious Latin Kitchen",
-      location: "Los Angeles, CA",
-      image: studio01,
-      rating: 4.9,
-      reviews: 127,
-      type: "Kitchen & Dining",
-      features: ["Vintage Cuban Design", "Latin Kitchen", "Elegant Decor", "Authentic Style"],
-      amenities: ["Full Kitchen", "Dining Area", "Vintage Decor", "Latin Style"],
-      instantBook: true,
-      superhost: true,
-      bookings: 89
-    },
-    {
-      id: 2,
-      title: "Artsy Beautiful Home",
-      location: "Los Angeles, CA",
-      image: studio02,
-      rating: 4.8,
-      reviews: 89,
-      type: "Residential",
-      features: ["Artistic Design", "Beautiful Interiors", "Creative Space", "Modern Art"],
-      amenities: ["Multiple Rooms", "Art Gallery", "Creative Atmosphere", "Natural Light"],
-      instantBook: false,
-      superhost: true,
-      bookings: 67
-    },
-    {
-      id: 3,
-      title: "Creative Space LA - Film Photography Studio",
-      location: "Los Angeles, CA",
-      image: studio03,
-      rating: 4.9,
-      reviews: 156,
-      type: "Studio",
-      features: ["Professional Equipment", "Cyc Wall", "Lighting Setup", "Soundproof"],
-      amenities: ["Professional Lighting", "Cyc Wall", "Equipment", "Soundproof"],
-      instantBook: true,
-      superhost: true,
-      bookings: 134
-    },
-    {
-      id: 4,
-      title: "Peerspace Board - Creative Workspace",
-      location: "Los Angeles, CA",
-      image: studio04,
-      rating: 4.7,
-      reviews: 73,
-      type: "Creative Workspace",
-      features: ["Flexible Layout", "Creative Environment", "Professional Setup", "Modern Design"],
-      amenities: ["Flexible Space", "Creative Tools", "Professional Setup", "Modern Amenities"],
-      instantBook: false,
-      superhost: true,
-      bookings: 45
-    },
-    {
-      id: 5,
-      title: "Peerspace Listing - Modern Studio",
-      location: "Los Angeles, CA",
-      image: studio05,
-      rating: 4.8,
-      reviews: 94,
-      type: "Studio",
-      features: ["Modern Design", "Professional Setup", "High-End Equipment", "Flexible Space"],
-      amenities: ["Modern Equipment", "Professional Setup", "Flexible Layout", "High-End Tools"],
-      instantBook: true,
-      superhost: true,
-      bookings: 78
-    },
-    {
-      id: 6,
-      title: "Peerspace Listing - Event Space",
-      location: "Los Angeles, CA",
-      image: studio06,
-      rating: 4.9,
-      reviews: 112,
-      type: "Event Space",
-      features: ["Event Ready", "Professional Setup", "Flexible Layout", "Modern Amenities"],
-      amenities: ["Event Setup", "Professional Equipment", "Flexible Space", "Modern Design"],
-      instantBook: false,
-      superhost: true,
-      bookings: 96
-    },
-    {
-      id: 7,
-      title: "Blue Cloud Studios",
-      location: "Los Angeles, CA",
-      image: studio07,
-      rating: 4.6,
-      reviews: 58,
-      type: "Production Studio",
-      features: ["Professional Studio", "Cloud Services", "Modern Technology", "Flexible Setup"],
-      amenities: ["Professional Equipment", "Cloud Technology", "Modern Setup", "Flexible Layout"],
-      instantBook: false,
-      superhost: false,
-      bookings: 34
-    },
-    {
-      id: 8,
-      title: "Imperial Art Studios",
-      location: "Los Angeles, CA",
-      image: studio08,
-      rating: 4.9,
-      reviews: 89,
-      type: "Art Studio",
-      features: ["Art Focused", "Creative Environment", "Professional Setup", "Inspiring Space"],
-      amenities: ["Art Equipment", "Creative Tools", "Professional Setup", "Inspiring Atmosphere"],
-      instantBook: true,
-      superhost: true,
-      bookings: 67
-    },
-    {
-      id: 9,
-      title: "Riverfront Stages - Bar Stage",
-      location: "Los Angeles, CA",
-      image: studio09,
-      rating: 4.8,
-      reviews: 76,
-      type: "Stage & Performance",
-      features: ["Stage Setup", "Performance Ready", "Professional Lighting", "Sound System"],
-      amenities: ["Stage Equipment", "Lighting System", "Sound Setup", "Performance Ready"],
-      instantBook: false,
-      superhost: true,
-      bookings: 52
-    },
-    {
-      id: 10,
-      title: "Peerspace Listing - Creative Space",
-      location: "Los Angeles, CA",
-      image: studio10,
-      rating: 4.7,
-      reviews: 63,
-      type: "Creative Space",
-      features: ["Creative Environment", "Flexible Layout", "Modern Design", "Professional Setup"],
-      amenities: ["Creative Tools", "Flexible Space", "Modern Equipment", "Professional Setup"],
-      instantBook: true,
-      superhost: false,
-      bookings: 41
-    },
-    {
-      id: 11,
-      title: "Peerspace Listing - Professional Studio",
-      location: "Los Angeles, CA",
-      image: studio11,
-      rating: 4.8,
-      reviews: 98,
-      type: "Professional Studio",
-      features: ["Professional Grade", "High-End Equipment", "Modern Setup", "Flexible Layout"],
-      amenities: ["Professional Equipment", "High-End Tools", "Modern Technology", "Flexible Space"],
-      instantBook: true,
-      superhost: true,
-      bookings: 82
-    },
-    {
-      id: 12,
-      title: "Peerspace Listing - Event Venue",
-      location: "Los Angeles, CA",
-      image: studio12,
-      rating: 4.9,
-      reviews: 105,
-      type: "Event Venue",
-      features: ["Event Ready", "Professional Setup", "Flexible Layout", "Modern Amenities"],
-      amenities: ["Event Equipment", "Professional Setup", "Flexible Space", "Modern Design"],
-      instantBook: false,
-      superhost: true,
-      bookings: 89
-    },
-    {
-      id: 13,
-      title: "Peerspace Listing - Creative Workspace",
-      location: "Los Angeles, CA",
-      image: studio13,
-      rating: 4.7,
-      reviews: 87,
-      type: "Creative Workspace",
-      features: ["Creative Environment", "Flexible Layout", "Modern Design", "Professional Setup"],
-      amenities: ["Creative Tools", "Flexible Space", "Modern Equipment", "Professional Setup"],
-      instantBook: true,
-      superhost: true,
-      bookings: 73
-    },
-    {
-      id: 14,
-      title: "Peerspace Listing - Modern Studio",
-      location: "Los Angeles, CA",
-      image: studio14,
-      rating: 4.8,
-      reviews: 95,
-      type: "Modern Studio",
-      features: ["Modern Design", "Professional Equipment", "Flexible Layout", "High-End Setup"],
-      amenities: ["Modern Equipment", "Professional Tools", "Flexible Space", "High-End Technology"],
-      instantBook: false,
-      superhost: true,
-      bookings: 68
-    },
-    {
-      id: 15,
-      title: "Peerspace Listing - Creative Space",
-      location: "Los Angeles, CA",
-      image: studio15,
-      rating: 4.9,
-      reviews: 118,
-      type: "Creative Space",
-      features: ["Creative Environment", "Professional Setup", "Modern Design", "Flexible Layout"],
-      amenities: ["Creative Equipment", "Professional Setup", "Modern Tools", "Flexible Space"],
-      instantBook: true,
-      superhost: true,
-      bookings: 94
-    }
-  ];
+  const locations = allLocations;
 
   const filteredLocations = locations.filter(location => {
     // Search across title, location city, type, and features
@@ -319,6 +91,17 @@ const Locations = () => {
         )
       );
       if (!hasAllAmenities) {
+        return false;
+      }
+    }
+    
+    // Filter by activity categories
+    if (filters.activityCategories.length > 0) {
+      const hasAllCategories = filters.activityCategories.every(category => {
+        const categoryKey = category.toLowerCase() as keyof typeof location.activities;
+        return location.activities[categoryKey] && location.activities[categoryKey]!.length > 0;
+      });
+      if (!hasAllCategories) {
         return false;
       }
     }
@@ -434,7 +217,36 @@ const Locations = () => {
             </div>
 
             <div>
-                      <label className="text-sm font-medium mb-3 block text-gray-100">Amenities</label>
+              <label className="text-sm font-medium mb-3 block text-gray-100">Activity Categories</label>
+                      <div className="space-y-3">
+                        {Object.entries(ACTIVITY_CATEGORIES).map(([key, category]) => (
+                          <div key={key} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`activity-${key}`}
+                              checked={filters.activityCategories.includes(key)}
+                              onCheckedChange={(checked) => {
+                                setFilters(prev => ({
+                                  ...prev,
+                                  activityCategories: checked
+                                    ? [...prev.activityCategories, key]
+                                    : prev.activityCategories.filter(a => a !== key)
+                                }));
+                              }}
+                              className="border-slate-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                            />
+                            <label
+                              htmlFor={`activity-${key}`}
+                              className="text-sm text-gray-300 cursor-pointer"
+                            >
+                              {category.name}
+                            </label>
+            </div>
+                        ))}
+            </div>
+            </div>
+
+            <div>
+              <label className="text-sm font-medium mb-3 block text-gray-100">Amenities</label>
                       <div className="space-y-3">
                         {['WiFi', 'Parking', 'Kitchen', 'Air Conditioning', 'Natural Light', 'Backdrop', 'Lighting Equipment', 'Sound System'].map((amenity) => (
                           <div key={amenity} className="flex items-center space-x-2">
@@ -502,7 +314,8 @@ const Locations = () => {
                         priceRange: '',
                         rating: 0,
                         instantBook: false,
-                        superhost: false
+                        superhost: false,
+                        activityCategories: []
                       })}
                       className="flex-1 bg-slate-800 text-gray-100 border-slate-600 hover:bg-slate-700"
                     >
@@ -630,7 +443,7 @@ const Locations = () => {
                   
                   <p className="text-gray-300 mb-3">{location.location}</p>
                   
-                  <div className="flex flex-wrap gap-1 mb-4">
+                  <div className="flex flex-wrap gap-1 mb-3">
                     {location.features.slice(0, 2).map((feature, index) => (
                       <Badge key={index} variant="outline" className="text-xs">
                         {feature}
@@ -638,15 +451,19 @@ const Locations = () => {
                     ))}
                 </div>
                   
+                  <div className="mb-4">
+                    <LocationActivities activities={location.activities} showTitle={false} compact />
+                  </div>
+
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-semibold text-gray-100">
-                      Contact for pricing
+                      {location.rate ? `$${location.rate}/hr` : 'Contact for pricing'}
                     </span>
                     <Button 
                       asChild 
                       className="bg-blue-600 hover:bg-blue-700 text-white"
                     >
-                      <Link to="/contact">Contact Us</Link>
+                      <Link to={`/booking/${location.id}`}>Book Now</Link>
                     </Button>
                 </div>
                 </CardContent>
@@ -699,23 +516,27 @@ const Locations = () => {
                   
                     <p className="text-gray-300 mb-3">{location.location}</p>
                     
-                    <div className="flex flex-wrap gap-1 mb-4">
-                    {location.features.map((feature, index) => (
+                    <div className="flex flex-wrap gap-1 mb-3">
+                    {location.features.slice(0, 3).map((feature, index) => (
                         <Badge key={index} variant="outline" className="text-xs">
                         {feature}
                       </Badge>
                     ))}
                   </div>
+                    
+                    <div className="mb-4">
+                      <LocationActivities activities={location.activities} showTitle={false} compact />
+                    </div>
 
                     <div className="flex items-center justify-between">
                       <span className="text-xl font-semibold text-gray-100">
-                        Contact for pricing
+                        {location.rate ? `$${location.rate}/hr` : 'Contact for pricing'}
                       </span>
                   <Button 
                     asChild 
                         className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
-                        <Link to="/contact">Contact Us</Link>
+                        <Link to={`/booking/${location.id}`}>Book Now</Link>
                   </Button>
                     </div>
                   </CardContent>
@@ -730,7 +551,7 @@ const Locations = () => {
             <p className="text-gray-500 text-lg">No locations found matching your filters.</p>
             <Button 
               variant="outline" 
-              onClick={() => setFilters({ location: '', type: '', amenities: [], priceRange: '', rating: 0 })}
+              onClick={() => setFilters({ location: '', type: '', amenities: [], priceRange: '', rating: 0, instantBook: false, superhost: false, activityCategories: [] })}
               className="mt-4"
             >
               Clear Filters

@@ -6,25 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-
-// Import actual space images for featured locations
-import studio01 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-01.jpg";
-import studio02 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-02.jpg";
-import studio03 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-03.jpg";
-import studio04 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-04.jpg";
-import studio05 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-05.jpg";
-import studio06 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-06.jpg";
-import studio07 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-07.jpg";
-import studio08 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-08.jpg";
-import studio09 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-09.jpg";
-import studio10 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-10.jpg";
-import studio11 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-11.jpg";
-import studio12 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-12.jpg";
-import studio13 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-13.jpg";
-import studio14 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-14.jpg";
-import studio15 from "@/assets/locations/artsy-modern-apt-film-studio/creative-space-la-film-photography-studio-15.jpg";
-import laGemImage from "@/assets/space-la-gem.jpg";
-import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
+import { locations } from "@/data/locations";
 
 const Home = () => {
   console.log("Home component rendering");
@@ -42,37 +24,10 @@ const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Background images for hero slideshow
-  const backgroundImages = [
-    studio01,
-    studio02,
-    studio03,
-    studio04,
-    studio05,
-    studio06,
-    studio07,
-    studio08,
-    studio09,
-    studio10
-  ];
+  const backgroundImages = locations.slice(0, 10).map(loc => loc.image);
 
   // Actual locations from the website
-  const actualLocations = [
-    { id: 1, title: "Vintage Cuban Elegance - Luxurious Latin Kitchen", location: "Los Angeles, CA", type: "Kitchen & Dining", image: studio01 },
-    { id: 2, title: "Artsy Beautiful Home", location: "Los Angeles, CA", type: "Residential", image: studio02 },
-    { id: 3, title: "Creative Space LA - Film Photography Studio", location: "Los Angeles, CA", type: "Studio", image: studio03 },
-    { id: 4, title: "Peerspace Board - Creative Workspace", location: "Los Angeles, CA", type: "Creative Workspace", image: studio04 },
-    { id: 5, title: "Peerspace Listing - Modern Studio", location: "Los Angeles, CA", type: "Studio", image: studio05 },
-    { id: 6, title: "Peerspace Listing - Event Space", location: "Los Angeles, CA", type: "Event Space", image: studio06 },
-    { id: 7, title: "Blue Cloud Studios", location: "Los Angeles, CA", type: "Production Studio", image: studio07 },
-    { id: 8, title: "Imperial Art Studios", location: "Los Angeles, CA", type: "Art Studio", image: studio08 },
-    { id: 9, title: "Riverfront Stages - Bar Stage", location: "Los Angeles, CA", type: "Stage & Performance", image: studio09 },
-    { id: 10, title: "Peerspace Listing - Creative Space", location: "Los Angeles, CA", type: "Creative Space", image: studio10 },
-    { id: 11, title: "Peerspace Listing - Professional Studio", location: "Los Angeles, CA", type: "Professional Studio", image: studio11 },
-    { id: 12, title: "Peerspace Listing - Event Venue", location: "Los Angeles, CA", type: "Event Venue", image: studio12 },
-    { id: 13, title: "Peerspace Listing - Creative Workspace", location: "Los Angeles, CA", type: "Creative Workspace", image: studio13 },
-    { id: 14, title: "Peerspace Listing - Modern Studio", location: "Los Angeles, CA", type: "Modern Studio", image: studio14 },
-    { id: 15, title: "Peerspace Listing - Creative Space", location: "Los Angeles, CA", type: "Creative Space", image: studio15 }
-  ];
+  const actualLocations = locations;
 
   // Auto-rotate background images every 4 seconds
   useEffect(() => {

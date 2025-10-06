@@ -12,16 +12,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { loadStripe } from "@stripe/stripe-js";
-import laGemImage from "@/assets/space-la-gem.jpg";
-import joshuaTreeImage from "@/assets/space-joshua-tree.jpg";
-// Eagerly import all images for the Artsy & Modern Apt gallery
-const artsyImagesGlob = import.meta.glob(
-  "/src/assets/locations/artsy-modern-apt-film-studio/*.jpg",
-  { eager: true, query: "?url", import: "default" }
-);
-const artsyImages = Object.keys(artsyImagesGlob)
-  .sort()
-  .map((key) => (artsyImagesGlob as Record<string, string>)[key]);
+import { locations } from "@/data/locations";
+import LocationActivities from "@/components/LocationActivities";
 
 const bookingSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
@@ -41,32 +33,6 @@ const Booking = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
 
-  // Mock location data
-  const locations = [
-    {
-      id: 1,
-      title: "Eclectic Creative Space | Crystals, Buddha, Natural Light – L.A. Gem",
-      location: "Central LA, Los Ángeles, CA",
-      rate: 57,
-      image: laGemImage
-    },
-    {
-      id: 2,
-      title: "Joshua Tree Oasis",
-      location: "Joshua Tree, CA",
-      rate: 70,
-      image: joshuaTreeImage
-    },
-    {
-      id: 3,
-      title: "Artsy & Modern Apt with attached Film Studio",
-      location: "Los Angeles, CA",
-      rate: 85,
-      image: artsyImages[0],
-      images: artsyImages
-    }
-  ];
-
   const location = locations.find(loc => loc.id === Number(id));
   const galleryImages: string[] = Array.isArray((location as any)?.images) ? (location as any).images : [];
   const mainImage = galleryImages.length > 0 ? galleryImages[selectedImageIndex] : location?.image;
@@ -85,7 +51,7 @@ const Booking = () => {
   });
 
   const selectedHours = form.watch("hours");
-  const totalCost = location && selectedHours ? location.rate * Number(selectedHours) : 0;
+  const totalCost = location && selectedHours && location.rate ? location.rate * Number(selectedHours) : 0;
 
   const onSubmit = async (data: BookingFormData) => {
     try {
@@ -205,12 +171,19 @@ const Booking = () => {
                   <MapPin className="h-4 w-4 mr-1" />
                   {location.location}
                 </div>
-                <div className="flex items-center text-primary font-semibold text-lg">
-                  <DollarSign className="h-5 w-5 mr-1" />
-                  {location.rate}/hr
-                </div>
+                {location.rate && (
+                  <div className="flex items-center text-primary font-semibold text-lg">
+                    <DollarSign className="h-5 w-5 mr-1" />
+                    {location.rate}/hr
+                  </div>
+                )}
               </CardHeader>
             </Card>
+
+            {/* Activities Section */}
+            <div className="mt-6">
+              <LocationActivities activities={location.activities} showTitle={true} compact={false} />
+            </div>
 
               {/* Simple Gallery for locations that provide an images array */}
               {galleryImages.length > 1 && (
@@ -229,7 +202,7 @@ const Booking = () => {
               )}
 
             {/* Booking Summary */}
-            {selectedHours && (
+            {selectedHours && location.rate && (
               <Card className="card-elevated mt-6">
                 <CardHeader>
                   <CardTitle className="flex items-center">
