@@ -172,13 +172,13 @@ const Services = () => {
           <div className="flex flex-col md:flex-row gap-2">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input placeholder="Where?" className="pl-12 h-12 rounded-xl" />
               </div>
             </div>
             <div className="flex-1">
               <div className="relative">
-                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input type="date" className="pl-12 h-12 rounded-xl" />
               </div>
             </div>
@@ -356,9 +356,8 @@ const Services = () => {
             </Button>
             <Button 
               asChild 
-              variant="outline" 
               size="lg" 
-              className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-lg"
+              className="bg-gray-900 text-white hover:bg-gray-800 px-8 py-3 text-lg border-2 border-gray-900"
             >
               <Link to="/locations">Browse Locations</Link>
             </Button>
