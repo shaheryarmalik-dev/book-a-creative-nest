@@ -455,10 +455,7 @@ const Locations = () => {
                     <LocationActivities activities={location.activities} showTitle={false} compact />
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-semibold text-gray-100">
-                      {location.rate ? `$${location.rate}/hr` : 'Contact for pricing'}
-                    </span>
+                  <div className="flex items-center justify-end">
                     <Button 
                       asChild 
                       className="bg-blue-600 hover:bg-blue-700 text-white"
@@ -528,10 +525,7 @@ const Locations = () => {
                       <LocationActivities activities={location.activities} showTitle={false} compact />
                     </div>
 
-                    <div className="flex items-center justify-between">
-                      <span className="text-xl font-semibold text-gray-100">
-                        {location.rate ? `$${location.rate}/hr` : 'Contact for pricing'}
-                      </span>
+                    <div className="flex items-center justify-end">
                   <Button 
                     asChild 
                         className="bg-blue-600 hover:bg-blue-700 text-white"

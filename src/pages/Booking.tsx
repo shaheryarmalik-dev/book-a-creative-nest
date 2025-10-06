@@ -50,48 +50,14 @@ const Booking = () => {
     }
   });
 
-  const selectedHours = form.watch("hours");
-  const totalCost = location && selectedHours && location.rate ? location.rate * Number(selectedHours) : 0;
-
   const onSubmit = async (data: BookingFormData) => {
-    try {
-      if (!location) return;
-      const payload = {
-        locationId: String(id),
-        locationTitle: location.title,
-        hourlyRateUsd: location.rate,
-        hours: Number(data.hours),
-        date: data.date,
-        startTime: data.startTime,
-        customer: {
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-        },
-      };
-
-      const resp = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const json = await resp.json();
-      if (!resp.ok) throw new Error(json?.error || "Failed to create checkout session");
-
-      if (json.url) {
-        window.location.href = json.url as string;
-        return;
-      }
-
-      // Fallback toast if no redirect url
-      toast({ title: "Unable to redirect to payment", description: "Please try again." });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive"
-      });
-    }
+    // Simply show success message - no payment processing
+    setIsSubmitted(true);
+    
+    toast({
+      title: "Booking Request Submitted",
+      description: "We'll contact you shortly to confirm your reservation.",
+    });
   };
 
   if (!location) {
@@ -171,12 +137,6 @@ const Booking = () => {
                   <MapPin className="h-4 w-4 mr-1" />
                   {location.location}
                 </div>
-                {location.rate && (
-                  <div className="flex items-center text-primary font-semibold text-lg">
-                    <DollarSign className="h-5 w-5 mr-1" />
-                    {location.rate}/hr
-                  </div>
-                )}
               </CardHeader>
             </Card>
 
@@ -201,33 +161,6 @@ const Booking = () => {
                 </div>
               )}
 
-            {/* Booking Summary */}
-            {selectedHours && location.rate && (
-              <Card className="card-elevated mt-6">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Clock className="h-5 w-5 mr-2" />
-                    Booking Summary
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span>Duration:</span>
-                      <span className="font-medium">{selectedHours} hour{Number(selectedHours) > 1 ? 's' : ''}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Rate per hour:</span>
-                      <span className="font-medium">${location.rate}</span>
-                    </div>
-                    <div className="border-t pt-2 flex justify-between text-lg font-bold">
-                      <span>Total:</span>
-                      <span className="text-primary">${totalCost}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
           </div>
 
           {/* Booking Form */}
