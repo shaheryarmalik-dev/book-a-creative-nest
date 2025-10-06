@@ -460,7 +460,7 @@ const Locations = () => {
                       asChild 
                       className="bg-blue-600 hover:bg-blue-700 text-white"
                     >
-                      <Link to={`/booking/${location.id}`}>Book Now</Link>
+                      <Link to="/contact">Contact Now</Link>
                     </Button>
                 </div>
                 </CardContent>
@@ -530,7 +530,7 @@ const Locations = () => {
                     asChild 
                         className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
-                        <Link to={`/booking/${location.id}`}>Book Now</Link>
+                        <Link to="/contact">Contact Now</Link>
                   </Button>
                     </div>
                   </CardContent>
