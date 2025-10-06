@@ -88,17 +88,17 @@ const Home = () => {
     {
       title: "New and never-ending possibilities",
       description: "Find everything from professionally equipped studios to unconventional rooms and residences. From vintage Cuban kitchens to modern art studios, we offer the perfect backdrop for your creative vision.",
-      image: studio01
+      image: locations[0].image
     },
     {
       title: "Complete production support", 
       description: "Beyond just spaces, we provide full production services including location scouting, crew coordination, and professional equipment. Your creative vision, our expertise.",
-      image: studio02
+      image: locations[1].image
     },
     {
       title: "$2M Production Insurance",
       description: "Every project is protected with comprehensive production insurance coverage, giving you peace of mind for your most important shoots.",
-      image: studio03
+      image: locations[2].image
     }
   ];
 
@@ -114,74 +114,17 @@ const Home = () => {
     navigate('/locations');
   };
 
-  const featuredLocations = [
-    {
-      id: 1,
-      title: "Vintage Cuban Elegance - Luxurious Latin Kitchen",
-      location: "Los Angeles, CA",
-      image: studio01,
-      rating: 4.9,
-      reviews: 127,
-      price: "Contact for pricing",
-      type: "Kitchen & Dining",
-      features: ["Vintage Design", "Natural Light", "Kitchen Access"]
-    },
-    {
-      id: 2,
-      title: "Artsy Beautiful Home",
-      location: "Los Angeles, CA", 
-      image: laGemImage,
-      rating: 4.8,
-      reviews: 89,
-      price: "Contact for pricing",
-      type: "Residential",
-      features: ["Modern Design", "Multiple Rooms", "Garden Access"]
-    },
-    {
-      id: 3,
-      title: "Creative Space LA - Film Photography Studio",
-      location: "Los Angeles, CA",
-      image: studio02,
-      rating: 4.9,
-      reviews: 156,
-      price: "Contact for pricing",
-      type: "Studio",
-      features: ["Professional Equipment", "Cyc Wall", "Lighting Setup"]
-    },
-    {
-      id: 4,
-      title: "Industrial Loft Space",
-      location: "Los Angeles, CA",
-      image: joshuaTreeImage,
-      rating: 4.7,
-      reviews: 73,
-      price: "Contact for pricing",
-      type: "Industrial",
-      features: ["High Ceilings", "Exposed Brick", "Loading Access"]
-    },
-    {
-      id: 5,
-      title: "Modern Office Space",
-      location: "Los Angeles, CA",
-      image: studio03,
-      rating: 4.8,
-      reviews: 94,
-      price: "Contact for pricing",
-      type: "Office",
-      features: ["Conference Rooms", "High-Speed WiFi", "Parking"]
-    },
-    {
-      id: 6,
-      title: "Rooftop Event Space",
-      location: "Los Angeles, CA",
-      image: studio04,
-      rating: 4.9,
-      reviews: 112,
-      price: "Contact for pricing",
-      type: "Event Space",
-      features: ["City Views", "Outdoor Space", "Catering Kitchen"]
-    }
-  ];
+  const featuredLocations = locations.slice(0, 6).map(loc => ({
+    id: loc.id,
+    title: loc.title,
+    location: loc.location,
+    image: loc.image,
+    rating: loc.rating,
+    reviews: loc.reviews,
+    price: "Contact for pricing",
+    type: loc.type,
+    features: loc.features.slice(0, 3)
+  }));
 
   const services = [
     {
@@ -414,24 +357,7 @@ const Home = () => {
             {/* Left Side - Location Categories Grid */}
                 <div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-                {[
-                  { name: "Vintage Cuban Elegance", image: studio01, location: "Los Angeles, CA" },
-                  { name: "Artsy Beautiful Home", image: studio02, location: "Los Angeles, CA" },
-                  { name: "Creative Space LA", image: studio03, location: "Los Angeles, CA" },
-                  { name: "Peerspace Board", image: studio04, location: "Los Angeles, CA" },
-                  { name: "Modern Studio", image: studio05, location: "Los Angeles, CA" },
-                  { name: "Event Space", image: studio06, location: "Los Angeles, CA" },
-                  { name: "Blue Cloud Studios", image: studio07, location: "Los Angeles, CA" },
-                  { name: "Imperial Art Studios", image: studio08, location: "Los Angeles, CA" },
-                  { name: "Riverfront Stages", image: studio09, location: "Los Angeles, CA" },
-                  { name: "Creative Space", image: studio10, location: "Los Angeles, CA" },
-                  { name: "Professional Studio", image: studio11, location: "Los Angeles, CA" },
-                  { name: "Event Venue", image: studio12, location: "Los Angeles, CA" },
-                  { name: "Creative Workspace", image: studio13, location: "Los Angeles, CA" },
-                  { name: "Modern Studio Space", image: studio14, location: "Los Angeles, CA" },
-                  { name: "Creative Production", image: studio15, location: "Los Angeles, CA" },
-                  { name: "LA Gem Studio", image: laGemImage, location: "Los Angeles, CA" }
-                ].map((location, index) => (
+                {locations.map((location, index) => (
                   <div
                     key={index}
                     className="group cursor-pointer p-3 rounded-lg hover:bg-slate-700/50 transition-all duration-300 border border-slate-600 hover:border-blue-400"
@@ -440,7 +366,7 @@ const Home = () => {
                     onClick={() => navigate('/locations')}
                   >
                     <span className="text-gray-200 group-hover:text-blue-400 font-medium text-sm leading-tight">
-                      {location.name}
+                      {location.title}
                     </span>
                 </div>
                 ))}
@@ -461,13 +387,13 @@ const Home = () => {
               <div className="sticky top-24">
                 <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
                   <img 
-                    src={hoveredActivity ? hoveredActivity.image : studio01} 
-                    alt={hoveredActivity ? hoveredActivity.name : "Featured space"}
+                    src={hoveredActivity ? hoveredActivity.image : locations[0].image} 
+                    alt={hoveredActivity ? hoveredActivity.title : "Featured space"}
                     className="w-full h-full object-cover transition-all duration-500"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                     <p className="text-white font-bold text-xl">
-                      {hoveredActivity ? hoveredActivity.name : "Photo shoot"}
+                      {hoveredActivity ? hoveredActivity.title : "Photo shoot"}
                     </p>
                     <p className="text-white/80 text-lg">
                       {hoveredActivity ? hoveredActivity.location : "Los Angeles, CA"}
@@ -718,7 +644,7 @@ const Home = () => {
         <div className="relative h-[55vh] md:h-[65vh] w-full overflow-hidden">
           <div
             className="absolute inset-0 bg-center bg-cover"
-            style={{ backgroundImage: `url(${studio10})` }}
+            style={{ backgroundImage: `url(${locations[9].image})` }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
           <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
