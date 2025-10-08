@@ -185,21 +185,6 @@ const Locations = () => {
               </Select>
             </div>
 
-            <div>
-                      <label className="text-sm font-medium mb-2 block text-gray-100">Price Range (per hour)</label>
-                      <Select value={filters.priceRange} onValueChange={(value) => setFilters(prev => ({ ...prev, priceRange: value }))}>
-                        <SelectTrigger className="bg-slate-800 border-slate-700 text-gray-100">
-                          <SelectValue placeholder="Any price" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-slate-800 border-slate-700">
-                          <SelectItem value="" className="text-gray-100">Any price</SelectItem>
-                          <SelectItem value="0-100" className="text-gray-100">Under $100</SelectItem>
-                          <SelectItem value="100-200" className="text-gray-100">$100 - $200</SelectItem>
-                          <SelectItem value="200-300" className="text-gray-100">$200 - $300</SelectItem>
-                          <SelectItem value="300+" className="text-gray-100">$300+</SelectItem>
-                        </SelectContent>
-                      </Select>
-            </div>
                     
             <div>
                       <label className="text-sm font-medium mb-2 block text-gray-100">Minimum Rating</label>

@@ -245,9 +245,8 @@ const Services = () => {
                         <span className="text-xs text-gray-300">5.0</span>
                       </div>
                       <p className="text-xs text-gray-300 line-clamp-2 mt-1">{service.description}</p>
-                      <div className="mt-1 text-xs text-gray-100 font-medium">{service.price}</div>
                       <Button asChild variant="outline" className="mt-2 h-8 text-xs w-full"> 
-                        <Link to="/contact">Contact</Link>
+                        <Link to="/contact">Contact for Pricing</Link>
                       </Button>
                     </div>
                   </div>

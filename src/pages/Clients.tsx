@@ -1,7 +1,8 @@
-import { Star, ExternalLink, Calendar, Award } from "lucide-react";
+import { Star, Calendar, Award } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 import clientOrelImage from "@/assets/client-orel.jpg";
 
 const Clients = () => {
@@ -121,9 +122,8 @@ const Clients = () => {
                   </div>
 
                   {/* CTA Button */}
-                  <Button className="btn-hero w-full md:w-auto">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    View Giggster Profile
+                  <Button asChild className="btn-hero w-full md:w-auto">
+                    <Link to="/contact">Contact Us for Projects</Link>
                   </Button>
                 </div>
               </div>
