@@ -42,7 +42,7 @@ const Contact = () => {
   const onSubmit = async (data: ContactForm) => {
     try {
       const payload = {
-        access_key: "2019f54a-a1da-4155-a014-bed5d9b702dc",
+        access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "2019f54a-a1da-4155-a014-bed5d9b702dc",
         subject: `Contact form: ${data.subject}`,
         from_name: data.name,
         from_email: data.email,
