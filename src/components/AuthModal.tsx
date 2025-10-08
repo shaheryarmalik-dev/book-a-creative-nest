@@ -8,8 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { LogIn, UserPlus, Mail, Lock, User } from "lucide-react";
-import { auth } from "@/integrations/firebase/client";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { supabase } from "@/integrations/supabase/client";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -68,11 +67,16 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const onLoginSubmit = async (data: LoginForm) => {
     setIsLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+      const { data: authData, error } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      });
+
+      if (error) throw error;
       
       toast({
         title: "Login successful!",
-        description: "Welcome back to Book-A-Space",
+        description: "Welcome back to FrameScout Locations",
       });
       
       loginForm.reset();
@@ -91,16 +95,21 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const onSignupSubmit = async (data: SignupForm) => {
     setIsLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-      
-      // Update the user's display name
-      await updateProfile(userCredential.user, {
-        displayName: data.name
+      const { data: authData, error } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
+            full_name: data.name,
+          }
+        }
       });
+
+      if (error) throw error;
       
       toast({
         title: "Account created!",
-        description: "You're now signed in.",
+        description: "Please check your email to verify your account.",
       });
 
       signupForm.reset();
@@ -109,18 +118,14 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
       console.error('Signup error:', error);
       let errorMessage = "Something went wrong. Please try again.";
       
-      if (error.code === 'auth/api-key-not-valid') {
-        errorMessage = "Firebase is not enabled. Please enable Authentication in Firebase Console.";
-      } else if (error.code === 'auth/email-already-in-use') {
+      if (error.message?.includes('already registered')) {
         errorMessage = "This email is already registered. Please log in instead.";
-      } else if (error.code === 'auth/weak-password') {
+      } else if (error.message?.includes('password')) {
         errorMessage = "Password should be at least 6 characters.";
-      } else if (error.code === 'auth/invalid-email') {
+      } else if (error.message?.includes('email')) {
         errorMessage = "Please enter a valid email address.";
-      } else if (error.code === 'auth/operation-not-allowed') {
-        errorMessage = "Email/Password sign-in is not enabled. Please check Firebase settings.";
       } else {
-        errorMessage = `Error: ${error.code || error.message}`;
+        errorMessage = error.message || "Failed to create account";
       }
       
       toast({

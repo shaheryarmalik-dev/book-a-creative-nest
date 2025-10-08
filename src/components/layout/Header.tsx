@@ -3,9 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, LogIn, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AuthModal from "@/components/AuthModal";
-import { auth } from "@/integrations/firebase/client";
-import { signOut } from "firebase/auth";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { supabase } from "@/integrations/supabase/client";
+import type { User } from "@supabase/supabase-js";
 import logoImage from "/logo.jpeg";
 
 const Header = () => {
@@ -36,17 +35,20 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
-    // Avoid initializing Firebase auth listener on GitHub Pages to prevent API key domain errors
-    if (typeof window !== 'undefined' && window.location.hostname.endsWith('github.io')) {
-      return;
-    }
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      if (user) setAuthModalOpen(false);
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
     });
 
-    return () => unsubscribe();
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      if (session?.user) setAuthModalOpen(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   return (
@@ -88,7 +90,7 @@ const Header = () => {
                     variant="outline"
                     size="sm"
                     onClick={async () => {
-                      await signOut(auth);
+                      await supabase.auth.signOut();
                     }}
                   >
                     Sign Out
@@ -162,7 +164,7 @@ const Header = () => {
                       variant="outline"
                       size="sm"
                       onClick={async () => {
-                        await signOut(auth);
+                        await supabase.auth.signOut();
                         setIsMenuOpen(false);
                       }}
                     >
