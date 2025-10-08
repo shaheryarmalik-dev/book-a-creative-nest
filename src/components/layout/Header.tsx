@@ -54,7 +54,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-20 py-3">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-4 group">
-            <img src="/book-a-creative-nest/logo.jpeg" alt="FrameScout Locations Logo" className="h-16 w-auto transition-all duration-300 group-hover:scale-105" />
+            <img src="/logo.jpeg" alt="FrameScout Locations Logo" className="h-16 w-auto transition-all duration-300 group-hover:scale-105" />
             <div className="flex flex-col">
               <span className="font-bold text-2xl text-white tracking-tight leading-none">FRAMESCOUT</span>
               <span className="font-medium text-lg text-gray-300 tracking-wide leading-none">LOCATIONS</span>
