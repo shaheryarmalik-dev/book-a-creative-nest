@@ -3,9 +3,38 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "installCommand": "npm install",
+  "headers": [
+    {
+      "source": "/(.*)\\.jpeg",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/jpeg"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.jpg",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/jpeg"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.png",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/png"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
-      "source": "/((?!.*\\.).*)",
+      "source": "/:path((?!.*\\.(jpeg|jpg|png|svg|gif|webp|css|js|json|txt|ico|xml)).*)",
       "destination": "/index.html"
     }
   ]
