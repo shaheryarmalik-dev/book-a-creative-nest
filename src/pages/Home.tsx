@@ -151,22 +151,19 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section - Peerspace Style with Video Background */}
+      {/* Hero Section - Peerspace Style with Image Background */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Local Video Background */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto object-cover transform -translate-x-1/2 -translate-y-1/2"
-            style={{ pointerEvents: 'none' }}
-            key="/video.mp4?v=2"
-          >
-            <source src="/video.mp4?v=2" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        {/* Background Image Slideshow */}
+        <div className="absolute inset-0 z-0">
+          {backgroundImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{ backgroundImage: `url(${image})` }}
+            />
+          ))}
           <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
         </div>
 
