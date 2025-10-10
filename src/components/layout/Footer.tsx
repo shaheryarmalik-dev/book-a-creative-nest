@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, Linkedin } from "lucide-react";
+import logoImage from "/logo.jpeg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,7 +12,7 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <img src="/book-a-creative-nest/logo.jpeg" alt="FrameScout Locations Logo" className="h-12 w-auto" />
+              <img src={logoImage} alt="FrameScout Locations Logo" className="h-12 w-auto" />
               <div className="flex flex-col">
                 <span className="font-bold text-xl text-white tracking-tight leading-none">FRAMESCOUT</span>
                 <span className="font-medium text-base text-gray-300 tracking-wide leading-none">LOCATIONS</span>
