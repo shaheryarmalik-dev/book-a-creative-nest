@@ -153,28 +153,19 @@ const Home = () => {
     <div className="min-h-screen bg-background">
       {/* Hero Section - Peerspace Style with Video Background */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* YouTube Video Background */}
+        {/* Local Video Background */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute inset-0 z-10 bg-transparent" style={{ pointerEvents: 'none' }}></div>
-          <iframe
-            className="absolute top-0 left-0 w-full h-full"
-            style={{
-              width: '100vw',
-              height: '56.25vw', // 16:9 aspect ratio
-              minHeight: '100vh',
-              minWidth: '177.78vh', // 16:9 aspect ratio
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%) scale(1.1)',
-              pointerEvents: 'none'
-            }}
-            src="https://www.youtube.com/embed/IgA7GiH2GUw?autoplay=1&mute=1&loop=1&playlist=IgA7GiH2GUw&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&start=10"
-            title="FrameScout Locations Showcase"
-            frameBorder="0"
-            allow="autoplay; encrypted-media; fullscreen"
-            allowFullScreen
-          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto object-cover transform -translate-x-1/2 -translate-y-1/2"
+            style={{ pointerEvents: 'none' }}
+          >
+            <source src="/video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
           <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
         </div>
 
