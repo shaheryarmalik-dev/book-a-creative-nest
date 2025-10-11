@@ -30,10 +30,27 @@ const Home = () => {
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
+      console.log('Video element found:', video);
+      console.log('Video src:', video.src);
+      console.log('Video currentSrc:', video.currentSrc);
+      
+      // Force load and play
       video.load();
-      video.play().catch(error => {
-        console.error('Video play failed:', error);
-      });
+      
+      const playVideo = async () => {
+        try {
+          await video.play();
+          console.log('Video started playing');
+        } catch (error) {
+          console.error('Video play failed:', error);
+          // Try to play again after user interaction
+          document.addEventListener('click', () => {
+            video.play().catch(e => console.error('Retry play failed:', e));
+          }, { once: true });
+        }
+      };
+      
+      playVideo();
     }
   }, []);
 
@@ -158,22 +175,31 @@ const Home = () => {
             muted
             loop
             playsInline
-            preload="auto"
-            className="w-full h-full object-cover"
+            preload="metadata"
+            className="absolute inset-0 w-full h-full object-cover"
             style={{ 
-              width: '100%', 
-              height: '100%',
-              objectFit: 'cover',
-              position: 'absolute',
-              top: 0,
-              left: 0
+              minWidth: '100%',
+              minHeight: '100%',
+              width: 'auto',
+              height: 'auto',
+              zIndex: -1
             }}
-            onError={(e) => console.error('Video error:', e)}
+            onError={(e) => {
+              console.error('Video error:', e);
+              console.error('Video src:', e.target.src);
+            }}
             onLoadStart={() => console.log('Video loading started')}
-            onCanPlay={() => console.log('Video can play')}
+            onCanPlay={() => {
+              console.log('Video can play');
+              videoRef.current?.play();
+            }}
             onLoadedData={() => console.log('Video data loaded')}
+            onPlay={() => console.log('Video is playing')}
+            onPause={() => console.log('Video paused')}
           >
             <source src="/video.mp4" type="video/mp4" />
+            <source src="./video.mp4" type="video/mp4" />
+            <source src="video.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
