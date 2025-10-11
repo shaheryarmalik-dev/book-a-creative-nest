@@ -23,7 +23,7 @@ const Home = () => {
   const [hoveredActivity, setHoveredActivity] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Background images for hero slideshow
+  // Background images for hero slideshow (NO VIDEO - Images only)
   const backgroundImages = locations.slice(0, 10).map(loc => loc.image);
 
   // Actual locations from the website
@@ -151,9 +151,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section - Peerspace Style with Image Background */}
+      {/* Hero Section - Image Background Only (No Video) */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image Slideshow */}
+        {/* Background Image Slideshow - Images Only */}
         <div className="absolute inset-0 z-0">
           {backgroundImages.map((image, index) => (
             <div
