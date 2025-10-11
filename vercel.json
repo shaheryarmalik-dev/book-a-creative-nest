@@ -3,47 +3,9 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "installCommand": "npm install",
-  "headers": [
-    {
-      "source": "/index.html",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.jpeg",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "image/jpeg"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.jpg",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "image/jpeg"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.png",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "image/png"
-        }
-      ]
-    }
-  ],
   "rewrites": [
     {
-      "source": "/:path((?!.*\\.(jpeg|jpg|png|svg|gif|webp|css|js|json|txt|ico|xml)).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
