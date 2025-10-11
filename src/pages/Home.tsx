@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Search, MapPin, Calendar, Users, Star, Shield, Award, Camera, Video, Mic, Lightbulb, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,6 +11,7 @@ import { locations } from "@/data/locations";
 const Home = () => {
   console.log("Home component rendering");
   const navigate = useNavigate();
+  const videoRef = useRef(null);
   const [searchLocation, setSearchLocation] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [searchGuests, setSearchGuests] = useState("");
@@ -24,6 +25,17 @@ const Home = () => {
 
   // Actual locations from the website
   const actualLocations = locations;
+
+  // Handle video loading
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.load();
+      video.play().catch(error => {
+        console.error('Video play failed:', error);
+      });
+    }
+  }, []);
 
   // Handle location search with actual location suggestions
   const handleLocationChange = (value) => {
@@ -141,12 +153,25 @@ const Home = () => {
         {/* Background Video Only */}
         <div className="absolute inset-0 z-0">
           <video
+            ref={videoRef}
             autoPlay
             muted
             loop
             playsInline
+            preload="auto"
             className="w-full h-full object-cover"
-            style={{ width: '100%', height: '100%' }}
+            style={{ 
+              width: '100%', 
+              height: '100%',
+              objectFit: 'cover',
+              position: 'absolute',
+              top: 0,
+              left: 0
+            }}
+            onError={(e) => console.error('Video error:', e)}
+            onLoadStart={() => console.log('Video loading started')}
+            onCanPlay={() => console.log('Video can play')}
+            onLoadedData={() => console.log('Video data loaded')}
           >
             <source src="/video.mp4" type="video/mp4" />
             Your browser does not support the video tag.
