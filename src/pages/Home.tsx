@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { Search, MapPin, Calendar, Users, Star, Shield, Award, Camera, Video, Mic, Lightbulb, Zap } from "lucide-react";
+import { Search, MapPin, Calendar, Users, Star, Shield, Award, Camera, Video, Mic, Lightbulb, Zap, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -22,6 +22,7 @@ const Home = () => {
   const [planningSuggestions, setPlanningSuggestions] = useState([]);
   const [hoveredActivity, setHoveredActivity] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
 
   // Actual locations from the website
   const actualLocations = locations;
@@ -53,6 +54,15 @@ const Home = () => {
       playVideo();
     }
   }, []);
+
+  // Handle mute/unmute toggle
+  const toggleVideoMute = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = !video.muted;
+      setIsVideoMuted(video.muted);
+    }
+  };
 
   // Handle location search with actual location suggestions
   const handleLocationChange = (value) => {
@@ -203,6 +213,28 @@ const Home = () => {
             Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
+        </div>
+
+        {/* Video Mute/Unmute Button */}
+        <div className="absolute top-4 right-4 z-20">
+          <Button
+            onClick={toggleVideoMute}
+            variant="outline"
+            size="sm"
+            className="bg-black/50 hover:bg-black/70 text-white border-white/30 hover:border-white/50 backdrop-blur-sm"
+          >
+            {isVideoMuted ? (
+              <>
+                <VolumeX className="h-4 w-4 mr-2" />
+                Unmute
+              </>
+            ) : (
+              <>
+                <Volume2 className="h-4 w-4 mr-2" />
+                Mute
+              </>
+            )}
+          </Button>
         </div>
 
         {/* Content Overlay */}
