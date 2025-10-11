@@ -23,7 +23,7 @@ const Home = () => {
   const [hoveredActivity, setHoveredActivity] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Background images for hero slideshow (NO VIDEO - Images only)
+  // Background images for hero slideshow (fallback if video fails)
   const backgroundImages = locations.slice(0, 10).map(loc => loc.image);
 
   // Actual locations from the website
@@ -151,19 +151,31 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section - Image Background Only (No Video) */}
+      {/* Hero Section - Video Background */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image Slideshow - Images Only */}
+        {/* Background Video */}
         <div className="absolute inset-0 z-0">
-          {backgroundImages.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-              }`}
-              style={{ backgroundImage: `url(${image})` }}
-            />
-          ))}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="/video.mp4" type="video/mp4" />
+          </video>
+          {/* Fallback to image slideshow if video fails to load */}
+          <div className="absolute inset-0">
+            {backgroundImages.map((image, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ backgroundImage: `url(${image})` }}
+              />
+            ))}
+          </div>
           <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
         </div>
 
