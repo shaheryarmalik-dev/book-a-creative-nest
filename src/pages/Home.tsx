@@ -209,9 +209,9 @@ const Home = () => {
             onPlay={() => console.log('Video is playing')}
             onPause={() => console.log('Video paused')}
           >
-            <source src="/video.mp4" type="video/mp4" />
-            <source src="./video.mp4" type="video/mp4" />
-            <source src="video.mp4" type="video/mp4" />
+            <source src="/video2.mp4" type="video/mp4" />
+            <source src="./video2.mp4" type="video/mp4" />
+            <source src="video2.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
