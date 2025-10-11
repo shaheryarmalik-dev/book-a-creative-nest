@@ -185,14 +185,16 @@ const Home = () => {
             muted
             loop
             playsInline
-            preload="metadata"
-            className="absolute inset-0 w-full h-full object-cover"
+            preload="auto"
+            crossOrigin="anonymous"
+            className="absolute inset-0 w-full h-full"
             style={{ 
-              minWidth: '100%',
-              minHeight: '100%',
-              width: 'auto',
-              height: 'auto',
-              zIndex: -1
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              zIndex: -1,
+              imageRendering: 'high-quality'
             }}
             onError={(e) => {
               console.error('Video error:', e);
