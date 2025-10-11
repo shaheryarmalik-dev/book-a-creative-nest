@@ -14,7 +14,6 @@ const Home = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [searchGuests, setSearchGuests] = useState("");
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
   const [locationSuggestions, setLocationSuggestions] = useState([]);
   const [searchPlanning, setSearchPlanning] = useState("");
@@ -23,22 +22,8 @@ const Home = () => {
   const [hoveredActivity, setHoveredActivity] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Background images for hero slideshow (fallback if video fails)
-  const backgroundImages = locations.slice(0, 10).map(loc => loc.image);
-
   // Actual locations from the website
   const actualLocations = locations;
-
-  // Auto-rotate background images every 4 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        (prevIndex + 1) % backgroundImages.length
-      );
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [backgroundImages.length]);
 
   // Handle location search with actual location suggestions
   const handleLocationChange = (value) => {
@@ -153,7 +138,7 @@ const Home = () => {
     <div className="min-h-screen bg-background">
       {/* Hero Section - Video Background */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Video */}
+        {/* Background Video Only */}
         <div className="absolute inset-0 z-0">
           <video
             autoPlay
@@ -161,21 +146,11 @@ const Home = () => {
             loop
             playsInline
             className="w-full h-full object-cover"
+            style={{ width: '100%', height: '100%' }}
           >
             <source src="/video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
           </video>
-          {/* Fallback to image slideshow if video fails to load */}
-          <div className="absolute inset-0">
-            {backgroundImages.map((image, index) => (
-              <div
-                key={index}
-                className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-                }`}
-                style={{ backgroundImage: `url(${image})` }}
-              />
-            ))}
-          </div>
           <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
         </div>
 
