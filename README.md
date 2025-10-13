@@ -92,5 +92,18 @@ Deploy to GitHub Pages with:
 npm run deploy
 ```
 
+## Environment
+
+Create a `.env` file at the project root with your Supabase credentials:
+
+```
+VITE_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=YOUR_ANON_PUBLIC_KEY
+```
+
+Get these values from Supabase → Project Settings → API:
+- Project URL → use as `VITE_SUPABASE_URL`
+- Anon public key → use as `VITE_SUPABASE_PUBLISHABLE_KEY`
+
 ## Custom domain
 You can connect a custom domain in your hosting provider settings.
