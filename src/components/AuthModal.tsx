@@ -82,9 +82,13 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
       loginForm.reset();
       onClose();
     } catch (error: any) {
+      const message: string =
+        error?.message?.toLowerCase().includes("email not confirmed")
+          ? "Email not confirmed. Please verify your email or resend the verification."
+          : error?.message || "Invalid credentials. Please try again.";
       toast({
         title: "Login failed",
-        description: error.message || "Invalid credentials. Please try again.",
+        description: message,
         variant: "destructive"
       });
     } finally {
@@ -218,6 +222,44 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
                   className="text-primary hover:underline font-medium"
                 >
                   Sign up
+                </button>
+              </div>
+
+              <div className="text-center text-xs text-muted-foreground">
+                Didn't get the verification email?{" "}
+                <button
+                  type="button"
+                  className="text-primary hover:underline font-medium"
+                  onClick={async () => {
+                    const email = loginForm.getValues("email");
+                    if (!email) {
+                      toast({
+                        title: "Enter your email",
+                        description: "Type your email above, then click resend.",
+                        variant: "destructive"
+                      });
+                      return;
+                    }
+                    try {
+                      const { error } = await supabase.auth.resend({
+                        type: "signup",
+                        email
+                      });
+                      if (error) throw error;
+                      toast({
+                        title: "Verification email sent",
+                        description: "Check your inbox and spam folder.",
+                      });
+                    } catch (err: any) {
+                      toast({
+                        title: "Couldn't resend email",
+                        description: err?.message || "Please try again later.",
+                        variant: "destructive"
+                      });
+                    }
+                  }}
+                >
+                  Resend verification
                 </button>
               </div>
             </form>
