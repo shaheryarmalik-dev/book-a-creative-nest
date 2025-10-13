@@ -67,6 +67,9 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const onLoginSubmit = async (data: LoginForm) => {
     setIsLoading(true);
     try {
+      // Debug: Log the Supabase URL being used
+      console.log('Login attempt with Supabase URL:', import.meta.env.VITE_SUPABASE_URL);
+      
       const { data: authData, error } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
@@ -99,6 +102,9 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const onSignupSubmit = async (data: SignupForm) => {
     setIsLoading(true);
     try {
+      // Debug: Log the Supabase URL being used
+      console.log('Signup attempt with Supabase URL:', import.meta.env.VITE_SUPABASE_URL);
+      
       const { data: authData, error } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
@@ -128,6 +134,10 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
         errorMessage = "Password should be at least 6 characters.";
       } else if (error.message?.includes('email')) {
         errorMessage = "Please enter a valid email address.";
+      } else if (error.message?.includes('Invalid API key')) {
+        errorMessage = "Authentication service is not properly configured. Please try again later.";
+      } else if (error.message?.includes('Failed to fetch')) {
+        errorMessage = "Network error. Please check your connection and try again.";
       } else {
         errorMessage = error.message || "Failed to create account";
       }

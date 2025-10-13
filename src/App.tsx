@@ -13,6 +13,7 @@ import Credits from "./pages/Credits";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import EnvDebugger from "./components/EnvDebugger";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
+          <EnvDebugger />
         </HashRouter>
       </TooltipProvider>
     </QueryClientProvider>
