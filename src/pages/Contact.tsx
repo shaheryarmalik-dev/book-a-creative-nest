@@ -93,12 +93,6 @@ const Contact = () => {
       link: "tel:+16266165506"
     },
     {
-      icon: Phone,
-      title: "Phone",
-      value: "(937) 499-0486",
-      link: "tel:+19374990486"
-    },
-    {
       icon: MapPin,
       title: "Address",
       value: "Los Angeles, CA 90028",
@@ -149,7 +143,16 @@ const Contact = () => {
                   <h3 className="text-lg font-semibold text-foreground mb-2">
                     {info.title}
                   </h3>
-                  {info.link ? (
+                  {info.title === "Phone" ? (
+                    <div className="flex flex-col items-center gap-1">
+                      <a href="tel:+16266165506" className="text-primary hover:underline">
+                        (626) 616-5506
+                      </a>
+                      <a href="tel:+19374990486" className="text-primary hover:underline">
+                        (937) 499-0486
+                      </a>
+                    </div>
+                  ) : info.link ? (
                     <a href={info.link} className="text-primary hover:underline">
                       {info.value}
                     </a>
