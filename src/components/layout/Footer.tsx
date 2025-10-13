@@ -81,14 +81,14 @@ const Footer = () => {
                 <Instagram className="h-5 w-5" />
               </a>
               <a 
-                href="#" 
+                href="https://www.facebook.com/profile.php?id=61582252289805&mibextid=wwXIfr&mibextid=wwXIfr" 
                 className="text-gray-400 hover:text-primary transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
               </a>
               <a 
-                href="#" 
+                href="https://www.linkedin.com/in/frame-scout-locations-10035338a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" 
                 className="text-gray-400 hover:text-primary transition-colors"
                 aria-label="LinkedIn"
               >
