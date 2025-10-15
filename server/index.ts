@@ -2,7 +2,9 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import Stripe from "stripe";
-
+// Removed: This Node/Express server is not supported on GoDaddy shared hosting.
+// The project now uses PHP endpoints in public/api/ (e.g., book.php) instead.
+// Keeping this file empty to prevent accidental usage.
 dotenv.config();
 
 const app = express();

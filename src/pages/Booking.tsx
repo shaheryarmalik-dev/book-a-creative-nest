@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { loadStripe } from "@stripe/stripe-js";
+// Stripe not used on GoDaddy shared hosting; booking submits to PHP endpoint
 import { locations } from "@/data/locations";
 import LocationActivities from "@/components/LocationActivities";
 
@@ -51,13 +51,30 @@ const Booking = () => {
   });
 
   const onSubmit = async (data: BookingFormData) => {
-    // Simply show success message - no payment processing
-    setIsSubmitted(true);
-    
-    toast({
-      title: "Booking Request Submitted",
-      description: "We'll contact you shortly to confirm your reservation.",
-    });
+    try {
+      const res = await fetch('/api/book.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json().catch(() => ({}));
+
+      if (!res.ok || json?.ok !== true) {
+        throw new Error(json?.error || 'Submit failed');
+      }
+
+      setIsSubmitted(true);
+      toast({
+        title: 'Booking Request Submitted',
+        description: "We'll contact you shortly to confirm your reservation.",
+      });
+    } catch (err) {
+      toast({
+        title: 'Error',
+        description: 'Failed to submit booking. Please try again.',
+        variant: 'destructive'
+      });
+    }
   };
 
   if (!location) {
