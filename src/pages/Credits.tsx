@@ -282,21 +282,7 @@ const Credits = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {television.map((show, index) => (
-              <Card key={index} className="bg-slate-900/50 border-slate-700 hover:border-blue-600 transition-all">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between gap-4 mb-3">
-                    <h3 className="text-xl font-semibold text-gray-100">{show.title}</h3>
-                    <Badge variant="secondary" className="bg-purple-600 text-white">
-                      {show.type}
-                    </Badge>
-                  </div>
-                  <p className="text-gray-300 text-sm mb-2">{show.role}</p>
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <Calendar className="h-4 w-4" />
-                    <span>{show.year}</span>
-                  </div>
-                </CardContent>
-              </Card>
+              <TVShowCardWithDialog key={index} show={show} />
             ))}
           </div>
         </div>
@@ -418,6 +404,77 @@ function FilmCardWithDialog({ film }: { film: PastFilm }) {
           </DialogDescription>
         </DialogHeader>
         <FilmImages filmSlug={filmSlug} initialImages={images} />
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+type TVShow = {
+  title: string;
+  year: string;
+  role: string;
+  type: string;
+};
+
+function TVShowCardWithDialog({ show }: { show: TVShow }) {
+  const [images, setImages] = useState<string[] | null>(null);
+  const showSlug = useMemo(() => slugify(show.title), [show.title]);
+
+  useEffect(() => {
+    // Preload for House of Darkness and The Cosmonauts
+    if (show.title === "House of Darkness" || show.title === "The Cosmonauts") {
+      const tryLoad = async () => {
+        const found: string[] = [];
+        for (let i = 1; i <= 10; i++) {
+          const png = `/credits/${showSlug}-${i}.png`;
+          const jpg = `/credits/${showSlug}-${i}.jpg`;
+          const okPng = await urlExists(png);
+          if (okPng) {
+            found.push(png);
+            continue;
+          }
+          const okJpg = await urlExists(jpg);
+          if (okJpg) {
+            found.push(jpg);
+          }
+        }
+        if (found.length > 0) {
+          setImages(found);
+        } else {
+          setImages([]);
+        }
+      };
+      tryLoad();
+    }
+  }, [show.title, showSlug]);
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Card className="cursor-pointer bg-slate-900/50 border-slate-700 hover:border-blue-600 transition-all">
+          <CardContent className="p-6">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <h3 className="text-xl font-semibold text-gray-100">{show.title}</h3>
+              <Badge variant="secondary" className="bg-purple-600 text-white">
+                {show.type}
+              </Badge>
+            </div>
+            <p className="text-gray-300 text-sm mb-2">{show.role}</p>
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              <Calendar className="h-4 w-4" />
+              <span>{show.year}</span>
+            </div>
+          </CardContent>
+        </Card>
+      </DialogTrigger>
+      <DialogContent className="max-w-4xl">
+        <DialogHeader>
+          <DialogTitle className="text-2xl">{show.title}</DialogTitle>
+          <DialogDescription>
+            {show.role} · {show.year} · {show.type}
+          </DialogDescription>
+        </DialogHeader>
+        <FilmImages filmSlug={showSlug} initialImages={images} />
       </DialogContent>
     </Dialog>
   );
