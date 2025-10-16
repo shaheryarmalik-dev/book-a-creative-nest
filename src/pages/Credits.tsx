@@ -377,8 +377,12 @@ function FilmCardWithDialog({ film }: { film: PastFilm }) {
         setImages([]);
       }
     };
-    // Preload for Aggregate and The Lightkeeper for faster first open
-    if (film.title === "Aggregate" || film.title === "The Lightkeeper") {
+    // Preload for Aggregate, The Lightkeeper, and El Placer De Dar Placer for faster first open
+    if (
+      film.title === "Aggregate" ||
+      film.title === "The Lightkeeper" ||
+      film.title === "El Placer De Dar Placer"
+    ) {
       tryLoad();
     }
   }, [film.title, filmSlug]);
