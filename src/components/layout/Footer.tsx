@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Facebook, Linkedin } from "lucide-react";
+import { Instagram, Facebook, Linkedin, Youtube, Film } from "lucide-react";
 import logoImage from "/logo.jpeg";
 
 const Footer = () => {
@@ -93,6 +93,24 @@ const Footer = () => {
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.youtube.com/@framescoutlocations"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-primary transition-colors"
+                aria-label="YouTube"
+              >
+                <Youtube className="h-5 w-5" />
+              </a>
+              <a
+                href="https://pro.imdb.com/mobile/company/co1151383/?from_app=ios&ref_=ext_shr_wts"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-primary transition-colors"
+                aria-label="IMDb"
+              >
+                <Film className="h-5 w-5" />
               </a>
             </div>
           </div>
