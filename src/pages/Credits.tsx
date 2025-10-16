@@ -3,6 +3,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import ImageCarousel from "@/components/ImageCarousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const Credits = () => {
   const filmsInProduction = [
@@ -179,6 +188,17 @@ const Credits = () => {
         </div>
       </section>
 
+      {/* Production Stills */}
+      <section className="py-16 bg-slate-900/30 border-t border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-8">
+            <Film className="h-8 w-8 text-blue-600" />
+            <h2 className="text-3xl font-bold text-gray-100">Production Stills</h2>
+          </div>
+          <ImageCarousel compact />
+        </div>
+      </section>
+
       {/* Films in Production */}
       <section className="py-16 bg-slate-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -241,25 +261,78 @@ const Credits = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {pastFilms.map((film, index) => (
-              <Card key={index} className="bg-slate-900/50 border-slate-700 hover:border-blue-600 transition-all">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between gap-4 mb-3">
-                    <h3 className="text-xl font-semibold text-gray-100">{film.title}</h3>
-                    {film.budget && (
-                      <Badge variant="secondary" className="bg-blue-600 text-white">
-                        {film.budget}
-                      </Badge>
-                    )}
-                  </div>
-                  <p className="text-gray-300 text-sm mb-2">{film.role}</p>
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <Calendar className="h-4 w-4" />
-                    <span>{film.year}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            {pastFilms.map((film, index) => {
+              const isAggregate = film.title === "Aggregate";
+              if (isAggregate) {
+                return (
+                  <Dialog key={index}>
+                    <DialogTrigger asChild>
+                      <Card className="cursor-pointer bg-slate-900/50 border-slate-700 hover:border-blue-600 transition-all">
+                        <CardContent className="p-6">
+                          <div className="flex items-start justify-between gap-4 mb-3">
+                            <h3 className="text-xl font-semibold text-gray-100">{film.title}</h3>
+                            {film.budget && (
+                              <Badge variant="secondary" className="bg-blue-600 text-white">
+                                {film.budget}
+                              </Badge>
+                            )}
+                          </div>
+                          <p className="text-gray-300 text-sm mb-2">{film.role}</p>
+                          <div className="flex items-center gap-2 text-sm text-gray-400">
+                            <Calendar className="h-4 w-4" />
+                            <span>{film.year}</span>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-3xl">
+                      <DialogHeader>
+                        <DialogTitle className="text-2xl">{film.title}</DialogTitle>
+                        <DialogDescription>
+                          {film.role} · {film.year}
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="rounded-lg overflow-hidden border border-slate-700">
+                          <img
+                            src="/credits/aggregate-1.png"
+                            alt="Aggregate poster"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="rounded-lg overflow-hidden border border-slate-700">
+                          <img
+                            src="/credits/aggregate-2.png"
+                            alt="Aggregate stills"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                );
+              }
+
+              return (
+                <Card key={index} className="bg-slate-900/50 border-slate-700 hover:border-blue-600 transition-all">
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between gap-4 mb-3">
+                      <h3 className="text-xl font-semibold text-gray-100">{film.title}</h3>
+                      {film.budget && (
+                        <Badge variant="secondary" className="bg-blue-600 text-white">
+                          {film.budget}
+                        </Badge>
+                      )}
+                    </div>
+                    <p className="text-gray-300 text-sm mb-2">{film.role}</p>
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <Calendar className="h-4 w-4" />
+                      <span>{film.year}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
