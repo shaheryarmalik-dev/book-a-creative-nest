@@ -466,11 +466,12 @@ function FilmImages({ filmSlug, initialImages }: { filmSlug: string; initialImag
 }
 
 async function urlExists(url: string): Promise<boolean> {
-  try {
-    const res = await fetch(url, { method: "HEAD" });
-    return res.ok;
-  } catch {
-    return false;
-  }
+  // Verify by actually loading the image to avoid SPA 200 fallbacks
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
+  });
 }
 
