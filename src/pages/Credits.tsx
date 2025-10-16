@@ -377,12 +377,13 @@ function FilmCardWithDialog({ film }: { film: PastFilm }) {
         setImages([]);
       }
     };
-    // Preload for Aggregate, The Lightkeeper, El Placer De Dar Placer, and The Sunday Night Slaughter
+    // Preload for Aggregate, The Lightkeeper, El Placer De Dar Placer, The Sunday Night Slaughter, and House of Darkness
     if (
       film.title === "Aggregate" ||
       film.title === "The Lightkeeper" ||
       film.title === "El Placer De Dar Placer" ||
-      film.title === "The Sunday Night Slaughter"
+      film.title === "The Sunday Night Slaughter" ||
+      film.title === "House of Darkness"
     ) {
       tryLoad();
     }
