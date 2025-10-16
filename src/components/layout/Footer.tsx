@@ -110,7 +110,11 @@ const Footer = () => {
                 className="text-gray-400 hover:text-primary transition-colors"
                 aria-label="IMDb"
               >
-                <Film className="h-5 w-5" />
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/863px-IMDB_Logo_2016.svg.png" 
+                  alt="IMDb" 
+                  className="h-5 w-5 object-contain"
+                />
               </a>
             </div>
           </div>
