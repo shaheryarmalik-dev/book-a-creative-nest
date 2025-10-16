@@ -113,7 +113,7 @@ const Footer = () => {
                 <img 
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/863px-IMDB_Logo_2016.svg.png" 
                   alt="IMDb" 
-                  className="h-5 w-5 object-contain"
+                  className="h-5 w-5 object-contain grayscale opacity-60 hover:opacity-100 transition-opacity"
                 />
               </a>
             </div>
