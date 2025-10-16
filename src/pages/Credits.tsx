@@ -377,11 +377,12 @@ function FilmCardWithDialog({ film }: { film: PastFilm }) {
         setImages([]);
       }
     };
-    // Preload for Aggregate, The Lightkeeper, and El Placer De Dar Placer for faster first open
+    // Preload for Aggregate, The Lightkeeper, El Placer De Dar Placer, and The Sunday Night Slaughter
     if (
       film.title === "Aggregate" ||
       film.title === "The Lightkeeper" ||
-      film.title === "El Placer De Dar Placer"
+      film.title === "El Placer De Dar Placer" ||
+      film.title === "The Sunday Night Slaughter"
     ) {
       tryLoad();
     }
