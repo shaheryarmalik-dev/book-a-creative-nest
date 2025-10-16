@@ -1,4 +1,5 @@
 import { Film, Tv, Award, Calendar, ExternalLink } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const Credits = () => {
   const filmsInProduction = [
@@ -261,78 +263,9 @@ const Credits = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {pastFilms.map((film, index) => {
-              const isAggregate = film.title === "Aggregate";
-              if (isAggregate) {
-                return (
-                  <Dialog key={index}>
-                    <DialogTrigger asChild>
-                      <Card className="cursor-pointer bg-slate-900/50 border-slate-700 hover:border-blue-600 transition-all">
-                        <CardContent className="p-6">
-                          <div className="flex items-start justify-between gap-4 mb-3">
-                            <h3 className="text-xl font-semibold text-gray-100">{film.title}</h3>
-                            {film.budget && (
-                              <Badge variant="secondary" className="bg-blue-600 text-white">
-                                {film.budget}
-                              </Badge>
-                            )}
-                          </div>
-                          <p className="text-gray-300 text-sm mb-2">{film.role}</p>
-                          <div className="flex items-center gap-2 text-sm text-gray-400">
-                            <Calendar className="h-4 w-4" />
-                            <span>{film.year}</span>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-3xl">
-                      <DialogHeader>
-                        <DialogTitle className="text-2xl">{film.title}</DialogTitle>
-                        <DialogDescription>
-                          {film.role} · {film.year}
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="rounded-lg overflow-hidden border border-slate-700">
-                          <img
-                            src="/credits/aggregate-1.png"
-                            alt="Aggregate poster"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="rounded-lg overflow-hidden border border-slate-700">
-                          <img
-                            src="/credits/aggregate-2.png"
-                            alt="Aggregate stills"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                );
-              }
-
-              return (
-                <Card key={index} className="bg-slate-900/50 border-slate-700 hover:border-blue-600 transition-all">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between gap-4 mb-3">
-                      <h3 className="text-xl font-semibold text-gray-100">{film.title}</h3>
-                      {film.budget && (
-                        <Badge variant="secondary" className="bg-blue-600 text-white">
-                          {film.budget}
-                        </Badge>
-                      )}
-                    </div>
-                    <p className="text-gray-300 text-sm mb-2">{film.role}</p>
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <Calendar className="h-4 w-4" />
-                      <span>{film.year}</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+            {pastFilms.map((film, index) => (
+              <FilmCardWithDialog key={index} film={film} />
+            ))}
           </div>
         </div>
       </section>
@@ -401,4 +334,138 @@ const Credits = () => {
 };
 
 export default Credits;
+
+// Helpers and subcomponents
+function slugify(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+type PastFilm = {
+  title: string;
+  year: string;
+  role: string;
+  budget?: string | null;
+};
+
+function FilmCardWithDialog({ film }: { film: PastFilm }) {
+  const [images, setImages] = useState<string[] | null>(null);
+  const filmSlug = useMemo(() => slugify(film.title), [film.title]);
+
+  useEffect(() => {
+    // Lazy discover up to 10 images per film, trying png then jpg
+    const tryLoad = async () => {
+      const found: string[] = [];
+      for (let i = 1; i <= 10; i++) {
+        const png = `/credits/${filmSlug}-${i}.png`;
+        const jpg = `/credits/${filmSlug}-${i}.jpg`;
+        const okPng = await urlExists(png);
+        if (okPng) {
+          found.push(png);
+          continue;
+        }
+        const okJpg = await urlExists(jpg);
+        if (okJpg) {
+          found.push(jpg);
+        }
+      }
+      if (found.length > 0) {
+        setImages(found);
+      } else {
+        setImages([]);
+      }
+    };
+    // Preload only for Aggregate to ensure the demo works immediately
+    if (film.title === "Aggregate") {
+      tryLoad();
+    }
+  }, [film.title, filmSlug]);
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Card className="cursor-pointer bg-slate-900/50 border-slate-700 hover:border-blue-600 transition-all">
+          <CardContent className="p-6">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <h3 className="text-xl font-semibold text-gray-100">{film.title}</h3>
+              {film.budget && (
+                <Badge variant="secondary" className="bg-blue-600 text-white">
+                  {film.budget}
+                </Badge>
+              )}
+            </div>
+            <p className="text-gray-300 text-sm mb-2">{film.role}</p>
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              <Calendar className="h-4 w-4" />
+              <span>{film.year}</span>
+            </div>
+          </CardContent>
+        </Card>
+      </DialogTrigger>
+      <DialogContent className="max-w-4xl">
+        <DialogHeader>
+          <DialogTitle className="text-2xl">{film.title}</DialogTitle>
+          <DialogDescription>
+            {film.role} · {film.year}
+          </DialogDescription>
+        </DialogHeader>
+        <FilmImages filmSlug={filmSlug} initialImages={images} />
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function FilmImages({ filmSlug, initialImages }: { filmSlug: string; initialImages: string[] | null }) {
+  const [imgs, setImgs] = useState<string[] | null>(initialImages);
+
+  useEffect(() => {
+    if (imgs !== null) return; // already loaded
+    const load = async () => {
+      const found: string[] = [];
+      for (let i = 1; i <= 20; i++) {
+        const png = `/credits/${filmSlug}-${i}.png`;
+        const jpg = `/credits/${filmSlug}-${i}.jpg`;
+        if (await urlExists(png)) found.push(png);
+        else if (await urlExists(jpg)) found.push(jpg);
+      }
+      setImgs(found);
+    };
+    load();
+  }, [filmSlug, imgs]);
+
+  if (imgs === null) {
+    return <div className="text-sm text-gray-400">Loading images…</div>;
+  }
+
+  if (imgs.length === 0) {
+    return <div className="text-sm text-gray-400">No images found for this title.</div>;
+  }
+
+  return (
+    <Carousel className="w-full">
+      <CarouselContent>
+        {imgs.map((src, i) => (
+          <CarouselItem key={i} className="basis-full">
+            <div className="rounded-lg overflow-hidden border border-slate-700">
+              <img src={src} alt={`${filmSlug} image ${i + 1}`} className="w-full h-[60vh] object-contain bg-black" />
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious className="-left-4" />
+      <CarouselNext className="-right-4" />
+    </Carousel>
+  );
+}
+
+async function urlExists(url: string): Promise<boolean> {
+  try {
+    const res = await fetch(url, { method: "HEAD" });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
 
