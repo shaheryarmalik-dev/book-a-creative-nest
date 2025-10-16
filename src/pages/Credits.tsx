@@ -377,8 +377,8 @@ function FilmCardWithDialog({ film }: { film: PastFilm }) {
         setImages([]);
       }
     };
-    // Preload only for Aggregate to ensure the demo works immediately
-    if (film.title === "Aggregate") {
+    // Preload for Aggregate and The Lightkeeper for faster first open
+    if (film.title === "Aggregate" || film.title === "The Lightkeeper") {
       tryLoad();
     }
   }, [film.title, filmSlug]);
