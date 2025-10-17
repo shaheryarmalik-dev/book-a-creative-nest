@@ -38,17 +38,17 @@ interface AuthModalProps {
 const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const loginEmailRef = useRef<HTMLInputElement | null>(null);
-  const signupEmailRef = useRef<HTMLInputElement | null>(null);
 
-  // Ensure inputs are focusable immediately when modal opens
+  // Ensure the correct form is focused and the other is reset when switching modes
   useEffect(() => {
     if (!isOpen) return;
     const id = setTimeout(() => {
       if (mode === "login") {
-        loginEmailRef.current?.focus();
+        signupForm.reset({ name: "", email: "", password: "", confirmPassword: "" });
+        loginForm.setFocus("email");
       } else {
-        signupEmailRef.current?.focus();
+        loginForm.reset({ email: "", password: "" });
+        signupForm.setFocus("email");
       }
     }, 50);
     return () => clearTimeout(id);
@@ -177,7 +177,7 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
         </DialogHeader>
 
         {mode === "login" ? (
-          <Form {...loginForm}>
+          <Form key="login" {...loginForm}>
             <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4">
               <FormField
                 control={loginForm.control}
@@ -192,7 +192,6 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
                           type="email"
                           placeholder="your@email.com"
                           className="pl-10"
-                          ref={loginEmailRef}
                           autoComplete="email"
                           {...field}
                         />
@@ -275,7 +274,7 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
             </form>
           </Form>
         ) : (
-          <Form {...signupForm}>
+          <Form key="signup" {...signupForm}>
             <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-4">
               <FormField
                 control={signupForm.control}
@@ -307,7 +306,6 @@ const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
                           type="email"
                           placeholder="your@email.com"
                           className="pl-10"
-                          ref={signupEmailRef}
                           autoComplete="email"
                           {...field}
                         />
